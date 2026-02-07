@@ -70,11 +70,11 @@
 
 ### 2.1 Google Cloud Setup
 
-- [ ] Create a Google Cloud project named **Caelum**
-- [ ] Enable the **Generative Language API** (Gemini)
-- [ ] Generate an API key in the Google Cloud Console
-- [ ] Store the API key in a `.env` file (add `.env` to `.gitignore`)
-- [ ] Document the API key setup steps in `docs/setup-api-key.md`
+- [x] Create a Google Cloud project named **Caelum**
+- [x] Enable the **Generative Language API** (Gemini)
+- [x] Generate an API key in the Google Cloud Console
+- [x] Store the API key in a `.env` file (add `.env` to `.gitignore`)
+- [x] Document the API key setup steps in `docs/setup-api-key.md`
 
 ### 2.2 Gemini Client Service
 
