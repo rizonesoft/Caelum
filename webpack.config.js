@@ -37,6 +37,21 @@ module.exports = async (env, options) => {
           },
         },
         {
+          test: /\.css$/,
+          use: [
+            "style-loader",
+            "css-loader",
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: ["@tailwindcss/postcss"],
+                },
+              },
+            },
+          ],
+        },
+        {
           test: /\.html$/,
           exclude: /node_modules/,
           use: "html-loader",

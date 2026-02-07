@@ -1,0 +1,101 @@
+/* ================================================================
+   Glide — Main Stylesheet (Tailwind CSS v4)
+
+   This file bootstraps Tailwind CSS and defines custom design tokens
+   through the CSS-first @theme directive. All values align with the
+   existing Glide design system (--glide-* custom properties).
+
+   © Rizonetech (Pty) Ltd. — https://rizonesoft.com
+   ================================================================ */
+
+@import "tailwindcss";
+
+/* ================================================================
+   Custom Design Tokens
+   ================================================================ */
+
+@theme {
+  /* Brand — Glide sparkle icon palette */
+  --color-glide-blue: #3B9EFF;
+  --color-glide-blue-hover: #2188ED;
+  --color-glide-blue-light: #E8F3FF;
+  --color-glide-blue-glow: rgba(59, 158, 255, 0.15);
+  --color-glide-purple: #7B61DB;
+  --color-glide-purple-hover: #6B51C8;
+
+  /* Surfaces */
+  --color-glide-bg: #FFFFFF;
+  --color-glide-bg-panel: #F8F9FB;
+  --color-glide-bg-elevated: #FFFFFF;
+
+  /* Borders */
+  --color-glide-border: #E2E5EA;
+  --color-glide-border-light: #EEF0F3;
+  --color-glide-border-focus: #3B9EFF;
+
+  /* Text */
+  --color-glide-text: #1A1D23;
+  --color-glide-text-secondary: #5E6470;
+  --color-glide-text-tertiary: #8E95A2;
+  --color-glide-text-inverse: #FFFFFF;
+
+  /* Status */
+  --color-glide-error-bg: #FFF1F0;
+  --color-glide-error-text: #D1242F;
+  --color-glide-error-border: #FFD2CF;
+  --color-glide-success: #1A7F37;
+
+  /* Spacing (4px grid) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+
+  /* Border radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+
+  /* Typography */
+  --font-glide: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 13px;
+  --text-lg: 14px;
+  --text-xl: 16px;
+
+  /* Motion */
+  --ease-glide: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-glide: 150ms;
+
+  /* Dark theme surfaces (used via .dark variant) */
+  --color-dark-bg: #1E1E1E;
+  --color-dark-bg-panel: #252526;
+  --color-dark-bg-elevated: #2D2D2D;
+  --color-dark-border: #3E3E42;
+  --color-dark-border-light: #333337;
+  --color-dark-text: #E0E0E0;
+  --color-dark-text-secondary: #A0A0A0;
+  --color-dark-text-tertiary: #707070;
+  --color-dark-error-bg: #3A1A1A;
+  --color-dark-error-border: #5C2626;
+}
+
+/* ================================================================
+   Dark theme — activated by adding `data-theme="dark"` to <html>
+   or via Outlook's theme detection in taskpane.ts
+   ================================================================ */
+
+[data-theme="dark"] {
+  --color-glide-bg: var(--color-dark-bg);
+  --color-glide-bg-panel: var(--color-dark-bg-panel);
+  --color-glide-bg-elevated: var(--color-dark-bg-elevated);
+  --color-glide-border: var(--color-dark-border);
+  --color-glide-border-light: var(--color-dark-border-light);
+  --color-glide-text: var(--color-dark-text);
+  --color-glide-text-secondary: var(--color-dark-text-secondary);
+  --color-glide-text-tertiary: var(--color-dark-text-tertiary);
+  --color-glide-error-bg: var(--color-dark-error-bg);
+  --color-glide-error-border: var(--color-dark-error-border);
+}

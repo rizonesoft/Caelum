@@ -13,63 +13,63 @@
    ================================================================ */
 
 :root {
-  /* Brand — Glide sparkle icon palette */
-  --glide-blue: #3B9EFF;
-  --glide-blue-hover: #2188ED;
-  --glide-blue-light: #E8F3FF;
-  --glide-blue-glow: rgba(59, 158, 255, 0.15);
-  --glide-purple: #7B61DB;
-  --glide-purple-hover: #6B51C8;
+  /* Brand — Glide sparkle icon palette (sourced from Tailwind @theme in main.css) */
+  --glide-blue: var(--color-glide-blue);
+  --glide-blue-hover: var(--color-glide-blue-hover);
+  --glide-blue-light: var(--color-glide-blue-light);
+  --glide-blue-glow: var(--color-glide-blue-glow);
+  --glide-purple: var(--color-glide-purple);
+  --glide-purple-hover: var(--color-glide-purple-hover);
 
   /* Surfaces */
-  --glide-bg: #FFFFFF;
-  --glide-bg-panel: #F8F9FB;
-  --glide-bg-elevated: #FFFFFF;
+  --glide-bg: var(--color-glide-bg);
+  --glide-bg-panel: var(--color-glide-bg-panel);
+  --glide-bg-elevated: var(--color-glide-bg-elevated);
 
   /* Borders */
-  --glide-border: #E2E5EA;
-  --glide-border-light: #EEF0F3;
-  --glide-border-focus: #3B9EFF;
+  --glide-border: var(--color-glide-border);
+  --glide-border-light: var(--color-glide-border-light);
+  --glide-border-focus: var(--color-glide-border-focus);
 
   /* Text */
-  --glide-text: #1A1D23;
-  --glide-text-secondary: #5E6470;
-  --glide-text-tertiary: #8E95A2;
-  --glide-text-inverse: #FFFFFF;
+  --glide-text: var(--color-glide-text);
+  --glide-text-secondary: var(--color-glide-text-secondary);
+  --glide-text-tertiary: var(--color-glide-text-tertiary);
+  --glide-text-inverse: var(--color-glide-text-inverse);
 
   /* Status */
-  --glide-error-bg: #FFF1F0;
-  --glide-error-text: #D1242F;
-  --glide-error-border: #FFD2CF;
-  --glide-success: #1A7F37;
+  --glide-error-bg: var(--color-glide-error-bg);
+  --glide-error-text: var(--color-glide-error-text);
+  --glide-error-border: var(--color-glide-error-border);
+  --glide-success: var(--color-glide-success);
 
   /* Spacing */
-  --glide-space-xs: 4px;
-  --glide-space-sm: 8px;
-  --glide-space-md: 12px;
-  --glide-space-lg: 16px;
-  --glide-space-xl: 20px;
+  --glide-space-xs: var(--spacing-xs);
+  --glide-space-sm: var(--spacing-sm);
+  --glide-space-md: var(--spacing-md);
+  --glide-space-lg: var(--spacing-lg);
+  --glide-space-xl: var(--spacing-xl);
 
   /* Shape */
-  --glide-radius: 8px;
-  --glide-radius-sm: 6px;
-  --glide-radius-xs: 4px;
+  --glide-radius: var(--radius-md);
+  --glide-radius-sm: var(--radius-sm);
+  --glide-radius-xs: var(--radius-xs);
 
   /* Typography */
-  --glide-font: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --glide-font-size-xs: 11px;
-  --glide-font-size-sm: 12px;
-  --glide-font-size-md: 13px;
-  --glide-font-size-lg: 14px;
-  --glide-font-size-xl: 16px;
+  --glide-font: var(--font-glide);
+  --glide-font-size-xs: var(--text-xs);
+  --glide-font-size-sm: var(--text-sm);
+  --glide-font-size-md: var(--text-md);
+  --glide-font-size-lg: var(--text-lg);
+  --glide-font-size-xl: var(--text-xl);
   --glide-weight-normal: 400;
   --glide-weight-medium: 500;
   --glide-weight-semibold: 600;
   --glide-line-height: 1.5;
 
   /* Motion */
-  --glide-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --glide-duration: 150ms;
+  --glide-ease: var(--ease-glide);
+  --glide-duration: var(--duration-glide);
 }
 
 /* ================================================================

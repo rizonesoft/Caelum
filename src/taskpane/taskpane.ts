@@ -9,6 +9,7 @@
 
 /* global document, Office */
 
+import '../styles/main.css';
 import { initGeminiClient } from '../services/gemini';
 import {
   generateDraft,
@@ -658,6 +659,24 @@ Office.onReady((info) => {
       }
     } catch {
       // Client will be initialized when the user first triggers an action
+    }
+
+    // --- Outlook theme detection (light/dark) ---
+    try {
+      const theme = (Office.context as any).officeTheme;
+      if (theme?.bodyBackgroundColor) {
+        const bg = theme.bodyBackgroundColor.replace('#', '');
+        const r = parseInt(bg.substring(0, 2), 16);
+        const g = parseInt(bg.substring(2, 4), 16);
+        const b = parseInt(bg.substring(4, 6), 16);
+        // Relative luminance: dark if below 128
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        if (luminance < 128) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+    } catch {
+      // Theme detection not available — default to light
     }
 
     // --- Tab switching + dropdown ---
