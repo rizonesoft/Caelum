@@ -1,9 +1,9 @@
 {
-  "name": "office-addin-taskpane",
+  "name": "caelum",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OfficeDev/Office-Addin-TaskPane.git"
+    "url": "https://github.com/rizonesoft/Caelum.git"
   },
   "license": "MIT",
   "config": {

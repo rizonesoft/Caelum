@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in **Rizonesoft Glide**, please report it responsibly.
+If you discover a security vulnerability in **Rizonesoft Caelum**, please report it responsibly.
 
 ### How to Report
 
@@ -31,7 +31,7 @@ If you discover a security vulnerability in **Rizonesoft Glide**, please report 
 
 The following are in scope:
 
-- The Glide Outlook add-in source code
+- The Caelum Outlook add-in source code
 - API key handling and storage
 - Data sent to external services (Google Gemini API)
 - The add-in manifest and permissions
@@ -45,7 +45,7 @@ The following are in scope:
 ## Best Practices for Users
 
 - **Never share your Gemini API key** publicly
-- Use a dedicated API key for Glide (not your main project key)
+- Use a dedicated API key for Caelum (not your main project key)
 - Review the [Privacy Policy](PRIVACY.md) to understand what data is processed
 
 ---
