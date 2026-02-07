@@ -1,8 +1,9 @@
 /**
  * Glide — Task Pane Styles
  *
- * Modern, premium design system for the Glide Outlook add-in.
- * Uses CSS custom properties for easy theming.
+ * Premium design system for the Glide Outlook add-in.
+ * Color palette derived from the Glide sparkle icon (blue + purple).
+ * Built to feel native within Microsoft Office's task pane.
  *
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
@@ -12,66 +13,85 @@
    ================================================================ */
 
 :root {
-  /* Brand colours */
-  --glide-primary: #4f46e5;
-  --glide-primary-hover: #4338ca;
-  --glide-primary-light: #eef2ff;
-  --glide-accent: #7c3aed;
-  --glide-accent-hover: #6d28d9;
+  /* Brand — Glide sparkle icon palette */
+  --glide-blue: #3B9EFF;
+  --glide-blue-hover: #2188ED;
+  --glide-blue-light: #E8F3FF;
+  --glide-blue-glow: rgba(59, 158, 255, 0.15);
+  --glide-purple: #7B61DB;
+  --glide-purple-hover: #6B51C8;
 
-  /* Neutrals */
-  --glide-bg: #ffffff;
-  --glide-bg-subtle: #f9fafb;
-  --glide-border: #e5e7eb;
-  --glide-border-focus: #a5b4fc;
-  --glide-text: #111827;
-  --glide-text-secondary: #6b7280;
-  --glide-text-placeholder: #9ca3af;
+  /* Surfaces */
+  --glide-bg: #FFFFFF;
+  --glide-bg-panel: #F8F9FB;
+  --glide-bg-elevated: #FFFFFF;
+
+  /* Borders */
+  --glide-border: #E2E5EA;
+  --glide-border-light: #EEF0F3;
+  --glide-border-focus: #3B9EFF;
+
+  /* Text */
+  --glide-text: #1A1D23;
+  --glide-text-secondary: #5E6470;
+  --glide-text-tertiary: #8E95A2;
+  --glide-text-inverse: #FFFFFF;
 
   /* Status */
-  --glide-error-bg: #fef2f2;
-  --glide-error-text: #dc2626;
-  --glide-error-border: #fecaca;
+  --glide-error-bg: #FFF1F0;
+  --glide-error-text: #D1242F;
+  --glide-error-border: #FFD2CF;
+  --glide-success: #1A7F37;
 
-  /* Spacing & radii */
+  /* Spacing */
+  --glide-space-xs: 4px;
+  --glide-space-sm: 8px;
+  --glide-space-md: 12px;
+  --glide-space-lg: 16px;
+  --glide-space-xl: 20px;
+
+  /* Shape */
   --glide-radius: 8px;
   --glide-radius-sm: 6px;
-  --glide-spacing: 16px;
-  --glide-spacing-sm: 8px;
-  --glide-spacing-xs: 4px;
+  --glide-radius-xs: 4px;
 
   /* Typography */
-  --glide-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --glide-font-size: 13px;
+  --glide-font: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --glide-font-size-xs: 11px;
   --glide-font-size-sm: 12px;
+  --glide-font-size-md: 13px;
+  --glide-font-size-lg: 14px;
+  --glide-font-size-xl: 16px;
+  --glide-weight-normal: 400;
+  --glide-weight-medium: 500;
+  --glide-weight-semibold: 600;
   --glide-line-height: 1.5;
 
-  /* Transitions */
-  --glide-transition: 150ms ease;
+  /* Motion */
+  --glide-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --glide-duration: 150ms;
 }
 
 /* ================================================================
    Reset & Base
    ================================================================ */
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
   font-family: var(--glide-font);
-  font-size: var(--glide-font-size);
+  font-size: var(--glide-font-size-md);
   line-height: var(--glide-line-height);
   color: var(--glide-text);
-  background: var(--glide-bg);
+  background: var(--glide-bg-panel);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -81,16 +101,16 @@ body {
 }
 
 /* ================================================================
-   Header
+   Header — Clean white bar with icon
    ================================================================ */
 
 .glide-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px var(--glide-spacing);
-  background: linear-gradient(135deg, var(--glide-primary) 0%, var(--glide-accent) 100%);
-  color: #fff;
+  padding: 10px var(--glide-space-lg);
+  background: var(--glide-bg);
+  border-bottom: 1px solid var(--glide-border);
   flex-shrink: 0;
 }
 
@@ -101,22 +121,22 @@ body {
 }
 
 .glide-header__icon {
-  border-radius: 6px;
-  filter: brightness(10);
+  border-radius: 4px;
 }
 
 .glide-header__title {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: var(--glide-font-size-xl);
+  font-weight: var(--glide-weight-semibold);
+  color: var(--glide-text);
+  letter-spacing: -0.01em;
 }
 
 .glide-header__subtitle {
-  font-size: 11px;
-  font-weight: 500;
-  opacity: 0.85;
-  letter-spacing: 0.02em;
+  font-size: var(--glide-font-size-xs);
+  font-weight: var(--glide-weight-medium);
+  color: var(--glide-text-tertiary);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* ================================================================
@@ -129,32 +149,32 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px var(--glide-spacing);
+  padding: 40px var(--glide-space-lg);
   text-align: center;
   color: var(--glide-text-secondary);
 }
 
 .glide-sideload__icon {
-  margin-bottom: 16px;
-  color: var(--glide-primary);
+  margin-bottom: var(--glide-space-lg);
+  color: var(--glide-blue);
+  font-size: 28px;
 }
 
 .glide-sideload h2 {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 8px;
+  font-size: var(--glide-font-size-lg);
+  font-weight: var(--glide-weight-semibold);
   color: var(--glide-text);
+  margin-bottom: var(--glide-space-sm);
 }
 
 .glide-sideload p {
   font-size: var(--glide-font-size-sm);
-  margin: 0;
 }
 
 .glide-sideload a {
-  color: var(--glide-primary);
+  color: var(--glide-blue);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--glide-weight-medium);
 }
 
 .glide-sideload a:hover {
@@ -162,7 +182,7 @@ body {
 }
 
 /* ================================================================
-   Main content area
+   Main layout
    ================================================================ */
 
 #app-body {
@@ -171,24 +191,77 @@ body {
   flex-direction: column;
   overflow-y: auto;
   position: relative;
+  background: var(--glide-bg-panel);
 }
 
 /* ================================================================
-   Sections
+   Tab bar — Segmented control style
+   ================================================================ */
+
+.glide-tabs {
+  display: flex;
+  gap: 2px;
+  padding: var(--glide-space-sm) var(--glide-space-lg);
+  background: var(--glide-bg);
+  border-bottom: 1px solid var(--glide-border);
+  flex-shrink: 0;
+}
+
+.glide-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 10px;
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size-sm);
+  font-weight: var(--glide-weight-medium);
+  color: var(--glide-text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--glide-radius-sm);
+  cursor: pointer;
+  transition: all var(--glide-duration) var(--glide-ease);
+  user-select: none;
+}
+
+.glide-tab:hover {
+  color: var(--glide-text);
+  background: var(--glide-bg-panel);
+}
+
+.glide-tab--active {
+  color: var(--glide-blue);
+  background: var(--glide-blue-light);
+  border-color: rgba(59, 158, 255, 0.2);
+  font-weight: var(--glide-weight-semibold);
+}
+
+.glide-tab .ms-Icon {
+  font-size: 13px;
+}
+
+/* ================================================================
+   Sections — Card-like panels
    ================================================================ */
 
 .glide-section {
-  padding: var(--glide-spacing);
+  background: var(--glide-bg-elevated);
+  margin: var(--glide-space-sm) var(--glide-space-sm) 0;
+  padding: var(--glide-space-lg);
+  border-radius: var(--glide-radius);
+  border: 1px solid var(--glide-border-light);
 }
 
 .glide-section + .glide-section {
-  border-top: 1px solid var(--glide-border);
+  margin-top: var(--glide-space-sm);
 }
 
 .glide-section__title {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 12px;
+  font-size: var(--glide-font-size-lg);
+  font-weight: var(--glide-weight-semibold);
+  margin-bottom: var(--glide-space-md);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -196,8 +269,8 @@ body {
 }
 
 .glide-section__title .ms-Icon {
-  color: var(--glide-primary);
-  font-size: 16px;
+  color: var(--glide-blue);
+  font-size: 15px;
 }
 
 /* ================================================================
@@ -205,15 +278,15 @@ body {
    ================================================================ */
 
 .glide-field {
-  margin-bottom: 12px;
+  margin-bottom: var(--glide-space-md);
 }
 
 .glide-field__label {
   display: block;
   font-size: var(--glide-font-size-sm);
-  font-weight: 500;
+  font-weight: var(--glide-weight-medium);
   color: var(--glide-text-secondary);
-  margin-bottom: var(--glide-spacing-xs);
+  margin-bottom: var(--glide-space-xs);
 }
 
 .glide-textarea,
@@ -221,15 +294,14 @@ body {
 .glide-input {
   width: 100%;
   font-family: var(--glide-font);
-  font-size: var(--glide-font-size);
+  font-size: var(--glide-font-size-md);
   color: var(--glide-text);
   background: var(--glide-bg);
-  border: 1.5px solid var(--glide-border);
+  border: 1px solid var(--glide-border);
   border-radius: var(--glide-radius-sm);
   padding: 8px 10px;
-  transition:
-    border-color var(--glide-transition),
-    box-shadow var(--glide-transition);
+  transition: border-color var(--glide-duration) var(--glide-ease),
+              box-shadow var(--glide-duration) var(--glide-ease);
   outline: none;
 }
 
@@ -237,12 +309,12 @@ body {
 .glide-select:focus,
 .glide-input:focus {
   border-color: var(--glide-border-focus);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px var(--glide-blue-glow);
 }
 
 .glide-textarea::placeholder,
 .glide-input::placeholder {
-  color: var(--glide-text-placeholder);
+  color: var(--glide-text-tertiary);
 }
 
 .glide-textarea {
@@ -252,14 +324,14 @@ body {
 
 .glide-select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' fill='none' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' fill='none' stroke='%235E6470' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 28px;
   cursor: pointer;
 }
 
-/* Row layout for side-by-side fields */
+/* Row layout */
 .glide-row {
   display: flex;
   gap: 10px;
@@ -279,76 +351,88 @@ body {
   justify-content: center;
   gap: 6px;
   font-family: var(--glide-font);
-  font-size: var(--glide-font-size);
-  font-weight: 600;
+  font-size: var(--glide-font-size-md);
+  font-weight: var(--glide-weight-semibold);
   border: none;
   border-radius: var(--glide-radius-sm);
-  padding: 9px 16px;
+  padding: 8px 14px;
   cursor: pointer;
-  transition: all var(--glide-transition);
+  transition: all var(--glide-duration) var(--glide-ease);
   white-space: nowrap;
+  user-select: none;
 }
 
 .glide-btn .ms-Icon {
-  font-size: 14px;
+  font-size: 13px;
 }
 
-/* Primary (Indigo) */
+/* Primary — Glide blue */
 .glide-btn--primary {
-  background: var(--glide-primary);
-  color: #fff;
+  background: var(--glide-blue);
+  color: var(--glide-text-inverse);
 }
 
 .glide-btn--primary:hover {
-  background: var(--glide-primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+  background: var(--glide-blue-hover);
+  box-shadow: 0 1px 4px rgba(59, 158, 255, 0.3);
 }
 
 .glide-btn--primary:active {
-  transform: translateY(0);
   box-shadow: none;
+  transform: scale(0.98);
 }
 
-/* Secondary (Outline) */
+/* Secondary — Subtle outline */
 .glide-btn--secondary {
   background: var(--glide-bg);
-  color: var(--glide-text);
-  border: 1.5px solid var(--glide-border);
+  color: var(--glide-text-secondary);
+  border: 1px solid var(--glide-border);
 }
 
 .glide-btn--secondary:hover {
-  background: var(--glide-bg-subtle);
-  border-color: var(--glide-text-placeholder);
+  background: var(--glide-bg-panel);
+  color: var(--glide-text);
+  border-color: var(--glide-text-tertiary);
 }
 
-/* Accent (Purple — for refine) */
+/* Accent — Glide purple (refine button) */
 .glide-btn--accent {
-  background: var(--glide-accent);
-  color: #fff;
-  padding: 9px 12px;
+  background: var(--glide-purple);
+  color: var(--glide-text-inverse);
+  padding: 8px 12px;
 }
 
 .glide-btn--accent:hover {
-  background: var(--glide-accent-hover);
+  background: var(--glide-purple-hover);
 }
 
-/* Full-width generate button */
+/* Full-width */
+.glide-btn--full {
+  width: 100%;
+  padding: 10px;
+  font-size: var(--glide-font-size-lg);
+}
+
 #btn-generate {
   width: 100%;
   padding: 10px;
-  font-size: 14px;
-  margin-top: 4px;
+  font-size: var(--glide-font-size-lg);
+}
+
+/* Success state — clipboard copy feedback */
+.glide-btn--success {
+  background: var(--glide-success) !important;
+  color: var(--glide-text-inverse) !important;
 }
 
 /* ================================================================
-   Actions row
+   Action buttons row
    ================================================================ */
 
 .glide-actions {
   display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: var(--glide-space-sm);
+  margin-bottom: var(--glide-space-md);
 }
 
 .glide-actions .glide-btn {
@@ -360,25 +444,30 @@ body {
    ================================================================ */
 
 .glide-preview {
-  background: var(--glide-bg-subtle);
-  border: 1px solid var(--glide-border);
+  background: var(--glide-bg-panel);
+  border: 1px solid var(--glide-border-light);
   border-radius: var(--glide-radius);
-  padding: 12px 14px;
-  margin-bottom: 12px;
-  font-size: var(--glide-font-size);
-  line-height: 1.6;
-  max-height: 300px;
+  padding: var(--glide-space-md) var(--glide-space-lg);
+  margin-bottom: var(--glide-space-md);
+  font-size: var(--glide-font-size-md);
+  line-height: 1.7;
+  max-height: 280px;
   overflow-y: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 
 .glide-preview__subject {
-  font-weight: 600;
-  color: var(--glide-primary);
-  padding-bottom: 4px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid var(--glide-border);
+  font-weight: var(--glide-weight-semibold);
+  color: var(--glide-blue);
+  padding-bottom: var(--glide-space-xs);
+  margin-bottom: var(--glide-space-xs);
+  border-bottom: 1px solid var(--glide-border-light);
+}
+
+.glide-preview--readonly {
+  user-select: text;
+  cursor: text;
 }
 
 /* ================================================================
@@ -399,156 +488,15 @@ body {
 }
 
 /* ================================================================
-   Loading overlay
-   ================================================================ */
-
-.glide-loading {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-}
-
-.glide-loading__spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid var(--glide-border);
-  border-top-color: var(--glide-primary);
-  border-radius: 50%;
-  animation: glide-spin 0.7s linear infinite;
-}
-
-@keyframes glide-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.glide-loading__text {
-  margin-top: 12px;
-  font-size: var(--glide-font-size-sm);
-  font-weight: 500;
-  color: var(--glide-text-secondary);
-}
-
-/* ================================================================
-   Error banner
-   ================================================================ */
-
-.glide-error {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 var(--glide-spacing) var(--glide-spacing);
-  padding: 10px 12px;
-  background: var(--glide-error-bg);
-  border: 1px solid var(--glide-error-border);
-  border-radius: var(--glide-radius-sm);
-  color: var(--glide-error-text);
-  font-size: var(--glide-font-size-sm);
-  font-weight: 500;
-}
-
-.glide-error .ms-Icon {
-  flex-shrink: 0;
-}
-
-.glide-error span {
-  flex: 1;
-}
-
-.glide-error__dismiss {
-  background: none;
-  border: none;
-  padding: 2px;
-  cursor: pointer;
-  color: var(--glide-error-text);
-  opacity: 0.6;
-  transition: opacity var(--glide-transition);
-}
-
-.glide-error__dismiss:hover {
-  opacity: 1;
-}
-
-/* ================================================================
-   Scrollbar styling
-   ================================================================ */
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--glide-border);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--glide-text-placeholder);
-}
-
-/* ================================================================
-   Tab bar
-   ================================================================ */
-
-.glide-tabs {
-  display: flex;
-  border-bottom: 1.5px solid var(--glide-border);
-  flex-shrink: 0;
-}
-
-.glide-tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 10px;
-  font-family: var(--glide-font);
-  font-size: var(--glide-font-size);
-  font-weight: 500;
-  color: var(--glide-text-secondary);
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  transition: all var(--glide-transition);
-}
-
-.glide-tab:hover {
-  color: var(--glide-text);
-  background: var(--glide-bg-subtle);
-}
-
-.glide-tab--active {
-  color: var(--glide-primary);
-  border-bottom-color: var(--glide-primary);
-}
-
-.glide-tab .ms-Icon {
-  font-size: 14px;
-}
-
-/* ================================================================
-   Context banner (email info in Reply tab)
+   Context banner (Reply tab — email info)
    ================================================================ */
 
 .glide-context-banner {
-  background: var(--glide-primary-light);
-  border: 1px solid var(--glide-border);
+  background: var(--glide-blue-light);
+  border: 1px solid rgba(59, 158, 255, 0.15);
   border-radius: var(--glide-radius-sm);
   padding: 8px 10px;
-  margin-bottom: 12px;
+  margin-bottom: var(--glide-space-md);
   font-size: var(--glide-font-size-sm);
 }
 
@@ -559,7 +507,7 @@ body {
 }
 
 .glide-context-banner__label {
-  font-weight: 600;
+  font-weight: var(--glide-weight-semibold);
   color: var(--glide-text-secondary);
   flex-shrink: 0;
 }
@@ -586,27 +534,16 @@ body {
   align-items: center;
   gap: 6px;
   font-size: var(--glide-font-size-sm);
-  font-weight: 500;
+  font-weight: var(--glide-weight-medium);
   color: var(--glide-text-secondary);
   cursor: pointer;
 }
 
 .glide-checkbox input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--glide-primary);
+  width: 15px;
+  height: 15px;
+  accent-color: var(--glide-blue);
   cursor: pointer;
-}
-
-/* ================================================================
-   Full-width button modifier
-   ================================================================ */
-
-.glide-btn--full {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  margin-top: 4px;
 }
 
 /* ================================================================
@@ -615,7 +552,7 @@ body {
 
 .glide-radio-group {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
@@ -624,7 +561,7 @@ body {
   align-items: center;
   gap: 6px;
   font-size: var(--glide-font-size-sm);
-  font-weight: 500;
+  font-weight: var(--glide-weight-medium);
   color: var(--glide-text-secondary);
   cursor: pointer;
   position: relative;
@@ -638,17 +575,17 @@ body {
 }
 
 .glide-radio__mark {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border: 1.5px solid var(--glide-border);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
-  transition: all var(--glide-transition);
+  transition: all var(--glide-duration) var(--glide-ease);
 }
 
 .glide-radio input[type="radio"]:checked + .glide-radio__mark {
-  border-color: var(--glide-primary);
+  border-color: var(--glide-blue);
 }
 
 .glide-radio input[type="radio"]:checked + .glide-radio__mark::after {
@@ -656,31 +593,110 @@ body {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 8px;
-  height: 8px;
-  background: var(--glide-primary);
+  width: 7px;
+  height: 7px;
+  background: var(--glide-blue);
   border-radius: 50%;
 }
 
 .glide-radio input[type="radio"]:focus + .glide-radio__mark {
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px var(--glide-blue-glow);
 }
 
 /* ================================================================
-   Readonly preview (Summarize)
+   Loading overlay
    ================================================================ */
 
-.glide-preview--readonly {
-  user-select: text;
-  cursor: text;
+.glide-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 249, 251, 0.92);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+}
+
+.glide-loading__spinner {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid var(--glide-border);
+  border-top-color: var(--glide-blue);
+  border-radius: 50%;
+  animation: glide-spin 0.7s linear infinite;
+}
+
+@keyframes glide-spin {
+  to { transform: rotate(360deg); }
+}
+
+.glide-loading__text {
+  margin-top: var(--glide-space-md);
+  font-size: var(--glide-font-size-sm);
+  font-weight: var(--glide-weight-medium);
+  color: var(--glide-text-secondary);
 }
 
 /* ================================================================
-   Success button state (clipboard feedback)
+   Error banner
    ================================================================ */
 
-.glide-btn--success {
-  background: #059669 !important;
-  border-color: #059669 !important;
-  color: #fff !important;
+.glide-error {
+  display: flex;
+  align-items: center;
+  gap: var(--glide-space-sm);
+  margin: 0 var(--glide-space-sm) var(--glide-space-sm);
+  padding: 9px var(--glide-space-md);
+  background: var(--glide-error-bg);
+  border: 1px solid var(--glide-error-border);
+  border-radius: var(--glide-radius-sm);
+  color: var(--glide-error-text);
+  font-size: var(--glide-font-size-sm);
+  font-weight: var(--glide-weight-medium);
+}
+
+.glide-error .ms-Icon {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.glide-error span {
+  flex: 1;
+}
+
+.glide-error__dismiss {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--glide-error-text);
+  opacity: 0.5;
+  transition: opacity var(--glide-duration) var(--glide-ease);
+}
+
+.glide-error__dismiss:hover {
+  opacity: 1;
+}
+
+/* ================================================================
+   Scrollbar
+   ================================================================ */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glide-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--glide-text-tertiary);
 }
