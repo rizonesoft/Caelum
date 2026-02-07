@@ -11,6 +11,11 @@
 @import "tailwindcss/theme";
 @import "tailwindcss/utilities";
 
+/* Box-sizing reset (preflight is skipped to preserve existing styles) */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* ================================================================
    Custom Design Tokens
    ================================================================ */
@@ -59,7 +64,7 @@
   --radius-md: 8px;
 
   /* Typography */
-  --font-glide: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-glide: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --text-xs: 11px;
   --text-sm: 12px;
   --text-md: 13px;
