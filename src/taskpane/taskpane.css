@@ -945,3 +945,81 @@ body {
   text-decoration: line-through;
   color: var(--glide-text-tertiary);
 }
+
+/* ================================================================
+   Translation — Side-by-side view
+   ================================================================ */
+
+.glide-translate-container {
+  margin-bottom: var(--glide-space-md);
+}
+
+.glide-translate-view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.glide-translate-panel {
+  background: var(--glide-bg-panel);
+  border: 1px solid var(--glide-border-light);
+  border-radius: var(--glide-radius-sm);
+  overflow: hidden;
+}
+
+.glide-translate-panel__label {
+  padding: 6px 10px;
+  font-size: var(--glide-font-size-xs);
+  font-weight: var(--glide-weight-semibold);
+  color: var(--glide-text-secondary);
+  background: var(--glide-bg);
+  border-bottom: 1px solid var(--glide-border-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.glide-translate-panel__text {
+  padding: 10px;
+  font-size: var(--glide-font-size-md);
+  line-height: 1.6;
+  color: var(--glide-text);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.glide-translate-panel--target {
+  border-color: rgba(59, 158, 255, 0.2);
+}
+
+.glide-translate-panel--target .glide-translate-panel__label {
+  color: var(--glide-blue);
+  background: var(--glide-blue-light);
+}
+
+/* ================================================================
+   Select dropdown
+   ================================================================ */
+
+.glide-select {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size-md);
+  color: var(--glide-text);
+  background: var(--glide-bg);
+  border: 1px solid var(--glide-border);
+  border-radius: var(--glide-radius-sm);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--glide-duration) var(--glide-ease);
+  appearance: auto;
+}
+
+.glide-select:hover {
+  border-color: var(--glide-text-secondary);
+}
+
+.glide-select:focus {
+  border-color: var(--glide-blue);
+  box-shadow: 0 0 0 2px rgba(59, 158, 255, 0.15);
+}

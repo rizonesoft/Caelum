@@ -105,6 +105,10 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
               <span>Extract Action Items</span>
             </button>
+            <button class="glide-dropdown__item" data-tab="translate">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+              <span>Translate</span>
+            </button>
           </div>
         </div>
       </nav>
@@ -543,6 +547,89 @@
             id="btn-regenerate-extract"
             class="glide-btn glide-btn--secondary"
             title="Re-extract action items"
+          >
+            <i class="ms-Icon ms-Icon--Refresh"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- Translate Section                                                -->
+      <!-- ================================================================ -->
+
+      <!-- Translate Form ---------------------------------------------- -->
+      <section id="translate-section" class="glide-section" style="display: none">
+        <h2 class="glide-section__title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          Translate Email
+        </h2>
+
+        <p class="glide-hint">
+          Translate the current email into another language.
+        </p>
+
+        <!-- Language selector -->
+        <div class="glide-field">
+          <label class="glide-label" for="translate-language">Target Language</label>
+          <select id="translate-language" class="glide-select">
+            <option value="Afrikaans">Afrikaans</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Chinese (Simplified)">Chinese (Simplified)</option>
+            <option value="Chinese (Traditional)">Chinese (Traditional)</option>
+            <option value="Dutch">Dutch</option>
+            <option value="English" selected>English</option>
+            <option value="French">French</option>
+            <option value="German">German</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Korean">Korean</option>
+            <option value="Polish">Polish</option>
+            <option value="Portuguese">Portuguese</option>
+            <option value="Russian">Russian</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Swahili">Swahili</option>
+            <option value="Turkish">Turkish</option>
+            <option value="Ukrainian">Ukrainian</option>
+            <option value="Zulu">Zulu</option>
+          </select>
+        </div>
+
+        <!-- Translate button -->
+        <button id="btn-translate" class="glide-btn glide-btn--primary glide-btn--full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          Translate
+        </button>
+      </section>
+
+      <!-- Translate result area --------------------------------------- -->
+      <section
+        id="translate-result-section"
+        class="glide-section glide-section--result"
+        style="display: none"
+      >
+        <h2 class="glide-section__title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          Translation
+        </h2>
+
+        <!-- Side-by-side view -->
+        <div id="translate-output" class="glide-translate-container"></div>
+
+        <!-- Translate action buttons -->
+        <div class="glide-actions">
+          <button
+            id="btn-copy-translation"
+            class="glide-btn glide-btn--primary"
+            title="Copy translation to clipboard"
+          >
+            <i class="ms-Icon ms-Icon--Copy"></i>
+            Copy Translation
+          </button>
+          <button
+            id="btn-regenerate-translate"
+            class="glide-btn glide-btn--secondary"
+            title="Translate again"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
           </button>

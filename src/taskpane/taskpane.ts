@@ -51,6 +51,13 @@ import {
   copyToClipboard as copyTasksToClipboard,
   renderChecklistHtml,
 } from '../features/extract-actions';
+import {
+  translateEmail,
+  regenerateTranslation,
+  getLastResult as getLastTranslation,
+  renderTranslationHtml,
+  copyToClipboard as copyTranslationToClipboard,
+} from '../features/translate';
 
 // ---------------------------------------------------------------------------
 // DOM helpers
@@ -123,6 +130,7 @@ const TAB_CONFIG: Record<string, string[]> = {
   summarize: ['summarize-section', 'summarize-result-section'],
   improve: ['improve-section', 'improve-result-section'],
   extract: ['extract-section', 'extract-result-section'],
+  translate: ['translate-section', 'translate-result-section'],
 };
 
 function switchTab(tabName: string): void {
@@ -565,6 +573,75 @@ async function handleCopyTasks(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
+// Translate handlers
+// ---------------------------------------------------------------------------
+
+async function handleTranslate(): Promise<void> {
+  const langSelect = $('translate-language') as HTMLSelectElement;
+  if (!langSelect) return;
+
+  hideError();
+  showLoading('Translating email...');
+
+  try {
+    const result = await translateEmail(langSelect.value);
+    const container = $('translate-output');
+    if (container) {
+      container.innerHTML = renderTranslationHtml(result);
+    }
+    showElement('translate-result-section');
+  } catch (err: any) {
+    showError(err.message || 'Failed to translate.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleRegenerateTranslate(): Promise<void> {
+  const langSelect = $('translate-language') as HTMLSelectElement;
+  if (!langSelect) return;
+
+  hideError();
+  showLoading('Re-translating email...');
+
+  try {
+    const result = await regenerateTranslation(langSelect.value);
+    const container = $('translate-output');
+    if (container) {
+      container.innerHTML = renderTranslationHtml(result);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to re-translate.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleCopyTranslation(): Promise<void> {
+  const result = getLastTranslation();
+  if (!result) {
+    showError('No translation to copy.');
+    return;
+  }
+
+  try {
+    await copyTranslationToClipboard(result.translated);
+    const btn = $('btn-copy-translation');
+    if (btn) {
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
+      btn.classList.add('glide-btn--success');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('glide-btn--success');
+      }, 1500);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to copy translation.');
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Initialization
 // ---------------------------------------------------------------------------
 
@@ -677,6 +754,11 @@ Office.onReady((info) => {
     $('btn-extract')?.addEventListener('click', handleExtract);
     $('btn-regenerate-extract')?.addEventListener('click', handleRegenerateExtract);
     $('btn-copy-tasks')?.addEventListener('click', handleCopyTasks);
+
+    // --- Translate ---
+    $('btn-translate')?.addEventListener('click', handleTranslate);
+    $('btn-regenerate-translate')?.addEventListener('click', handleRegenerateTranslate);
+    $('btn-copy-translation')?.addEventListener('click', handleCopyTranslation);
 
     // --- Error banner ---
     $('btn-dismiss-error')?.addEventListener('click', hideError);

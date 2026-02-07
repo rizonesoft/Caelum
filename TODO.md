@@ -181,11 +181,11 @@
 
 ### 3.7 Feature: Quick Translate
 
-- [ ] Create `src/features/translate.ts`
-- [ ] Read the current email body
-- [ ] Dropdown for target language
-- [ ] Call `generateText()` with `TRANSLATE_PROMPT`
-- [ ] Display translation side-by-side with original
+- [x] Create `src/features/translate.ts`
+- [x] Read the current email body
+- [x] Dropdown for target language
+- [x] Call `generateText()` with `TRANSLATE_PROMPT`
+- [x] Display translation side-by-side with original
 
 ---
 
