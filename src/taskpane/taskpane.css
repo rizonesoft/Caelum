@@ -276,8 +276,8 @@ body {
 .glide-dropdown {
   position: absolute;
   top: calc(100% + 4px);
-  left: 0;
   right: 0;
+  min-width: 200px;
   background: var(--glide-bg);
   border: 1px solid var(--glide-border);
   border-radius: var(--glide-radius-sm);
@@ -301,6 +301,7 @@ body {
   cursor: pointer;
   transition: background var(--glide-duration) var(--glide-ease);
   text-align: left;
+  white-space: nowrap;
 }
 
 .glide-dropdown__item:hover {
