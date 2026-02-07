@@ -74,6 +74,19 @@
     <!-- Main app (hidden until Office.js is ready)                       -->
     <!-- ================================================================ -->
     <main id="app-body" style="display: none">
+
+      <!-- Tab bar ----------------------------------------------------- -->
+      <nav class="caelum-tabs">
+        <button id="tab-draft" class="caelum-tab caelum-tab--active" data-tab="draft">
+          <i class="ms-Icon ms-Icon--EditMail"></i>
+          Draft
+        </button>
+        <button id="tab-reply" class="caelum-tab" data-tab="reply">
+          <i class="ms-Icon ms-Icon--Reply"></i>
+          Reply
+        </button>
+      </nav>
+
       <!-- Draft Email Form ------------------------------------------ -->
       <section id="draft-section" class="caelum-section">
         <h2 class="caelum-section__title">
@@ -166,6 +179,125 @@
               placeholder="e.g. make it shorter, add a P.S. note..."
             />
             <button id="btn-refine" class="caelum-btn caelum-btn--accent" title="Refine the draft">
+              <i class="ms-Icon ms-Icon--Send"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- Reply Section                                                     -->
+      <!-- ================================================================ -->
+
+      <!-- Reply Form ------------------------------------------------ -->
+      <section id="reply-section" class="caelum-section" style="display: none">
+        <h2 class="caelum-section__title">
+          <i class="ms-Icon ms-Icon--Reply"></i>
+          Draft a Reply
+        </h2>
+
+        <!-- Email context banner (auto-populated) -->
+        <div id="reply-context" class="caelum-context-banner">
+          <div class="caelum-context-banner__row">
+            <span class="caelum-context-banner__label">From:</span>
+            <span id="reply-sender" class="caelum-context-banner__value">Loading...</span>
+          </div>
+          <div class="caelum-context-banner__row">
+            <span class="caelum-context-banner__label">Subject:</span>
+            <span id="reply-subject" class="caelum-context-banner__value">Loading...</span>
+          </div>
+        </div>
+
+        <!-- Reply instructions -->
+        <div class="caelum-field">
+          <label class="caelum-field__label" for="reply-instructions">
+            Reply instructions
+          </label>
+          <textarea
+            id="reply-instructions"
+            class="caelum-textarea"
+            rows="4"
+            placeholder='e.g. Agree to the meeting, decline politely, ask for more details...'
+          ></textarea>
+        </div>
+
+        <!-- Tone & options row -->
+        <div class="caelum-row">
+          <div class="caelum-field caelum-field--half">
+            <label class="caelum-field__label" for="reply-tone">Tone</label>
+            <select id="reply-tone" class="caelum-select">
+              <option value="professional" selected>Professional</option>
+              <option value="formal">Formal</option>
+              <option value="friendly">Friendly</option>
+              <option value="casual">Casual</option>
+            </select>
+          </div>
+          <div class="caelum-field caelum-field--half caelum-field--checkbox">
+            <label class="caelum-checkbox">
+              <input id="reply-include-original" type="checkbox" checked />
+              <span>Include original</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Generate reply button -->
+        <button id="btn-generate-reply" class="caelum-btn caelum-btn--primary caelum-btn--full">
+          <i class="ms-Icon ms-Icon--LightningBolt"></i>
+          Generate Reply
+        </button>
+      </section>
+
+      <!-- Reply result area ----------------------------------------- -->
+      <section
+        id="reply-result-section"
+        class="caelum-section caelum-section--result"
+        style="display: none"
+      >
+        <h2 class="caelum-section__title">
+          <i class="ms-Icon ms-Icon--TextDocument"></i>
+          Generated Reply
+        </h2>
+
+        <div id="reply-preview" class="caelum-preview"></div>
+
+        <!-- Reply action buttons -->
+        <div class="caelum-actions">
+          <button
+            id="btn-insert-reply"
+            class="caelum-btn caelum-btn--primary"
+            title="Insert into Reply"
+          >
+            <i class="ms-Icon ms-Icon--Reply"></i>
+            Reply
+          </button>
+          <button
+            id="btn-insert-reply-all"
+            class="caelum-btn caelum-btn--primary"
+            title="Insert into Reply All"
+          >
+            <i class="ms-Icon ms-Icon--ReplyAll"></i>
+            Reply All
+          </button>
+          <button
+            id="btn-regenerate-reply"
+            class="caelum-btn caelum-btn--secondary"
+            title="Generate a new version"
+          >
+            <i class="ms-Icon ms-Icon--Refresh"></i>
+          </button>
+        </div>
+
+        <!-- Refine reply input -->
+        <div class="caelum-field caelum-field--refine">
+          <label class="caelum-field__label" for="reply-refine-input">Refine this reply</label>
+          <div class="caelum-refine-row">
+            <input
+              id="reply-refine-input"
+              type="text"
+              class="caelum-input"
+              placeholder="e.g. make it more concise, soften the tone..."
+            />
+            <button id="btn-refine-reply" class="caelum-btn caelum-btn--accent" title="Refine">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>

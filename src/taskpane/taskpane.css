@@ -496,3 +496,115 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--caelum-text-placeholder);
 }
+
+/* ================================================================
+   Tab bar
+   ================================================================ */
+
+.caelum-tabs {
+  display: flex;
+  border-bottom: 1.5px solid var(--caelum-border);
+  flex-shrink: 0;
+}
+
+.caelum-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  font-family: var(--caelum-font);
+  font-size: var(--caelum-font-size);
+  font-weight: 500;
+  color: var(--caelum-text-secondary);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--caelum-transition);
+}
+
+.caelum-tab:hover {
+  color: var(--caelum-text);
+  background: var(--caelum-bg-subtle);
+}
+
+.caelum-tab--active {
+  color: var(--caelum-primary);
+  border-bottom-color: var(--caelum-primary);
+}
+
+.caelum-tab .ms-Icon {
+  font-size: 14px;
+}
+
+/* ================================================================
+   Context banner (email info in Reply tab)
+   ================================================================ */
+
+.caelum-context-banner {
+  background: var(--caelum-primary-light);
+  border: 1px solid var(--caelum-border);
+  border-radius: var(--caelum-radius-sm);
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  font-size: var(--caelum-font-size-sm);
+}
+
+.caelum-context-banner__row {
+  display: flex;
+  gap: 6px;
+  line-height: 1.6;
+}
+
+.caelum-context-banner__label {
+  font-weight: 600;
+  color: var(--caelum-text-secondary);
+  flex-shrink: 0;
+}
+
+.caelum-context-banner__value {
+  color: var(--caelum-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   Checkbox
+   ================================================================ */
+
+.caelum-field--checkbox {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 9px;
+}
+
+.caelum-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--caelum-font-size-sm);
+  font-weight: 500;
+  color: var(--caelum-text-secondary);
+  cursor: pointer;
+}
+
+.caelum-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--caelum-primary);
+  cursor: pointer;
+}
+
+/* ================================================================
+   Full-width button modifier
+   ================================================================ */
+
+.caelum-btn--full {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 4px;
+}

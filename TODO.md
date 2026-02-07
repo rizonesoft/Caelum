@@ -137,16 +137,16 @@
 
 ### 3.3 Feature: Draft a Reply
 
-- [ ] Create `src/features/draft-reply.ts`
-- [ ] Auto-read the current email body and subject as context
-- [ ] Build a task pane form:
-  - [ ] Text area for reply instructions ("agree to the meeting", "decline politely")
-  - [ ] Dropdown for tone
-  - [ ] Checkbox: include original message in reply
-- [ ] On submit: call `generateText()` with `REPLY_PROMPT` + email context
-- [ ] Display the generated reply in a preview area
-- [ ] Add an "Insert into Reply" button that inserts text into the active compose window
-- [ ] Handle "Reply" vs "Reply All" scenarios
+- [x] Create `src/features/draft-reply.ts`
+- [x] Auto-read the current email body and subject as context
+- [x] Build a task pane form:
+  - [x] Text area for reply instructions ("agree to the meeting", "decline politely")
+  - [x] Dropdown for tone
+  - [x] Checkbox: include original message in reply
+- [x] On submit: call `generateText()` with `REPLY_PROMPT` + email context
+- [x] Display the generated reply in a preview area
+- [x] Add an "Insert into Reply" button that inserts text into the active compose window
+- [x] Handle "Reply" vs "Reply All" scenarios
 
 ### 3.4 Feature: Summarize Email Thread
 
