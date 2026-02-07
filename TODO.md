@@ -51,18 +51,18 @@
   ├── package.json
   └── tsconfig.json
   ```
-- [ ] Run `npm start` — verify the add-in sideloads in Outlook on the web
+- [x] Run `npm start` — verify the add-in sideloads in Outlook on the web
 
 ### 1.3 Project Hygiene Files
 
-- [ ] Create `.gitignore` (Node, dist, .env, OS files)
-- [ ] Create `.editorconfig` (indent size 2, UTF-8, LF line endings)
-- [ ] Create `.prettierrc` (singleQuote, trailingComma, printWidth: 100)
-- [ ] Create `.eslintrc.json` (extend recommended + typescript rules)
-- [ ] Create `CONTRIBUTING.md` (how to set up, code style, PR process)
-- [ ] Create `CODE_OF_CONDUCT.md` (Contributor Covenant)
-- [ ] Create `SECURITY.md` (vulnerability reporting instructions)
-- [ ] Create `CHANGELOG.md` (Keep a Changelog format)
+- [x] Create `.gitignore` (Node, dist, .env, OS files)
+- [x] Create `.editorconfig` (indent size 2, UTF-8, LF line endings)
+- [x] Create `.prettierrc` (singleQuote, trailingComma, printWidth: 100)
+- [x] Create `.eslintrc.json` (extend recommended + typescript rules)
+- [x] Create `CONTRIBUTING.md` (how to set up, code style, PR process)
+- [x] Create `CODE_OF_CONDUCT.md` (Contributor Covenant)
+- [x] Create `SECURITY.md` (vulnerability reporting instructions)
+- [x] Create `CHANGELOG.md` (Keep a Changelog format)
 
 ---
 
