@@ -3,11 +3,6 @@
 const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
-const path = require("path");
-
-// Load .env for the API key
-require("dotenv").config();
 
 const urlDev = "https://localhost:3000/";
 const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
@@ -23,28 +18,23 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: ["./src/taskpane/index.tsx"],
+      taskpane: ["./src/taskpane/taskpane.ts", "./src/taskpane/taskpane.html"],
       commands: "./src/commands/commands.ts",
     },
     output: {
       clean: true,
-      path: path.resolve(__dirname, "dist"),
     },
     resolve: {
-      extensions: [".ts", ".tsx", ".js", ".jsx", ".html"],
+      extensions: [".ts", ".html", ".js"],
     },
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.ts$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
+            loader: "babel-loader"
           },
-        },
-        {
-          test: /\.css$/,
-          use: ["style-loader", "css-loader"],
         },
         {
           test: /\.html$/,
@@ -52,7 +42,7 @@ module.exports = async (env, options) => {
           use: "html-loader",
         },
         {
-          test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
+          test: /\.(png|jpg|jpeg|gif|ico)$/,
           type: "asset/resource",
           generator: {
             filename: "assets/[name][ext][query]",
@@ -89,9 +79,6 @@ module.exports = async (env, options) => {
         filename: "commands.html",
         template: "./src/commands/commands.html",
         chunks: ["polyfill", "commands"],
-      }),
-      new webpack.DefinePlugin({
-        __GLIDE_API_KEY__: JSON.stringify(process.env.GLIDE_API_KEY || ""),
       }),
     ],
     devServer: {
