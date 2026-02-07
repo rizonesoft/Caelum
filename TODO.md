@@ -1,6 +1,6 @@
 # Caelum — Project TODO
 
-> **Caelum** is an open-source Outlook & Teams plugin powered by Google Gemini 2.5 Pro.
+> **Caelum** is an open-source Outlook & Teams plugin powered by Google Gemini 3 Pro.
 > This checklist takes the project from an empty repo to production-ready distribution.
 
 ---
@@ -86,8 +86,8 @@
   - [x] Add error handling for API quota limits (+rate limiting with retry)
   - [x] Add error handling for network failures (timeout, offline)
   - [x] Add error handling for invalid/expired API keys
-- [ ] Create `src/services/gemini.test.ts` — unit tests with mocked API responses
-- [ ] Verify the service works by calling it from a simple test script
+- [x] Create `src/services/gemini.test.ts` — unit tests with mocked API responses
+- [x] Verify the service works by calling it from a simple test script
 
 ### 2.3 Prompt Engineering Module
 

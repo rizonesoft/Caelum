@@ -24,7 +24,7 @@ export interface GenerateOptions {
   topP?: number;
   /** Top-K sampling. Default: 40 */
   topK?: number;
-  /** Which Gemini model to use. Default: 'gemini-2.5-pro' */
+  /** Which Gemini model to use. Default: 'gemini-3-pro-preview' */
   model?: string;
 }
 
@@ -51,6 +51,8 @@ export class GeminiError extends Error {
     this.code = code;
     this.retryable = retryable;
     this.statusCode = statusCode;
+    // Fix prototype chain for ES5 targets (TypeScript class extending Error)
+    Object.setPrototypeOf(this, GeminiError.prototype);
   }
 }
 
@@ -58,7 +60,7 @@ export class GeminiError extends Error {
 // Constants
 // ---------------------------------------------------------------------------
 
-const DEFAULT_MODEL = 'gemini-2.5-pro';
+const DEFAULT_MODEL = 'gemini-3-pro-preview';
 const DEFAULT_TEMPERATURE = 1.0;
 const DEFAULT_MAX_OUTPUT_TOKENS = 2048;
 const DEFAULT_TOP_P = 0.95;
