@@ -1,7 +1,7 @@
 /**
- * Caelum — Task Pane Styles
+ * Glide — Task Pane Styles
  *
- * Modern, premium design system for the Caelum Outlook add-in.
+ * Modern, premium design system for the Glide Outlook add-in.
  * Uses CSS custom properties for easy theming.
  *
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
@@ -13,41 +13,41 @@
 
 :root {
   /* Brand colours */
-  --caelum-primary: #4f46e5;
-  --caelum-primary-hover: #4338ca;
-  --caelum-primary-light: #eef2ff;
-  --caelum-accent: #7c3aed;
-  --caelum-accent-hover: #6d28d9;
+  --glide-primary: #4f46e5;
+  --glide-primary-hover: #4338ca;
+  --glide-primary-light: #eef2ff;
+  --glide-accent: #7c3aed;
+  --glide-accent-hover: #6d28d9;
 
   /* Neutrals */
-  --caelum-bg: #ffffff;
-  --caelum-bg-subtle: #f9fafb;
-  --caelum-border: #e5e7eb;
-  --caelum-border-focus: #a5b4fc;
-  --caelum-text: #111827;
-  --caelum-text-secondary: #6b7280;
-  --caelum-text-placeholder: #9ca3af;
+  --glide-bg: #ffffff;
+  --glide-bg-subtle: #f9fafb;
+  --glide-border: #e5e7eb;
+  --glide-border-focus: #a5b4fc;
+  --glide-text: #111827;
+  --glide-text-secondary: #6b7280;
+  --glide-text-placeholder: #9ca3af;
 
   /* Status */
-  --caelum-error-bg: #fef2f2;
-  --caelum-error-text: #dc2626;
-  --caelum-error-border: #fecaca;
+  --glide-error-bg: #fef2f2;
+  --glide-error-text: #dc2626;
+  --glide-error-border: #fecaca;
 
   /* Spacing & radii */
-  --caelum-radius: 8px;
-  --caelum-radius-sm: 6px;
-  --caelum-spacing: 16px;
-  --caelum-spacing-sm: 8px;
-  --caelum-spacing-xs: 4px;
+  --glide-radius: 8px;
+  --glide-radius-sm: 6px;
+  --glide-spacing: 16px;
+  --glide-spacing-sm: 8px;
+  --glide-spacing-xs: 4px;
 
   /* Typography */
-  --caelum-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --caelum-font-size: 13px;
-  --caelum-font-size-sm: 12px;
-  --caelum-line-height: 1.5;
+  --glide-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --glide-font-size: 13px;
+  --glide-font-size-sm: 12px;
+  --glide-line-height: 1.5;
 
   /* Transitions */
-  --caelum-transition: 150ms ease;
+  --glide-transition: 150ms ease;
 }
 
 /* ================================================================
@@ -66,11 +66,11 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: var(--caelum-font);
-  font-size: var(--caelum-font-size);
-  line-height: var(--caelum-line-height);
-  color: var(--caelum-text);
-  background: var(--caelum-bg);
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size);
+  line-height: var(--glide-line-height);
+  color: var(--glide-text);
+  background: var(--glide-bg);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -84,34 +84,34 @@ body {
    Header
    ================================================================ */
 
-.caelum-header {
+.glide-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px var(--caelum-spacing);
-  background: linear-gradient(135deg, var(--caelum-primary) 0%, var(--caelum-accent) 100%);
+  padding: 12px var(--glide-spacing);
+  background: linear-gradient(135deg, var(--glide-primary) 0%, var(--glide-accent) 100%);
   color: #fff;
   flex-shrink: 0;
 }
 
-.caelum-header__brand {
+.glide-header__brand {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.caelum-header__icon {
+.glide-header__icon {
   border-radius: 6px;
   filter: brightness(10);
 }
 
-.caelum-header__title {
+.glide-header__title {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.caelum-header__subtitle {
+.glide-header__subtitle {
   font-size: 11px;
   font-weight: 500;
   opacity: 0.85;
@@ -123,41 +123,41 @@ body {
    Sideload message
    ================================================================ */
 
-.caelum-sideload {
+.glide-sideload {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px var(--caelum-spacing);
+  padding: 40px var(--glide-spacing);
   text-align: center;
-  color: var(--caelum-text-secondary);
+  color: var(--glide-text-secondary);
 }
 
-.caelum-sideload__icon {
+.glide-sideload__icon {
   margin-bottom: 16px;
-  color: var(--caelum-primary);
+  color: var(--glide-primary);
 }
 
-.caelum-sideload h2 {
+.glide-sideload h2 {
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 8px;
-  color: var(--caelum-text);
+  color: var(--glide-text);
 }
 
-.caelum-sideload p {
-  font-size: var(--caelum-font-size-sm);
+.glide-sideload p {
+  font-size: var(--glide-font-size-sm);
   margin: 0;
 }
 
-.caelum-sideload a {
-  color: var(--caelum-primary);
+.glide-sideload a {
+  color: var(--glide-primary);
   text-decoration: none;
   font-weight: 500;
 }
 
-.caelum-sideload a:hover {
+.glide-sideload a:hover {
   text-decoration: underline;
 }
 
@@ -177,26 +177,26 @@ body {
    Sections
    ================================================================ */
 
-.caelum-section {
-  padding: var(--caelum-spacing);
+.glide-section {
+  padding: var(--glide-spacing);
 }
 
-.caelum-section + .caelum-section {
-  border-top: 1px solid var(--caelum-border);
+.glide-section + .glide-section {
+  border-top: 1px solid var(--glide-border);
 }
 
-.caelum-section__title {
+.glide-section__title {
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 12px;
   display: flex;
   align-items: center;
   gap: 6px;
-  color: var(--caelum-text);
+  color: var(--glide-text);
 }
 
-.caelum-section__title .ms-Icon {
-  color: var(--caelum-primary);
+.glide-section__title .ms-Icon {
+  color: var(--glide-primary);
   font-size: 16px;
 }
 
@@ -204,53 +204,53 @@ body {
    Form Fields
    ================================================================ */
 
-.caelum-field {
+.glide-field {
   margin-bottom: 12px;
 }
 
-.caelum-field__label {
+.glide-field__label {
   display: block;
-  font-size: var(--caelum-font-size-sm);
+  font-size: var(--glide-font-size-sm);
   font-weight: 500;
-  color: var(--caelum-text-secondary);
-  margin-bottom: var(--caelum-spacing-xs);
+  color: var(--glide-text-secondary);
+  margin-bottom: var(--glide-spacing-xs);
 }
 
-.caelum-textarea,
-.caelum-select,
-.caelum-input {
+.glide-textarea,
+.glide-select,
+.glide-input {
   width: 100%;
-  font-family: var(--caelum-font);
-  font-size: var(--caelum-font-size);
-  color: var(--caelum-text);
-  background: var(--caelum-bg);
-  border: 1.5px solid var(--caelum-border);
-  border-radius: var(--caelum-radius-sm);
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size);
+  color: var(--glide-text);
+  background: var(--glide-bg);
+  border: 1.5px solid var(--glide-border);
+  border-radius: var(--glide-radius-sm);
   padding: 8px 10px;
   transition:
-    border-color var(--caelum-transition),
-    box-shadow var(--caelum-transition);
+    border-color var(--glide-transition),
+    box-shadow var(--glide-transition);
   outline: none;
 }
 
-.caelum-textarea:focus,
-.caelum-select:focus,
-.caelum-input:focus {
-  border-color: var(--caelum-border-focus);
+.glide-textarea:focus,
+.glide-select:focus,
+.glide-input:focus {
+  border-color: var(--glide-border-focus);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-.caelum-textarea::placeholder,
-.caelum-input::placeholder {
-  color: var(--caelum-text-placeholder);
+.glide-textarea::placeholder,
+.glide-input::placeholder {
+  color: var(--glide-text-placeholder);
 }
 
-.caelum-textarea {
+.glide-textarea {
   resize: vertical;
   min-height: 80px;
 }
 
-.caelum-select {
+.glide-select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' fill='none' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -260,12 +260,12 @@ body {
 }
 
 /* Row layout for side-by-side fields */
-.caelum-row {
+.glide-row {
   display: flex;
   gap: 10px;
 }
 
-.caelum-field--half {
+.glide-field--half {
   flex: 1;
 }
 
@@ -273,64 +273,64 @@ body {
    Buttons
    ================================================================ */
 
-.caelum-btn {
+.glide-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-family: var(--caelum-font);
-  font-size: var(--caelum-font-size);
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size);
   font-weight: 600;
   border: none;
-  border-radius: var(--caelum-radius-sm);
+  border-radius: var(--glide-radius-sm);
   padding: 9px 16px;
   cursor: pointer;
-  transition: all var(--caelum-transition);
+  transition: all var(--glide-transition);
   white-space: nowrap;
 }
 
-.caelum-btn .ms-Icon {
+.glide-btn .ms-Icon {
   font-size: 14px;
 }
 
 /* Primary (Indigo) */
-.caelum-btn--primary {
-  background: var(--caelum-primary);
+.glide-btn--primary {
+  background: var(--glide-primary);
   color: #fff;
 }
 
-.caelum-btn--primary:hover {
-  background: var(--caelum-primary-hover);
+.glide-btn--primary:hover {
+  background: var(--glide-primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
 }
 
-.caelum-btn--primary:active {
+.glide-btn--primary:active {
   transform: translateY(0);
   box-shadow: none;
 }
 
 /* Secondary (Outline) */
-.caelum-btn--secondary {
-  background: var(--caelum-bg);
-  color: var(--caelum-text);
-  border: 1.5px solid var(--caelum-border);
+.glide-btn--secondary {
+  background: var(--glide-bg);
+  color: var(--glide-text);
+  border: 1.5px solid var(--glide-border);
 }
 
-.caelum-btn--secondary:hover {
-  background: var(--caelum-bg-subtle);
-  border-color: var(--caelum-text-placeholder);
+.glide-btn--secondary:hover {
+  background: var(--glide-bg-subtle);
+  border-color: var(--glide-text-placeholder);
 }
 
 /* Accent (Purple — for refine) */
-.caelum-btn--accent {
-  background: var(--caelum-accent);
+.glide-btn--accent {
+  background: var(--glide-accent);
   color: #fff;
   padding: 9px 12px;
 }
 
-.caelum-btn--accent:hover {
-  background: var(--caelum-accent-hover);
+.glide-btn--accent:hover {
+  background: var(--glide-accent-hover);
 }
 
 /* Full-width generate button */
@@ -345,13 +345,13 @@ body {
    Actions row
    ================================================================ */
 
-.caelum-actions {
+.glide-actions {
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
 }
 
-.caelum-actions .caelum-btn {
+.glide-actions .glide-btn {
   flex: 1;
 }
 
@@ -359,13 +359,13 @@ body {
    Preview area
    ================================================================ */
 
-.caelum-preview {
-  background: var(--caelum-bg-subtle);
-  border: 1px solid var(--caelum-border);
-  border-radius: var(--caelum-radius);
+.glide-preview {
+  background: var(--glide-bg-subtle);
+  border: 1px solid var(--glide-border);
+  border-radius: var(--glide-radius);
   padding: 12px 14px;
   margin-bottom: 12px;
-  font-size: var(--caelum-font-size);
+  font-size: var(--glide-font-size);
   line-height: 1.6;
   max-height: 300px;
   overflow-y: auto;
@@ -373,28 +373,28 @@ body {
   word-wrap: break-word;
 }
 
-.caelum-preview__subject {
+.glide-preview__subject {
   font-weight: 600;
-  color: var(--caelum-primary);
+  color: var(--glide-primary);
   padding-bottom: 4px;
   margin-bottom: 4px;
-  border-bottom: 1px solid var(--caelum-border);
+  border-bottom: 1px solid var(--glide-border);
 }
 
 /* ================================================================
    Refine row
    ================================================================ */
 
-.caelum-refine-row {
+.glide-refine-row {
   display: flex;
   gap: 6px;
 }
 
-.caelum-refine-row .caelum-input {
+.glide-refine-row .glide-input {
   flex: 1;
 }
 
-.caelum-refine-row .caelum-btn {
+.glide-refine-row .glide-btn {
   flex-shrink: 0;
 }
 
@@ -402,7 +402,7 @@ body {
    Loading overlay
    ================================================================ */
 
-.caelum-loading {
+.glide-loading {
   position: absolute;
   inset: 0;
   display: flex;
@@ -414,65 +414,65 @@ body {
   z-index: 100;
 }
 
-.caelum-loading__spinner {
+.glide-loading__spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid var(--caelum-border);
-  border-top-color: var(--caelum-primary);
+  border: 3px solid var(--glide-border);
+  border-top-color: var(--glide-primary);
   border-radius: 50%;
-  animation: caelum-spin 0.7s linear infinite;
+  animation: glide-spin 0.7s linear infinite;
 }
 
-@keyframes caelum-spin {
+@keyframes glide-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-.caelum-loading__text {
+.glide-loading__text {
   margin-top: 12px;
-  font-size: var(--caelum-font-size-sm);
+  font-size: var(--glide-font-size-sm);
   font-weight: 500;
-  color: var(--caelum-text-secondary);
+  color: var(--glide-text-secondary);
 }
 
 /* ================================================================
    Error banner
    ================================================================ */
 
-.caelum-error {
+.glide-error {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 var(--caelum-spacing) var(--caelum-spacing);
+  margin: 0 var(--glide-spacing) var(--glide-spacing);
   padding: 10px 12px;
-  background: var(--caelum-error-bg);
-  border: 1px solid var(--caelum-error-border);
-  border-radius: var(--caelum-radius-sm);
-  color: var(--caelum-error-text);
-  font-size: var(--caelum-font-size-sm);
+  background: var(--glide-error-bg);
+  border: 1px solid var(--glide-error-border);
+  border-radius: var(--glide-radius-sm);
+  color: var(--glide-error-text);
+  font-size: var(--glide-font-size-sm);
   font-weight: 500;
 }
 
-.caelum-error .ms-Icon {
+.glide-error .ms-Icon {
   flex-shrink: 0;
 }
 
-.caelum-error span {
+.glide-error span {
   flex: 1;
 }
 
-.caelum-error__dismiss {
+.glide-error__dismiss {
   background: none;
   border: none;
   padding: 2px;
   cursor: pointer;
-  color: var(--caelum-error-text);
+  color: var(--glide-error-text);
   opacity: 0.6;
-  transition: opacity var(--caelum-transition);
+  transition: opacity var(--glide-transition);
 }
 
-.caelum-error__dismiss:hover {
+.glide-error__dismiss:hover {
   opacity: 1;
 }
 
@@ -489,53 +489,53 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--caelum-border);
+  background: var(--glide-border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--caelum-text-placeholder);
+  background: var(--glide-text-placeholder);
 }
 
 /* ================================================================
    Tab bar
    ================================================================ */
 
-.caelum-tabs {
+.glide-tabs {
   display: flex;
-  border-bottom: 1.5px solid var(--caelum-border);
+  border-bottom: 1.5px solid var(--glide-border);
   flex-shrink: 0;
 }
 
-.caelum-tab {
+.glide-tab {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   padding: 10px;
-  font-family: var(--caelum-font);
-  font-size: var(--caelum-font-size);
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size);
   font-weight: 500;
-  color: var(--caelum-text-secondary);
+  color: var(--glide-text-secondary);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  transition: all var(--caelum-transition);
+  transition: all var(--glide-transition);
 }
 
-.caelum-tab:hover {
-  color: var(--caelum-text);
-  background: var(--caelum-bg-subtle);
+.glide-tab:hover {
+  color: var(--glide-text);
+  background: var(--glide-bg-subtle);
 }
 
-.caelum-tab--active {
-  color: var(--caelum-primary);
-  border-bottom-color: var(--caelum-primary);
+.glide-tab--active {
+  color: var(--glide-primary);
+  border-bottom-color: var(--glide-primary);
 }
 
-.caelum-tab .ms-Icon {
+.glide-tab .ms-Icon {
   font-size: 14px;
 }
 
@@ -543,29 +543,29 @@ body {
    Context banner (email info in Reply tab)
    ================================================================ */
 
-.caelum-context-banner {
-  background: var(--caelum-primary-light);
-  border: 1px solid var(--caelum-border);
-  border-radius: var(--caelum-radius-sm);
+.glide-context-banner {
+  background: var(--glide-primary-light);
+  border: 1px solid var(--glide-border);
+  border-radius: var(--glide-radius-sm);
   padding: 8px 10px;
   margin-bottom: 12px;
-  font-size: var(--caelum-font-size-sm);
+  font-size: var(--glide-font-size-sm);
 }
 
-.caelum-context-banner__row {
+.glide-context-banner__row {
   display: flex;
   gap: 6px;
   line-height: 1.6;
 }
 
-.caelum-context-banner__label {
+.glide-context-banner__label {
   font-weight: 600;
-  color: var(--caelum-text-secondary);
+  color: var(--glide-text-secondary);
   flex-shrink: 0;
 }
 
-.caelum-context-banner__value {
-  color: var(--caelum-text);
+.glide-context-banner__value {
+  color: var(--glide-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -575,26 +575,26 @@ body {
    Checkbox
    ================================================================ */
 
-.caelum-field--checkbox {
+.glide-field--checkbox {
   display: flex;
   align-items: flex-end;
   padding-bottom: 9px;
 }
 
-.caelum-checkbox {
+.glide-checkbox {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: var(--caelum-font-size-sm);
+  font-size: var(--glide-font-size-sm);
   font-weight: 500;
-  color: var(--caelum-text-secondary);
+  color: var(--glide-text-secondary);
   cursor: pointer;
 }
 
-.caelum-checkbox input[type="checkbox"] {
+.glide-checkbox input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: var(--caelum-primary);
+  accent-color: var(--glide-primary);
   cursor: pointer;
 }
 
@@ -602,7 +602,7 @@ body {
    Full-width button modifier
    ================================================================ */
 
-.caelum-btn--full {
+.glide-btn--full {
   width: 100%;
   padding: 10px;
   font-size: 14px;
@@ -613,56 +613,56 @@ body {
    Radio group
    ================================================================ */
 
-.caelum-radio-group {
+.glide-radio-group {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.caelum-radio {
+.glide-radio {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: var(--caelum-font-size-sm);
+  font-size: var(--glide-font-size-sm);
   font-weight: 500;
-  color: var(--caelum-text-secondary);
+  color: var(--glide-text-secondary);
   cursor: pointer;
   position: relative;
 }
 
-.caelum-radio input[type="radio"] {
+.glide-radio input[type="radio"] {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.caelum-radio__mark {
+.glide-radio__mark {
   width: 16px;
   height: 16px;
-  border: 1.5px solid var(--caelum-border);
+  border: 1.5px solid var(--glide-border);
   border-radius: 50%;
   flex-shrink: 0;
   position: relative;
-  transition: all var(--caelum-transition);
+  transition: all var(--glide-transition);
 }
 
-.caelum-radio input[type="radio"]:checked + .caelum-radio__mark {
-  border-color: var(--caelum-primary);
+.glide-radio input[type="radio"]:checked + .glide-radio__mark {
+  border-color: var(--glide-primary);
 }
 
-.caelum-radio input[type="radio"]:checked + .caelum-radio__mark::after {
+.glide-radio input[type="radio"]:checked + .glide-radio__mark::after {
   content: '';
   position: absolute;
   top: 3px;
   left: 3px;
   width: 8px;
   height: 8px;
-  background: var(--caelum-primary);
+  background: var(--glide-primary);
   border-radius: 50%;
 }
 
-.caelum-radio input[type="radio"]:focus + .caelum-radio__mark {
+.glide-radio input[type="radio"]:focus + .glide-radio__mark {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
@@ -670,7 +670,7 @@ body {
    Readonly preview (Summarize)
    ================================================================ */
 
-.caelum-preview--readonly {
+.glide-preview--readonly {
   user-select: text;
   cursor: text;
 }
@@ -679,7 +679,7 @@ body {
    Success button state (clipboard feedback)
    ================================================================ */
 
-.caelum-btn--success {
+.glide-btn--success {
   background: #059669 !important;
   border-color: #059669 !important;
   color: #fff !important;

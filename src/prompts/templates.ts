@@ -1,7 +1,7 @@
 /**
- * Caelum — Prompt Templates
+ * Glide — Prompt Templates
  *
- * Reusable prompt templates for all Caelum AI features.
+ * Reusable prompt templates for all Glide AI features.
  * Each template uses {{PLACEHOLDER}} syntax for variable substitution
  * via the `buildPrompt` function in builder.ts.
  *

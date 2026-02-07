@@ -1,4 +1,4 @@
-<!-- Caelum — Outlook AI Add-in Task Pane -->
+<!-- Glide — Outlook AI Add-in Task Pane -->
 <!-- © Rizonetech (Pty) Ltd. — https://rizonesoft.com -->
 
 <!doctype html>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Caelum — AI Email Assistant</title>
+    <title>Glide — AI Email Assistant</title>
 
     <!-- Office JavaScript API -->
     <script
@@ -29,7 +29,7 @@
       rel="stylesheet"
     />
 
-    <!-- Caelum styles -->
+    <!-- Glide styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
   </head>
 
@@ -37,25 +37,25 @@
     <!-- ================================================================ -->
     <!-- Header                                                           -->
     <!-- ================================================================ -->
-    <header class="caelum-header">
-      <div class="caelum-header__brand">
+    <header class="glide-header">
+      <div class="glide-header__brand">
         <img
           width="28"
           height="28"
           src="../../assets/logo-filled.png"
-          alt="Caelum"
-          class="caelum-header__icon"
+          alt="Glide"
+          class="glide-header__icon"
         />
-        <span class="caelum-header__title">Caelum</span>
+        <span class="glide-header__title">Glide</span>
       </div>
-      <span class="caelum-header__subtitle">AI Email Assistant</span>
+      <span class="glide-header__subtitle">AI Email Assistant</span>
     </header>
 
     <!-- ================================================================ -->
     <!-- Sideload message (shown when add-in isn't activated)             -->
     <!-- ================================================================ -->
-    <section id="sideload-msg" class="caelum-sideload">
-      <div class="caelum-sideload__icon">
+    <section id="sideload-msg" class="glide-sideload">
+      <div class="glide-sideload__icon">
         <i class="ms-Icon ms-Icon--PlugDisconnected ms-font-xxl"></i>
       </div>
       <h2>Add-in Not Loaded</h2>
@@ -76,55 +76,55 @@
     <main id="app-body" style="display: none">
 
       <!-- Tab bar ----------------------------------------------------- -->
-      <nav class="caelum-tabs">
-        <button id="tab-draft" class="caelum-tab caelum-tab--active" data-tab="draft">
+      <nav class="glide-tabs">
+        <button id="tab-draft" class="glide-tab glide-tab--active" data-tab="draft">
           <i class="ms-Icon ms-Icon--EditMail"></i>
           Draft
         </button>
-        <button id="tab-reply" class="caelum-tab" data-tab="reply">
+        <button id="tab-reply" class="glide-tab" data-tab="reply">
           <i class="ms-Icon ms-Icon--Reply"></i>
           Reply
         </button>
-        <button id="tab-summarize" class="caelum-tab" data-tab="summarize">
+        <button id="tab-summarize" class="glide-tab" data-tab="summarize">
           <i class="ms-Icon ms-Icon--Articles"></i>
           Summarize
         </button>
       </nav>
 
       <!-- Draft Email Form ------------------------------------------ -->
-      <section id="draft-section" class="caelum-section">
-        <h2 class="caelum-section__title">
+      <section id="draft-section" class="glide-section">
+        <h2 class="glide-section__title">
           <i class="ms-Icon ms-Icon--EditMail"></i>
           Draft a New Email
         </h2>
 
         <!-- Instructions -->
-        <div class="caelum-field">
-          <label class="caelum-field__label" for="draft-instructions">
+        <div class="glide-field">
+          <label class="glide-field__label" for="draft-instructions">
             Instructions / bullet points
           </label>
           <textarea
             id="draft-instructions"
-            class="caelum-textarea"
+            class="glide-textarea"
             rows="5"
             placeholder="e.g. Thank the client for the meeting, confirm next steps, mention deadline is Friday..."
           ></textarea>
         </div>
 
         <!-- Tone & Length row -->
-        <div class="caelum-row">
-          <div class="caelum-field caelum-field--half">
-            <label class="caelum-field__label" for="draft-tone">Tone</label>
-            <select id="draft-tone" class="caelum-select">
+        <div class="glide-row">
+          <div class="glide-field glide-field--half">
+            <label class="glide-field__label" for="draft-tone">Tone</label>
+            <select id="draft-tone" class="glide-select">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
               <option value="friendly">Friendly</option>
               <option value="casual">Casual</option>
             </select>
           </div>
-          <div class="caelum-field caelum-field--half">
-            <label class="caelum-field__label" for="draft-length">Length</label>
-            <select id="draft-length" class="caelum-select">
+          <div class="glide-field glide-field--half">
+            <label class="glide-field__label" for="draft-length">Length</label>
+            <select id="draft-length" class="glide-select">
               <option value="short">Short</option>
               <option value="medium" selected>Medium</option>
               <option value="detailed">Detailed</option>
@@ -133,7 +133,7 @@
         </div>
 
         <!-- Generate button -->
-        <button id="btn-generate" class="caelum-btn caelum-btn--primary">
+        <button id="btn-generate" class="glide-btn glide-btn--primary">
           <i class="ms-Icon ms-Icon--LightningBolt"></i>
           Generate Draft
         </button>
@@ -142,21 +142,21 @@
       <!-- Result area (hidden until a draft is generated) ----------- -->
       <section
         id="result-section"
-        class="caelum-section caelum-section--result"
+        class="glide-section glide-section--result"
         style="display: none"
       >
-        <h2 class="caelum-section__title">
+        <h2 class="glide-section__title">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Generated Draft
         </h2>
 
-        <div id="draft-preview" class="caelum-preview"></div>
+        <div id="draft-preview" class="glide-preview"></div>
 
         <!-- Action buttons -->
-        <div class="caelum-actions">
+        <div class="glide-actions">
           <button
             id="btn-copy-compose"
-            class="caelum-btn caelum-btn--primary"
+            class="glide-btn glide-btn--primary"
             title="Open a new email with this draft"
           >
             <i class="ms-Icon ms-Icon--NewMail"></i>
@@ -164,7 +164,7 @@
           </button>
           <button
             id="btn-regenerate"
-            class="caelum-btn caelum-btn--secondary"
+            class="glide-btn glide-btn--secondary"
             title="Generate a new version"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -173,16 +173,16 @@
         </div>
 
         <!-- Refine input -->
-        <div class="caelum-field caelum-field--refine">
-          <label class="caelum-field__label" for="refine-input">Refine this draft</label>
-          <div class="caelum-refine-row">
+        <div class="glide-field glide-field--refine">
+          <label class="glide-field__label" for="refine-input">Refine this draft</label>
+          <div class="glide-refine-row">
             <input
               id="refine-input"
               type="text"
-              class="caelum-input"
+              class="glide-input"
               placeholder="e.g. make it shorter, add a P.S. note..."
             />
-            <button id="btn-refine" class="caelum-btn caelum-btn--accent" title="Refine the draft">
+            <button id="btn-refine" class="glide-btn glide-btn--accent" title="Refine the draft">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
@@ -194,50 +194,50 @@
       <!-- ================================================================ -->
 
       <!-- Reply Form ------------------------------------------------ -->
-      <section id="reply-section" class="caelum-section" style="display: none">
-        <h2 class="caelum-section__title">
+      <section id="reply-section" class="glide-section" style="display: none">
+        <h2 class="glide-section__title">
           <i class="ms-Icon ms-Icon--Reply"></i>
           Draft a Reply
         </h2>
 
         <!-- Email context banner (auto-populated) -->
-        <div id="reply-context" class="caelum-context-banner">
-          <div class="caelum-context-banner__row">
-            <span class="caelum-context-banner__label">From:</span>
-            <span id="reply-sender" class="caelum-context-banner__value">Loading...</span>
+        <div id="reply-context" class="glide-context-banner">
+          <div class="glide-context-banner__row">
+            <span class="glide-context-banner__label">From:</span>
+            <span id="reply-sender" class="glide-context-banner__value">Loading...</span>
           </div>
-          <div class="caelum-context-banner__row">
-            <span class="caelum-context-banner__label">Subject:</span>
-            <span id="reply-subject" class="caelum-context-banner__value">Loading...</span>
+          <div class="glide-context-banner__row">
+            <span class="glide-context-banner__label">Subject:</span>
+            <span id="reply-subject" class="glide-context-banner__value">Loading...</span>
           </div>
         </div>
 
         <!-- Reply instructions -->
-        <div class="caelum-field">
-          <label class="caelum-field__label" for="reply-instructions">
+        <div class="glide-field">
+          <label class="glide-field__label" for="reply-instructions">
             Reply instructions
           </label>
           <textarea
             id="reply-instructions"
-            class="caelum-textarea"
+            class="glide-textarea"
             rows="4"
             placeholder='e.g. Agree to the meeting, decline politely, ask for more details...'
           ></textarea>
         </div>
 
         <!-- Tone & options row -->
-        <div class="caelum-row">
-          <div class="caelum-field caelum-field--half">
-            <label class="caelum-field__label" for="reply-tone">Tone</label>
-            <select id="reply-tone" class="caelum-select">
+        <div class="glide-row">
+          <div class="glide-field glide-field--half">
+            <label class="glide-field__label" for="reply-tone">Tone</label>
+            <select id="reply-tone" class="glide-select">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
               <option value="friendly">Friendly</option>
               <option value="casual">Casual</option>
             </select>
           </div>
-          <div class="caelum-field caelum-field--half caelum-field--checkbox">
-            <label class="caelum-checkbox">
+          <div class="glide-field glide-field--half glide-field--checkbox">
+            <label class="glide-checkbox">
               <input id="reply-include-original" type="checkbox" checked />
               <span>Include original</span>
             </label>
@@ -245,7 +245,7 @@
         </div>
 
         <!-- Generate reply button -->
-        <button id="btn-generate-reply" class="caelum-btn caelum-btn--primary caelum-btn--full">
+        <button id="btn-generate-reply" class="glide-btn glide-btn--primary glide-btn--full">
           <i class="ms-Icon ms-Icon--LightningBolt"></i>
           Generate Reply
         </button>
@@ -254,21 +254,21 @@
       <!-- Reply result area ----------------------------------------- -->
       <section
         id="reply-result-section"
-        class="caelum-section caelum-section--result"
+        class="glide-section glide-section--result"
         style="display: none"
       >
-        <h2 class="caelum-section__title">
+        <h2 class="glide-section__title">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Generated Reply
         </h2>
 
-        <div id="reply-preview" class="caelum-preview"></div>
+        <div id="reply-preview" class="glide-preview"></div>
 
         <!-- Reply action buttons -->
-        <div class="caelum-actions">
+        <div class="glide-actions">
           <button
             id="btn-insert-reply"
-            class="caelum-btn caelum-btn--primary"
+            class="glide-btn glide-btn--primary"
             title="Insert into Reply"
           >
             <i class="ms-Icon ms-Icon--Reply"></i>
@@ -276,7 +276,7 @@
           </button>
           <button
             id="btn-insert-reply-all"
-            class="caelum-btn caelum-btn--primary"
+            class="glide-btn glide-btn--primary"
             title="Insert into Reply All"
           >
             <i class="ms-Icon ms-Icon--ReplyAll"></i>
@@ -284,7 +284,7 @@
           </button>
           <button
             id="btn-regenerate-reply"
-            class="caelum-btn caelum-btn--secondary"
+            class="glide-btn glide-btn--secondary"
             title="Generate a new version"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -292,16 +292,16 @@
         </div>
 
         <!-- Refine reply input -->
-        <div class="caelum-field caelum-field--refine">
-          <label class="caelum-field__label" for="reply-refine-input">Refine this reply</label>
-          <div class="caelum-refine-row">
+        <div class="glide-field glide-field--refine">
+          <label class="glide-field__label" for="reply-refine-input">Refine this reply</label>
+          <div class="glide-refine-row">
             <input
               id="reply-refine-input"
               type="text"
-              class="caelum-input"
+              class="glide-input"
               placeholder="e.g. make it more concise, soften the tone..."
             />
-            <button id="btn-refine-reply" class="caelum-btn caelum-btn--accent" title="Refine">
+            <button id="btn-refine-reply" class="glide-btn glide-btn--accent" title="Refine">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
@@ -313,38 +313,38 @@
       <!-- ================================================================ -->
 
       <!-- Summarize Form ---------------------------------------------- -->
-      <section id="summarize-section" class="caelum-section" style="display: none">
-        <h2 class="caelum-section__title">
+      <section id="summarize-section" class="glide-section" style="display: none">
+        <h2 class="glide-section__title">
           <i class="ms-Icon ms-Icon--Articles"></i>
           Summarize Email
         </h2>
 
         <!-- Summary style (radio buttons) -->
-        <div class="caelum-field">
-          <label class="caelum-field__label">Summary format</label>
-          <div class="caelum-radio-group">
-            <label class="caelum-radio">
+        <div class="glide-field">
+          <label class="glide-field__label">Summary format</label>
+          <div class="glide-radio-group">
+            <label class="glide-radio">
               <input type="radio" name="summary-style" value="bullets" checked />
-              <span class="caelum-radio__mark"></span>
+              <span class="glide-radio__mark"></span>
               <span>Bullet points</span>
             </label>
-            <label class="caelum-radio">
+            <label class="glide-radio">
               <input type="radio" name="summary-style" value="paragraph" />
-              <span class="caelum-radio__mark"></span>
+              <span class="glide-radio__mark"></span>
               <span>Paragraph</span>
             </label>
-            <label class="caelum-radio">
+            <label class="glide-radio">
               <input type="radio" name="summary-style" value="tldr" />
-              <span class="caelum-radio__mark"></span>
+              <span class="glide-radio__mark"></span>
               <span>TL;DR</span>
             </label>
           </div>
         </div>
 
         <!-- Summary length -->
-        <div class="caelum-field">
-          <label class="caelum-field__label" for="summary-length">Length</label>
-          <select id="summary-length" class="caelum-select">
+        <div class="glide-field">
+          <label class="glide-field__label" for="summary-length">Length</label>
+          <select id="summary-length" class="glide-select">
             <option value="brief">Brief (2-3 sentences)</option>
             <option value="standard" selected>Standard (1 paragraph)</option>
             <option value="detailed">Detailed (multiple paragraphs)</option>
@@ -352,7 +352,7 @@
         </div>
 
         <!-- Summarize button -->
-        <button id="btn-summarize" class="caelum-btn caelum-btn--primary caelum-btn--full">
+        <button id="btn-summarize" class="glide-btn glide-btn--primary glide-btn--full">
           <i class="ms-Icon ms-Icon--LightningBolt"></i>
           Summarize
         </button>
@@ -361,21 +361,21 @@
       <!-- Summarize result area --------------------------------------- -->
       <section
         id="summarize-result-section"
-        class="caelum-section caelum-section--result"
+        class="glide-section glide-section--result"
         style="display: none"
       >
-        <h2 class="caelum-section__title">
+        <h2 class="glide-section__title">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Summary
         </h2>
 
-        <div id="summary-preview" class="caelum-preview caelum-preview--readonly"></div>
+        <div id="summary-preview" class="glide-preview glide-preview--readonly"></div>
 
         <!-- Summary action buttons -->
-        <div class="caelum-actions">
+        <div class="glide-actions">
           <button
             id="btn-copy-summary"
-            class="caelum-btn caelum-btn--primary"
+            class="glide-btn glide-btn--primary"
             title="Copy summary to clipboard"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -383,7 +383,7 @@
           </button>
           <button
             id="btn-regenerate-summary"
-            class="caelum-btn caelum-btn--secondary"
+            class="glide-btn glide-btn--secondary"
             title="Generate a new summary"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -393,16 +393,16 @@
       </section>
 
       <!-- Loading overlay ------------------------------------------- -->
-      <div id="loading-overlay" class="caelum-loading" style="display: none">
-        <div class="caelum-loading__spinner"></div>
-        <p class="caelum-loading__text">Generating with Gemini...</p>
+      <div id="loading-overlay" class="glide-loading" style="display: none">
+        <div class="glide-loading__spinner"></div>
+        <p class="glide-loading__text">Generating with Gemini...</p>
       </div>
 
       <!-- Error banner ---------------------------------------------- -->
-      <div id="error-banner" class="caelum-error" style="display: none">
+      <div id="error-banner" class="glide-error" style="display: none">
         <i class="ms-Icon ms-Icon--ErrorBadge"></i>
         <span id="error-message"></span>
-        <button id="btn-dismiss-error" class="caelum-error__dismiss" title="Dismiss">
+        <button id="btn-dismiss-error" class="glide-error__dismiss" title="Dismiss">
           <i class="ms-Icon ms-Icon--Cancel"></i>
         </button>
       </div>

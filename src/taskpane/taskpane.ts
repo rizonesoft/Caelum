@@ -1,5 +1,5 @@
 /**
- * Caelum — Task Pane Controller
+ * Glide — Task Pane Controller
  *
  * Wires up the task pane HTML with the feature modules.
  * Handles Office.js initialization, DOM event binding, and tab switching.
@@ -53,7 +53,7 @@ function hideElement(id: string): void {
 }
 
 function showLoading(message?: string): void {
-  const text = $('loading-overlay')?.querySelector('.caelum-loading__text') as HTMLElement;
+  const text = $('loading-overlay')?.querySelector('.glide-loading__text') as HTMLElement;
   if (text && message) text.textContent = message;
   showElement('loading-overlay');
 }
@@ -85,7 +85,7 @@ function setPreview(elementId: string, text: string): void {
   const html = lines
     .map((line) => {
       if (line.toLowerCase().startsWith('subject:')) {
-        return `<div class="caelum-preview__subject">${line}</div>`;
+        return `<div class="glide-preview__subject">${line}</div>`;
       }
       if (line.trim() === '') {
         return '<br>';
@@ -109,8 +109,8 @@ const TAB_CONFIG: Record<string, string[]> = {
 
 function switchTab(tabName: string): void {
   // Update tab buttons
-  document.querySelectorAll('.caelum-tab').forEach((tab) => {
-    tab.classList.toggle('caelum-tab--active', (tab as HTMLElement).dataset.tab === tabName);
+  document.querySelectorAll('.glide-tab').forEach((tab) => {
+    tab.classList.toggle('glide-tab--active', (tab as HTMLElement).dataset.tab === tabName);
   });
 
   // Show/hide sections
@@ -401,10 +401,10 @@ async function handleCopySummary(): Promise<void> {
     if (btn) {
       const original = btn.innerHTML;
       btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
-      btn.classList.add('caelum-btn--success');
+      btn.classList.add('glide-btn--success');
       setTimeout(() => {
         btn.innerHTML = original;
-        btn.classList.remove('caelum-btn--success');
+        btn.classList.remove('glide-btn--success');
       }, 1500);
     }
   } catch (err: any) {
@@ -423,7 +423,7 @@ Office.onReady((info) => {
 
     // Initialize Gemini client
     try {
-      const apiKey = (window as any).__CAELUM_API_KEY__ || '';
+      const apiKey = (window as any).__Glide_API_KEY__ || '';
       if (apiKey) {
         initGeminiClient(apiKey);
       }
@@ -432,7 +432,7 @@ Office.onReady((info) => {
     }
 
     // --- Tab switching ---
-    document.querySelectorAll('.caelum-tab').forEach((tab) => {
+    document.querySelectorAll('.glide-tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         const tabName = (tab as HTMLElement).dataset.tab;
         if (tabName) switchTab(tabName);

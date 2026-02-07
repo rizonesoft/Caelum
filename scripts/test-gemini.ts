@@ -1,5 +1,5 @@
 /**
- * Caelum — Gemini Service Verification Script
+ * Glide — Gemini Service Verification Script
  *
  * Quick smoke test that calls the live Gemini API to verify
  * the service works end-to-end with a real API key.

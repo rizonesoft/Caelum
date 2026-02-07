@@ -1,5 +1,5 @@
 /**
- * Caelum — Draft Email Feature
+ * Glide — Draft Email Feature
  *
  * Orchestrates the "Draft a New Email" workflow:
  *   1. Collect user instructions, tone, and length preferences.

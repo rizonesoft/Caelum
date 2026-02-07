@@ -1,5 +1,5 @@
 /**
- * Caelum — Prompt Builder
+ * Glide — Prompt Builder
  *
  * Utilities for constructing prompts from templates with variable
  * substitution and safe context truncation.

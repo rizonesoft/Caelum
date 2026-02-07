@@ -1,6 +1,6 @@
-# Contributing to Rizonesoft Caelum
+# Contributing to Rizonesoft Glide
 
-Thanks for your interest in contributing to **Caelum**! This guide will help you get started.
+Thanks for your interest in contributing to **Glide**! This guide will help you get started.
 
 ## Getting Started
 
@@ -16,8 +16,8 @@ Thanks for your interest in contributing to **Caelum**! This guide will help you
 
 1. Fork and clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/Caelum.git
-   cd Caelum
+   git clone https://github.com/<your-username>/Glide.git
+   cd Glide
    ```
 2. Install dependencies:
    ```bash
@@ -71,7 +71,7 @@ chore: bump dependencies
 
 ## Reporting Bugs
 
-Please use [GitHub Issues](https://github.com/rizonesoft/Caelum/issues) and include:
+Please use [GitHub Issues](https://github.com/rizonesoft/Glide/issues) and include:
 
 - Steps to reproduce
 - Expected vs actual behavior
@@ -79,7 +79,7 @@ Please use [GitHub Issues](https://github.com/rizonesoft/Caelum/issues) and incl
 
 ## Questions?
 
-Open a [Discussion](https://github.com/rizonesoft/Caelum/discussions) — we're happy to help!
+Open a [Discussion](https://github.com/rizonesoft/Glide/discussions) — we're happy to help!
 
 ---
 

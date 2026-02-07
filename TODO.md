@@ -1,6 +1,6 @@
-# Caelum — Project TODO
+# Glide — Project TODO
 
-> **Caelum** is an open-source Outlook & Teams plugin powered by Google Gemini 3 Pro.
+> **Glide** is an open-source Outlook & Teams plugin powered by Google Gemini 3 Pro.
 > This checklist takes the project from an empty repo to production-ready distribution.
 
 ---
@@ -25,7 +25,7 @@
 
 ### 1.1 GitHub Repository
 
-- [x] Create a new public GitHub repo named **Caelum** — [rizonesoft/Caelum](https://github.com/rizonesoft/Caelum)
+- [x] Create a new public GitHub repo named **Glide** — [rizonesoft/Glide](https://github.com/rizonesoft/Glide)
 - [x] Add a short description: _"AI-powered Outlook & Teams plugin using Google Gemini"_
 - [x] Add topics/tags: `outlook-addin`, `teams-app`, `gemini-api`, `ai`, `open-source`
 - [x] Choose the **MIT** license (or your preferred OSS license)
@@ -39,10 +39,10 @@
   - Project type: **Office Add-in Task Pane**
   - Script type: **TypeScript**
   - Office app: **Outlook**
-  - Project name: **caelum**
+  - Project name: **Glide**
 - [x] Verify the generated folder structure exists:
   ```
-  caelum/
+  Glide/
   ├── src/
   │   ├── taskpane/        # Task Pane HTML, CSS, TS
   │   └── commands/        # Function commands
@@ -70,7 +70,7 @@
 
 ### 2.1 Google Cloud Setup
 
-- [x] Create a Google Cloud project named **Caelum**
+- [x] Create a Google Cloud project named **Glide**
 - [x] Enable the **Generative Language API** (Gemini)
 - [x] Generate an API key in the Google Cloud Console
 - [x] Store the API key in a `.env` file (add `.env` to `.gitignore`)
@@ -210,7 +210,7 @@
   - [ ] Extract Actions
   - [ ] Translate
   - [ ] Settings
-- [ ] Add a **header** with the Caelum logo and current feature name
+- [ ] Add a **header** with the Glide logo and current feature name
 - [ ] Add a **loading spinner** component for API calls
 - [ ] Add **error toast/banner** component for displaying errors
 - [ ] Ensure the task pane is responsive (320px – 500px width)
@@ -401,7 +401,7 @@
 
 - [ ] Install **Teams Toolkit** for VS Code
 - [ ] Scaffold a new Teams Message Extension or Tab app
-- [ ] Set up a `caelum-teams/` directory (or monorepo with shared packages)
+- [ ] Set up a `glide-teams/` directory (or monorepo with shared packages)
 - [ ] Share the Gemini service layer (`src/services/gemini.ts`) between both plugins
 
 ### 10.2 Features (Planned)
@@ -445,7 +445,7 @@
 ## Stretch Goals / Nice-to-Haves
 
 - [ ] **Keyboard shortcuts** for common actions in the task pane
-- [ ] **Context menu integration** — right-click selected text → "Improve with Caelum"
+- [ ] **Context menu integration** — right-click selected text → "Improve with Glide"
 - [ ] **Custom prompts** — let users save their own prompt templates
 - [ ] **Usage analytics** — local-only stats (emails drafted, summaries generated)
 - [ ] **Offline mode** — queue actions and process when back online

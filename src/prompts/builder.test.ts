@@ -1,5 +1,5 @@
 /**
- * Caelum — Prompt Builder Unit Tests
+ * Glide — Prompt Builder Unit Tests
  *
  * Tests for buildPrompt, truncateContext, and listPlaceholders.
  *
