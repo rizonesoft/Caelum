@@ -802,3 +802,79 @@ body {
   border-radius: 2px;
   padding: 0 1px;
 }
+
+/* ================================================================
+   Checklist — Action Items
+   ================================================================ */
+
+.glide-checklist-container {
+  margin-bottom: var(--glide-space-md);
+}
+
+.glide-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glide-task-item {
+  display: flex;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--glide-bg-panel);
+  border: 1px solid var(--glide-border-light);
+  border-radius: var(--glide-radius-sm);
+  transition: border-color var(--glide-duration) var(--glide-ease);
+}
+
+.glide-task-item:hover {
+  border-color: var(--glide-border);
+}
+
+/* Custom checkbox */
+.glide-task-item__check {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 1px;
+  cursor: pointer;
+}
+
+.glide-task-item__check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--glide-blue);
+  cursor: pointer;
+}
+
+.glide-task-item__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.glide-task-item__text {
+  font-size: var(--glide-font-size-md);
+  line-height: 1.5;
+  color: var(--glide-text);
+}
+
+.glide-task-item__meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  font-size: var(--glide-font-size-xs);
+  color: var(--glide-text-tertiary);
+}
+
+.glide-task-item__owner strong,
+.glide-task-item__deadline strong {
+  font-weight: var(--glide-weight-semibold);
+  color: var(--glide-text-secondary);
+}
+
+/* Checked state — strikethrough */
+.glide-task-item:has(input[type="checkbox"]:checked) .glide-task-item__text {
+  text-decoration: line-through;
+  color: var(--glide-text-tertiary);
+}

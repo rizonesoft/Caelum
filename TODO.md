@@ -172,11 +172,11 @@
 
 ### 3.6 Feature: Extract Action Items
 
-- [ ] Create `src/features/extract-actions.ts`
-- [ ] Read the current email or thread
-- [ ] Call `generateText()` with `EXTRACT_ACTION_ITEMS_PROMPT`
-- [ ] Display a checklist of extracted tasks with owners and deadlines
-- [ ] Add a "Copy as Tasks" button (plain text list)
+- [x] Create `src/features/extract-actions.ts`
+- [x] Read the current email or thread
+- [x] Call `generateText()` with `EXTRACT_ACTION_ITEMS_PROMPT`
+- [x] Display a checklist of extracted tasks with owners and deadlines
+- [x] Add a "Copy as Tasks" button (plain text list)
 - [ ] (Future) Integration with Microsoft To Do / Outlook Tasks
 
 ### 3.7 Feature: Quick Translate

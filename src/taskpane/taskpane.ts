@@ -43,6 +43,14 @@ import {
   ImproveOptions,
   ImprovementFocus,
 } from '../features/improve-writing';
+import {
+  extractActionItems,
+  regenerateActions,
+  getLastItems,
+  formatAsTaskList,
+  copyToClipboard as copyTasksToClipboard,
+  renderChecklistHtml,
+} from '../features/extract-actions';
 
 // ---------------------------------------------------------------------------
 // DOM helpers
@@ -114,6 +122,7 @@ const TAB_CONFIG: Record<string, string[]> = {
   reply: ['reply-section', 'reply-result-section'],
   summarize: ['summarize-section', 'summarize-result-section'],
   improve: ['improve-section', 'improve-result-section'],
+  extract: ['extract-section', 'extract-result-section'],
 };
 
 function switchTab(tabName: string): void {
@@ -492,6 +501,70 @@ async function handleAcceptChanges(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
+// Extract Action Items handlers
+// ---------------------------------------------------------------------------
+
+async function handleExtract(): Promise<void> {
+  hideError();
+  showLoading('Scanning for action items...');
+
+  try {
+    const items = await extractActionItems();
+    const container = $('extract-checklist');
+    if (container) {
+      container.innerHTML = renderChecklistHtml(items);
+    }
+    showElement('extract-result-section');
+  } catch (err: any) {
+    showError(err.message || 'Failed to extract action items.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleRegenerateExtract(): Promise<void> {
+  hideError();
+  showLoading('Re-scanning for action items...');
+
+  try {
+    const items = await regenerateActions();
+    const container = $('extract-checklist');
+    if (container) {
+      container.innerHTML = renderChecklistHtml(items);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to re-extract.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleCopyTasks(): Promise<void> {
+  const items = getLastItems();
+  if (items.length === 0) {
+    showError('No action items to copy.');
+    return;
+  }
+
+  try {
+    const text = formatAsTaskList(items);
+    await copyTasksToClipboard(text);
+    const btn = $('btn-copy-tasks');
+    if (btn) {
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
+      btn.classList.add('glide-btn--success');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('glide-btn--success');
+      }, 1500);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to copy tasks.');
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Initialization
 // ---------------------------------------------------------------------------
 
@@ -548,6 +621,11 @@ Office.onReady((info) => {
     $('btn-improve')?.addEventListener('click', handleImprove);
     $('btn-regenerate-improve')?.addEventListener('click', handleRegenerateImprove);
     $('btn-accept-changes')?.addEventListener('click', handleAcceptChanges);
+
+    // --- Extract ---
+    $('btn-extract')?.addEventListener('click', handleExtract);
+    $('btn-regenerate-extract')?.addEventListener('click', handleRegenerateExtract);
+    $('btn-copy-tasks')?.addEventListener('click', handleCopyTasks);
 
     // --- Error banner ---
     $('btn-dismiss-error')?.addEventListener('click', hideError);
