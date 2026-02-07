@@ -700,3 +700,91 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--glide-text-tertiary);
 }
+
+/* ================================================================
+   Hint text
+   ================================================================ */
+
+.glide-hint {
+  font-size: var(--glide-font-size-sm);
+  color: var(--glide-text-tertiary);
+  margin-bottom: var(--glide-space-md);
+  line-height: 1.5;
+}
+
+/* ================================================================
+   Vertical radio group modifier
+   ================================================================ */
+
+.glide-radio-group--vertical {
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ================================================================
+   Diff view
+   ================================================================ */
+
+.glide-diff-container {
+  margin-bottom: var(--glide-space-md);
+}
+
+.glide-diff {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.glide-diff__panel {
+  border: 1px solid var(--glide-border-light);
+  border-radius: var(--glide-radius-sm);
+  overflow: hidden;
+}
+
+.glide-diff__panel--improved {
+  border-color: rgba(26, 127, 55, 0.2);
+}
+
+.glide-diff__label {
+  font-size: var(--glide-font-size-xs);
+  font-weight: var(--glide-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 5px 10px;
+  background: var(--glide-bg-panel);
+  color: var(--glide-text-tertiary);
+  border-bottom: 1px solid var(--glide-border-light);
+}
+
+.glide-diff__panel--improved .glide-diff__label {
+  background: rgba(26, 127, 55, 0.05);
+  color: var(--glide-success);
+}
+
+.glide-diff__content {
+  padding: 10px 12px;
+  font-size: var(--glide-font-size-sm);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Deletion highlight (original side) */
+.glide-diff__del {
+  background: #FFEEF0;
+  color: #B31D28;
+  text-decoration: line-through;
+  text-decoration-color: rgba(179, 29, 40, 0.4);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* Insertion highlight (improved side) */
+.glide-diff__ins {
+  background: #E6FFEC;
+  color: #22863A;
+  border-radius: 2px;
+  padding: 0 1px;
+}

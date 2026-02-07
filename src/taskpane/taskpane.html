@@ -89,6 +89,10 @@
           <i class="ms-Icon ms-Icon--Articles"></i>
           Summarize
         </button>
+        <button id="tab-improve" class="glide-tab" data-tab="improve">
+          <i class="ms-Icon ms-Icon--PageEdit"></i>
+          Improve
+        </button>
       </nav>
 
       <!-- Draft Email Form ------------------------------------------ -->
@@ -388,6 +392,89 @@
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
             Regenerate
+          </button>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- Improve Writing Section                                           -->
+      <!-- ================================================================ -->
+
+      <!-- Improve Form ------------------------------------------------ -->
+      <section id="improve-section" class="glide-section" style="display: none">
+        <h2 class="glide-section__title">
+          <i class="ms-Icon ms-Icon--PageEdit"></i>
+          Improve Writing
+        </h2>
+
+        <p class="glide-hint">
+          Select text in your email, or Glide will use the full body.
+        </p>
+
+        <!-- Improvement focus (radio buttons) -->
+        <div class="glide-field">
+          <label class="glide-field__label">What to improve</label>
+          <div class="glide-radio-group glide-radio-group--vertical">
+            <label class="glide-radio">
+              <input type="radio" name="improve-focus" value="fix_grammar" checked />
+              <span class="glide-radio__mark"></span>
+              <span>Fix Grammar &amp; Spelling</span>
+            </label>
+            <label class="glide-radio">
+              <input type="radio" name="improve-focus" value="improve_clarity" />
+              <span class="glide-radio__mark"></span>
+              <span>Improve Clarity</span>
+            </label>
+            <label class="glide-radio">
+              <input type="radio" name="improve-focus" value="make_concise" />
+              <span class="glide-radio__mark"></span>
+              <span>Make Concise</span>
+            </label>
+            <label class="glide-radio">
+              <input type="radio" name="improve-focus" value="make_professional" />
+              <span class="glide-radio__mark"></span>
+              <span>Make Professional</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Improve button -->
+        <button id="btn-improve" class="glide-btn glide-btn--primary glide-btn--full">
+          <i class="ms-Icon ms-Icon--LightningBolt"></i>
+          Improve
+        </button>
+      </section>
+
+      <!-- Improve result area ----------------------------------------- -->
+      <section
+        id="improve-result-section"
+        class="glide-section glide-section--result"
+        style="display: none"
+      >
+        <h2 class="glide-section__title">
+          <i class="ms-Icon ms-Icon--TextDocument"></i>
+          Changes
+        </h2>
+
+        <!-- Diff view -->
+        <div id="improve-diff" class="glide-diff-container"></div>
+
+        <!-- Improve action buttons -->
+        <div class="glide-actions">
+          <button
+            id="btn-accept-changes"
+            class="glide-btn glide-btn--primary"
+            title="Accept and replace the original text"
+          >
+            <i class="ms-Icon ms-Icon--Accept"></i>
+            Accept Changes
+          </button>
+          <button
+            id="btn-regenerate-improve"
+            class="glide-btn glide-btn--secondary"
+            title="Generate a new improvement"
+          >
+            <i class="ms-Icon ms-Icon--Refresh"></i>
           </button>
         </div>
       </section>

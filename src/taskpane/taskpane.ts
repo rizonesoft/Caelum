@@ -35,6 +35,14 @@ import {
   SummaryStyle,
   SummaryLength,
 } from '../features/summarize-thread';
+import {
+  improveWriting,
+  regenerateImprovement,
+  acceptChanges,
+  generateDiffHtml,
+  ImproveOptions,
+  ImprovementFocus,
+} from '../features/improve-writing';
 
 // ---------------------------------------------------------------------------
 // DOM helpers
@@ -105,6 +113,7 @@ const TAB_CONFIG: Record<string, string[]> = {
   draft: ['draft-section', 'result-section'],
   reply: ['reply-section', 'reply-result-section'],
   summarize: ['summarize-section', 'summarize-result-section'],
+  improve: ['improve-section', 'improve-result-section'],
 };
 
 function switchTab(tabName: string): void {
@@ -413,6 +422,76 @@ async function handleCopySummary(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
+// Improve Writing handlers
+// ---------------------------------------------------------------------------
+
+function getSelectedFocus(): ImprovementFocus {
+  const checked = document.querySelector('input[name="improve-focus"]:checked') as HTMLInputElement;
+  return (checked?.value as ImprovementFocus) || 'fix_grammar';
+}
+
+async function handleImprove(): Promise<void> {
+  const focus = getSelectedFocus();
+  const options: ImproveOptions = { focus };
+
+  hideError();
+  showLoading('Improving with Gemini...');
+
+  try {
+    const result = await improveWriting(options);
+    const diffContainer = $('improve-diff');
+    if (diffContainer) {
+      diffContainer.innerHTML = generateDiffHtml(result.original, result.improved);
+    }
+    showElement('improve-result-section');
+  } catch (err: any) {
+    showError(err.message || 'Failed to improve text. Please try again.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleRegenerateImprove(): Promise<void> {
+  hideError();
+  showLoading('Regenerating improvement...');
+
+  try {
+    const result = await regenerateImprovement();
+    const diffContainer = $('improve-diff');
+    if (diffContainer) {
+      diffContainer.innerHTML = generateDiffHtml(result.original, result.improved);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to regenerate. Please try again.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleAcceptChanges(): Promise<void> {
+  hideError();
+
+  try {
+    const action = await acceptChanges();
+    const btn = $('btn-accept-changes');
+    if (btn) {
+      const original = btn.innerHTML;
+      const msg = action === 'replaced'
+        ? '<i class="ms-Icon ms-Icon--CheckMark"></i> Replaced!'
+        : '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
+      btn.innerHTML = msg;
+      btn.classList.add('glide-btn--success');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('glide-btn--success');
+      }, 1500);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to accept changes.');
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Initialization
 // ---------------------------------------------------------------------------
 
@@ -464,6 +543,11 @@ Office.onReady((info) => {
     $('btn-summarize')?.addEventListener('click', handleSummarize);
     $('btn-regenerate-summary')?.addEventListener('click', handleRegenerateSummary);
     $('btn-copy-summary')?.addEventListener('click', handleCopySummary);
+
+    // --- Improve ---
+    $('btn-improve')?.addEventListener('click', handleImprove);
+    $('btn-regenerate-improve')?.addEventListener('click', handleRegenerateImprove);
+    $('btn-accept-changes')?.addEventListener('click', handleAcceptChanges);
 
     // --- Error banner ---
     $('btn-dismiss-error')?.addEventListener('click', hideError);

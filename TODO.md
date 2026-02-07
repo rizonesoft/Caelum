@@ -162,13 +162,13 @@
 
 ### 3.5 Feature: Improve Writing
 
-- [ ] Create `src/features/improve-writing.ts`
-- [ ] Read selected text or full compose body
-- [ ] Build a task pane form:
-  - [ ] Radio buttons: Fix Grammar, Improve Clarity, Make Concise, Make Professional
-  - [ ] "Improve" button
-- [ ] Show a before/after diff view (highlight changes)
-- [ ] Add "Accept Changes" button to replace the original text
+- [x] Create `src/features/improve-writing.ts`
+- [x] Read selected text or full compose body
+- [x] Build a task pane form:
+  - [x] Radio buttons: Fix Grammar, Improve Clarity, Make Concise, Make Professional
+  - [x] "Improve" button
+- [x] Show a before/after diff view (highlight changes)
+- [x] Add "Accept Changes" button to replace the original text
 
 ### 3.6 Feature: Extract Action Items
 
