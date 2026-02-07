@@ -29,24 +29,24 @@
       rel="stylesheet"
     />
 
-
   </head>
 
-  <body class="ms-Fabric">
+  <body class="ms-Fabric m-0 p-0 bg-glide-bg text-glide-text font-glide text-md leading-normal antialiased overflow-x-hidden">
 
     <!-- ================================================================ -->
     <!-- Sideload message (shown when add-in isn't activated)             -->
     <!-- ================================================================ -->
-    <section id="sideload-msg" class="glide-sideload">
-      <div class="glide-sideload__icon">
+    <section id="sideload-msg" class="flex flex-col items-center justify-center min-h-[50vh] p-xl text-center text-glide-text-secondary">
+      <div class="mb-md text-glide-blue">
         <i class="ms-Icon ms-Icon--PlugDisconnected ms-font-xxl"></i>
       </div>
-      <h2>Add-in Not Loaded</h2>
-      <p>
+      <h2 class="text-xl font-semibold text-glide-text mb-xs">Add-in Not Loaded</h2>
+      <p class="text-sm">
         Please
         <a
           target="_blank"
           href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing"
+          class="text-glide-blue no-underline hover:underline"
           >sideload</a
         >
         the add-in to get started.
@@ -59,7 +59,7 @@
     <main id="app-body" style="display: none">
 
       <!-- Tab bar — 3 buttons, last has dropdown ---------------------- -->
-      <nav class="glide-tabs">
+      <nav class="glide-tabs flex items-center gap-0 border-b border-glide-border-light bg-glide-bg sticky top-0 z-10">
         <button id="tab-draft" class="glide-tab glide-tab--active" data-tab="draft">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>
           <span>Draft</span>
@@ -72,24 +72,24 @@
         <button id="tab-settings" class="glide-tab glide-tab--icon" title="Settings">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
-        <div class="glide-split">
+        <div class="glide-split relative">
           <button id="tab-more" class="glide-tab glide-tab--icon" data-tab="more" title="More features">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
           </button>
-          <div id="more-dropdown" class="glide-dropdown" style="display: none">
-            <button class="glide-dropdown__item" data-tab="summarize">
+          <div id="more-dropdown" class="glide-dropdown absolute right-0 top-full mt-xs bg-glide-bg-elevated border border-glide-border rounded-sm shadow-lg z-20 min-w-[180px]" style="display: none">
+            <button class="glide-dropdown__item flex items-center gap-sm w-full px-md py-sm text-sm text-glide-text-secondary hover:bg-glide-bg-panel hover:text-glide-text transition-colors duration-[var(--duration-glide)]" data-tab="summarize">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg>
               <span>Summarize</span>
             </button>
-            <button class="glide-dropdown__item" data-tab="improve">
+            <button class="glide-dropdown__item flex items-center gap-sm w-full px-md py-sm text-sm text-glide-text-secondary hover:bg-glide-bg-panel hover:text-glide-text transition-colors duration-[var(--duration-glide)]" data-tab="improve">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m9 15 2 2 4-4"/></svg>
               <span>Improve Writing</span>
             </button>
-            <button class="glide-dropdown__item" data-tab="extract">
+            <button class="glide-dropdown__item flex items-center gap-sm w-full px-md py-sm text-sm text-glide-text-secondary hover:bg-glide-bg-panel hover:text-glide-text transition-colors duration-[var(--duration-glide)]" data-tab="extract">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
               <span>Extract Action Items</span>
             </button>
-            <button class="glide-dropdown__item" data-tab="translate">
+            <button class="glide-dropdown__item flex items-center gap-sm w-full px-md py-sm text-sm text-glide-text-secondary hover:bg-glide-bg-panel hover:text-glide-text transition-colors duration-[var(--duration-glide)]" data-tab="translate">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
               <span>Translate</span>
             </button>
@@ -98,39 +98,39 @@
       </nav>
 
       <!-- Draft Email Form ------------------------------------------ -->
-      <section id="draft-section" class="glide-section">
-        <h2 class="glide-section__title">
+      <section id="draft-section" class="glide-section p-md">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--EditMail"></i>
           Draft a New Email
         </h2>
 
         <!-- Instructions -->
-        <div class="glide-field">
-          <label class="glide-field__label" for="draft-instructions">
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="draft-instructions">
             Instructions / bullet points
           </label>
           <textarea
             id="draft-instructions"
-            class="glide-textarea"
+            class="glide-textarea w-full p-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide resize-y focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
             rows="5"
             placeholder="e.g. Thank the client for the meeting, confirm next steps, mention deadline is Friday..."
           ></textarea>
         </div>
 
         <!-- Tone & Length row -->
-        <div class="glide-row">
-          <div class="glide-field glide-field--half">
-            <label class="glide-field__label" for="draft-tone">Tone</label>
-            <select id="draft-tone" class="glide-select">
+        <div class="flex gap-sm mb-md">
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="draft-tone">Tone</label>
+            <select id="draft-tone" class="glide-select w-full p-sm font-glide text-md text-glide-text bg-glide-bg border border-glide-border rounded-sm outline-none cursor-pointer hover:border-glide-text-secondary focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color] duration-[var(--duration-glide)]">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
               <option value="friendly">Friendly</option>
               <option value="casual">Casual</option>
             </select>
           </div>
-          <div class="glide-field glide-field--half">
-            <label class="glide-field__label" for="draft-length">Length</label>
-            <select id="draft-length" class="glide-select">
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="draft-length">Length</label>
+            <select id="draft-length" class="glide-select w-full p-sm font-glide text-md text-glide-text bg-glide-bg border border-glide-border rounded-sm outline-none cursor-pointer hover:border-glide-text-secondary focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color] duration-[var(--duration-glide)]">
               <option value="short">Short</option>
               <option value="medium" selected>Medium</option>
               <option value="detailed">Detailed</option>
@@ -139,7 +139,7 @@
         </div>
 
         <!-- Generate button -->
-        <button id="btn-generate" class="glide-btn glide-btn--primary">
+        <button id="btn-generate" class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
           Generate Draft
         </button>
@@ -148,21 +148,21 @@
       <!-- Result area (hidden until a draft is generated) ----------- -->
       <section
         id="result-section"
-        class="glide-section glide-section--result"
+        class="glide-section glide-section--result p-md border-t border-glide-border-light"
         style="display: none"
       >
-        <h2 class="glide-section__title">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Generated Draft
         </h2>
 
-        <div id="draft-preview" class="glide-preview"></div>
+        <div id="draft-preview" class="glide-preview bg-glide-bg-panel border border-glide-border-light rounded-sm p-md text-md leading-relaxed mb-md max-h-[300px] overflow-y-auto"></div>
 
         <!-- Action buttons -->
-        <div class="glide-actions">
+        <div class="flex gap-sm flex-wrap mb-md">
           <button
             id="btn-copy-compose"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Open a new email with this draft"
           >
             <i class="ms-Icon ms-Icon--NewMail"></i>
@@ -170,7 +170,7 @@
           </button>
           <button
             id="btn-regenerate"
-            class="glide-btn glide-btn--secondary"
+            class="glide-btn glide-btn--secondary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-bg text-glide-text-secondary border border-glide-border hover:border-glide-text-secondary hover:text-glide-text active:scale-[0.97]"
             title="Generate a new version"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -179,16 +179,16 @@
         </div>
 
         <!-- Refine input -->
-        <div class="glide-field glide-field--refine">
-          <label class="glide-field__label" for="refine-input">Refine this draft</label>
-          <div class="glide-refine-row">
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="refine-input">Refine this draft</label>
+          <div class="flex gap-xs">
             <input
               id="refine-input"
               type="text"
-              class="glide-input"
+              class="glide-input flex-1 px-sm py-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide outline-none focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
               placeholder="e.g. make it shorter, add a P.S. note..."
             />
-            <button id="btn-refine" class="glide-btn glide-btn--accent" title="Refine the draft">
+            <button id="btn-refine" class="glide-btn glide-btn--accent inline-flex items-center justify-center px-sm py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-purple text-glide-text-inverse border-none hover:bg-glide-purple-hover active:scale-[0.97]" title="Refine the draft">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
@@ -200,58 +200,58 @@
       <!-- ================================================================ -->
 
       <!-- Reply Form ------------------------------------------------ -->
-      <section id="reply-section" class="glide-section" style="display: none">
-        <h2 class="glide-section__title">
+      <section id="reply-section" class="glide-section p-md" style="display: none">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--Reply"></i>
           Draft a Reply
         </h2>
 
         <!-- Email context banner (auto-populated) -->
-        <div id="reply-context" class="glide-context-banner">
-          <div class="glide-context-banner__row">
-            <span class="glide-context-banner__label">From:</span>
-            <span id="reply-sender" class="glide-context-banner__value">Loading...</span>
+        <div id="reply-context" class="bg-glide-bg-panel border border-glide-border-light rounded-sm p-sm mb-md text-sm">
+          <div class="flex gap-sm mb-xs">
+            <span class="font-medium text-glide-text-secondary min-w-[55px]">From:</span>
+            <span id="reply-sender" class="text-glide-text truncate">Loading...</span>
           </div>
-          <div class="glide-context-banner__row">
-            <span class="glide-context-banner__label">Subject:</span>
-            <span id="reply-subject" class="glide-context-banner__value">Loading...</span>
+          <div class="flex gap-sm">
+            <span class="font-medium text-glide-text-secondary min-w-[55px]">Subject:</span>
+            <span id="reply-subject" class="text-glide-text truncate">Loading...</span>
           </div>
         </div>
 
         <!-- Reply instructions -->
-        <div class="glide-field">
-          <label class="glide-field__label" for="reply-instructions">
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="reply-instructions">
             Reply instructions
           </label>
           <textarea
             id="reply-instructions"
-            class="glide-textarea"
+            class="glide-textarea w-full p-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide resize-y focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
             rows="4"
             placeholder='e.g. Agree to the meeting, decline politely, ask for more details...'
           ></textarea>
         </div>
 
         <!-- Tone & options row -->
-        <div class="glide-row">
-          <div class="glide-field glide-field--half">
-            <label class="glide-field__label" for="reply-tone">Tone</label>
-            <select id="reply-tone" class="glide-select">
+        <div class="flex gap-sm mb-md">
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="reply-tone">Tone</label>
+            <select id="reply-tone" class="glide-select w-full p-sm font-glide text-md text-glide-text bg-glide-bg border border-glide-border rounded-sm outline-none cursor-pointer hover:border-glide-text-secondary focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color] duration-[var(--duration-glide)]">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
               <option value="friendly">Friendly</option>
               <option value="casual">Casual</option>
             </select>
           </div>
-          <div class="glide-field glide-field--half glide-field--checkbox">
-            <label class="glide-checkbox">
-              <input id="reply-include-original" type="checkbox" checked />
+          <div class="flex-1 flex items-end pb-[2px]">
+            <label class="glide-checkbox inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input id="reply-include-original" type="checkbox" checked class="w-4 h-4 accent-glide-blue cursor-pointer" />
               <span>Include original</span>
             </label>
           </div>
         </div>
 
         <!-- Generate reply button -->
-        <button id="btn-generate-reply" class="glide-btn glide-btn--primary glide-btn--full">
+        <button id="btn-generate-reply" class="glide-btn glide-btn--primary glide-btn--full w-full inline-flex items-center justify-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
           Generate Reply
         </button>
@@ -260,21 +260,21 @@
       <!-- Reply result area ----------------------------------------- -->
       <section
         id="reply-result-section"
-        class="glide-section glide-section--result"
+        class="glide-section glide-section--result p-md border-t border-glide-border-light"
         style="display: none"
       >
-        <h2 class="glide-section__title">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Generated Reply
         </h2>
 
-        <div id="reply-preview" class="glide-preview"></div>
+        <div id="reply-preview" class="glide-preview bg-glide-bg-panel border border-glide-border-light rounded-sm p-md text-md leading-relaxed mb-md max-h-[300px] overflow-y-auto"></div>
 
         <!-- Reply action buttons -->
-        <div class="glide-actions">
+        <div class="flex gap-sm flex-wrap mb-md">
           <button
             id="btn-insert-reply"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Insert into Reply"
           >
             <i class="ms-Icon ms-Icon--Reply"></i>
@@ -282,7 +282,7 @@
           </button>
           <button
             id="btn-insert-reply-all"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Insert into Reply All"
           >
             <i class="ms-Icon ms-Icon--ReplyAll"></i>
@@ -290,7 +290,7 @@
           </button>
           <button
             id="btn-regenerate-reply"
-            class="glide-btn glide-btn--secondary"
+            class="glide-btn glide-btn--secondary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-bg text-glide-text-secondary border border-glide-border hover:border-glide-text-secondary hover:text-glide-text active:scale-[0.97]"
             title="Generate a new version"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -298,16 +298,16 @@
         </div>
 
         <!-- Refine reply input -->
-        <div class="glide-field glide-field--refine">
-          <label class="glide-field__label" for="reply-refine-input">Refine this reply</label>
-          <div class="glide-refine-row">
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="reply-refine-input">Refine this reply</label>
+          <div class="flex gap-xs">
             <input
               id="reply-refine-input"
               type="text"
-              class="glide-input"
+              class="glide-input flex-1 px-sm py-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide outline-none focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
               placeholder="e.g. make it more concise, soften the tone..."
             />
-            <button id="btn-refine-reply" class="glide-btn glide-btn--accent" title="Refine">
+            <button id="btn-refine-reply" class="glide-btn glide-btn--accent inline-flex items-center justify-center px-sm py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-purple text-glide-text-inverse border-none hover:bg-glide-purple-hover active:scale-[0.97]" title="Refine">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
@@ -319,38 +319,35 @@
       <!-- ================================================================ -->
 
       <!-- Summarize Form ---------------------------------------------- -->
-      <section id="summarize-section" class="glide-section" style="display: none">
-        <h2 class="glide-section__title">
+      <section id="summarize-section" class="glide-section p-md" style="display: none">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--Articles"></i>
           Summarize Email
         </h2>
 
         <!-- Summary style (radio buttons) -->
-        <div class="glide-field">
-          <label class="glide-field__label">Summary format</label>
-          <div class="glide-radio-group">
-            <label class="glide-radio">
-              <input type="radio" name="summary-style" value="bullets" checked />
-              <span class="glide-radio__mark"></span>
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs">Summary format</label>
+          <div class="glide-radio-group flex gap-sm flex-wrap">
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="summary-style" value="bullets" checked class="w-4 h-4 accent-glide-blue" />
               <span>Bullet points</span>
             </label>
-            <label class="glide-radio">
-              <input type="radio" name="summary-style" value="paragraph" />
-              <span class="glide-radio__mark"></span>
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="summary-style" value="paragraph" class="w-4 h-4 accent-glide-blue" />
               <span>Paragraph</span>
             </label>
-            <label class="glide-radio">
-              <input type="radio" name="summary-style" value="tldr" />
-              <span class="glide-radio__mark"></span>
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="summary-style" value="tldr" class="w-4 h-4 accent-glide-blue" />
               <span>TL;DR</span>
             </label>
           </div>
         </div>
 
         <!-- Summary length -->
-        <div class="glide-field">
-          <label class="glide-field__label" for="summary-length">Length</label>
-          <select id="summary-length" class="glide-select">
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="summary-length">Length</label>
+          <select id="summary-length" class="glide-select w-full p-sm font-glide text-md text-glide-text bg-glide-bg border border-glide-border rounded-sm outline-none cursor-pointer hover:border-glide-text-secondary focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color] duration-[var(--duration-glide)]">
             <option value="brief">Brief (2-3 sentences)</option>
             <option value="standard" selected>Standard (1 paragraph)</option>
             <option value="detailed">Detailed (multiple paragraphs)</option>
@@ -358,7 +355,7 @@
         </div>
 
         <!-- Summarize button -->
-        <button id="btn-summarize" class="glide-btn glide-btn--primary glide-btn--full">
+        <button id="btn-summarize" class="glide-btn glide-btn--primary glide-btn--full w-full inline-flex items-center justify-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]">
           <i class="ms-Icon ms-Icon--LightningBolt"></i>
           Summarize
         </button>
@@ -367,21 +364,21 @@
       <!-- Summarize result area --------------------------------------- -->
       <section
         id="summarize-result-section"
-        class="glide-section glide-section--result"
+        class="glide-section glide-section--result p-md border-t border-glide-border-light"
         style="display: none"
       >
-        <h2 class="glide-section__title">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Summary
         </h2>
 
-        <div id="summary-preview" class="glide-preview glide-preview--readonly"></div>
+        <div id="summary-preview" class="glide-preview glide-preview--readonly bg-glide-bg-panel border border-glide-border-light rounded-sm p-md text-md leading-relaxed mb-md max-h-[300px] overflow-y-auto"></div>
 
         <!-- Summary action buttons -->
-        <div class="glide-actions">
+        <div class="flex gap-sm flex-wrap">
           <button
             id="btn-copy-summary"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Copy summary to clipboard"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -389,7 +386,7 @@
           </button>
           <button
             id="btn-regenerate-summary"
-            class="glide-btn glide-btn--secondary"
+            class="glide-btn glide-btn--secondary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-bg text-glide-text-secondary border border-glide-border hover:border-glide-text-secondary hover:text-glide-text active:scale-[0.97]"
             title="Generate a new summary"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -403,45 +400,41 @@
       <!-- ================================================================ -->
 
       <!-- Improve Form ------------------------------------------------ -->
-      <section id="improve-section" class="glide-section" style="display: none">
-        <h2 class="glide-section__title">
+      <section id="improve-section" class="glide-section p-md" style="display: none">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--PageEdit"></i>
           Improve Writing
         </h2>
 
-        <p class="glide-hint">
+        <p class="text-sm text-glide-text-tertiary mb-md italic">
           Select text in your email, or Glide will use the full body.
         </p>
 
         <!-- Improvement focus (radio buttons) -->
-        <div class="glide-field">
-          <label class="glide-field__label">What to improve</label>
-          <div class="glide-radio-group glide-radio-group--vertical">
-            <label class="glide-radio">
-              <input type="radio" name="improve-focus" value="fix_grammar" checked />
-              <span class="glide-radio__mark"></span>
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs">What to improve</label>
+          <div class="glide-radio-group glide-radio-group--vertical flex flex-col gap-sm">
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="improve-focus" value="fix_grammar" checked class="w-4 h-4 accent-glide-blue" />
               <span>Fix Grammar &amp; Spelling</span>
             </label>
-            <label class="glide-radio">
-              <input type="radio" name="improve-focus" value="improve_clarity" />
-              <span class="glide-radio__mark"></span>
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="improve-focus" value="improve_clarity" class="w-4 h-4 accent-glide-blue" />
               <span>Improve Clarity</span>
             </label>
-            <label class="glide-radio">
-              <input type="radio" name="improve-focus" value="make_concise" />
-              <span class="glide-radio__mark"></span>
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="improve-focus" value="make_concise" class="w-4 h-4 accent-glide-blue" />
               <span>Make Concise</span>
             </label>
-            <label class="glide-radio">
-              <input type="radio" name="improve-focus" value="make_professional" />
-              <span class="glide-radio__mark"></span>
+            <label class="glide-radio inline-flex items-center gap-xs cursor-pointer text-sm text-glide-text">
+              <input type="radio" name="improve-focus" value="make_professional" class="w-4 h-4 accent-glide-blue" />
               <span>Make Professional</span>
             </label>
           </div>
         </div>
 
         <!-- Improve button -->
-        <button id="btn-improve" class="glide-btn glide-btn--primary glide-btn--full">
+        <button id="btn-improve" class="glide-btn glide-btn--primary glide-btn--full w-full inline-flex items-center justify-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]">
           <i class="ms-Icon ms-Icon--LightningBolt"></i>
           Improve
         </button>
@@ -450,22 +443,22 @@
       <!-- Improve result area ----------------------------------------- -->
       <section
         id="improve-result-section"
-        class="glide-section glide-section--result"
+        class="glide-section glide-section--result p-md border-t border-glide-border-light"
         style="display: none"
       >
-        <h2 class="glide-section__title">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <i class="ms-Icon ms-Icon--TextDocument"></i>
           Changes
         </h2>
 
         <!-- Diff view -->
-        <div id="improve-diff" class="glide-diff-container"></div>
+        <div id="improve-diff" class="glide-diff-container mb-md"></div>
 
         <!-- Improve action buttons -->
-        <div class="glide-actions">
+        <div class="flex gap-sm flex-wrap">
           <button
             id="btn-accept-changes"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Accept and replace the original text"
           >
             <i class="ms-Icon ms-Icon--Accept"></i>
@@ -473,7 +466,7 @@
           </button>
           <button
             id="btn-regenerate-improve"
-            class="glide-btn glide-btn--secondary"
+            class="glide-btn glide-btn--secondary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-bg text-glide-text-secondary border border-glide-border hover:border-glide-text-secondary hover:text-glide-text active:scale-[0.97]"
             title="Generate a new improvement"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -486,18 +479,18 @@
       <!-- ================================================================ -->
 
       <!-- Extract Form ------------------------------------------------ -->
-      <section id="extract-section" class="glide-section" style="display: none">
-        <h2 class="glide-section__title">
+      <section id="extract-section" class="glide-section p-md" style="display: none">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
           Extract Action Items
         </h2>
 
-        <p class="glide-hint">
+        <p class="text-sm text-glide-text-tertiary mb-md italic">
           Glide will scan the current email for tasks, owners, and deadlines.
         </p>
 
         <!-- Extract button -->
-        <button id="btn-extract" class="glide-btn glide-btn--primary glide-btn--full">
+        <button id="btn-extract" class="glide-btn glide-btn--primary glide-btn--full w-full inline-flex items-center justify-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
           Extract Tasks
         </button>
@@ -506,22 +499,22 @@
       <!-- Extract result area ----------------------------------------- -->
       <section
         id="extract-result-section"
-        class="glide-section glide-section--result"
+        class="glide-section glide-section--result p-md border-t border-glide-border-light"
         style="display: none"
       >
-        <h2 class="glide-section__title">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
           Action Items
         </h2>
 
         <!-- Checklist -->
-        <div id="extract-checklist" class="glide-checklist-container"></div>
+        <div id="extract-checklist" class="glide-checklist-container mb-md"></div>
 
         <!-- Extract action buttons -->
-        <div class="glide-actions">
+        <div class="flex gap-sm flex-wrap">
           <button
             id="btn-copy-tasks"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Copy tasks as plain text"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -529,7 +522,7 @@
           </button>
           <button
             id="btn-regenerate-extract"
-            class="glide-btn glide-btn--secondary"
+            class="glide-btn glide-btn--secondary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-bg text-glide-text-secondary border border-glide-border hover:border-glide-text-secondary hover:text-glide-text active:scale-[0.97]"
             title="Re-extract action items"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -542,20 +535,20 @@
       <!-- ================================================================ -->
 
       <!-- Translate Form ---------------------------------------------- -->
-      <section id="translate-section" class="glide-section" style="display: none">
-        <h2 class="glide-section__title">
+      <section id="translate-section" class="glide-section p-md" style="display: none">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
           Translate Email
         </h2>
 
-        <p class="glide-hint">
+        <p class="text-sm text-glide-text-tertiary mb-md italic">
           Translate the current email into another language.
         </p>
 
         <!-- Language selector -->
-        <div class="glide-field">
-          <label class="glide-label" for="translate-language">Target Language</label>
-          <select id="translate-language" class="glide-select">
+        <div class="mb-md">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="translate-language">Target Language</label>
+          <select id="translate-language" class="glide-select w-full p-sm font-glide text-md text-glide-text bg-glide-bg border border-glide-border rounded-sm outline-none cursor-pointer hover:border-glide-text-secondary focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] transition-[border-color] duration-[var(--duration-glide)]">
             <option value="Afrikaans">Afrikaans</option>
             <option value="Arabic">Arabic</option>
             <option value="Chinese (Simplified)">Chinese (Simplified)</option>
@@ -580,7 +573,7 @@
         </div>
 
         <!-- Translate button -->
-        <button id="btn-translate" class="glide-btn glide-btn--primary glide-btn--full">
+        <button id="btn-translate" class="glide-btn glide-btn--primary glide-btn--full w-full inline-flex items-center justify-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
           Translate
         </button>
@@ -589,22 +582,22 @@
       <!-- Translate result area --------------------------------------- -->
       <section
         id="translate-result-section"
-        class="glide-section glide-section--result"
+        class="glide-section glide-section--result p-md border-t border-glide-border-light"
         style="display: none"
       >
-        <h2 class="glide-section__title">
+        <h2 class="glide-section__title flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
           Translation
         </h2>
 
         <!-- Side-by-side view -->
-        <div id="translate-output" class="glide-translate-container"></div>
+        <div id="translate-output" class="glide-translate-container mb-md"></div>
 
         <!-- Translate action buttons -->
-        <div class="glide-actions">
+        <div class="flex gap-sm flex-wrap">
           <button
             id="btn-copy-translation"
-            class="glide-btn glide-btn--primary"
+            class="glide-btn glide-btn--primary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-blue text-glide-text-inverse border-none hover:bg-glide-blue-hover active:scale-[0.97]"
             title="Copy translation to clipboard"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -612,7 +605,7 @@
           </button>
           <button
             id="btn-regenerate-translate"
-            class="glide-btn glide-btn--secondary"
+            class="glide-btn glide-btn--secondary inline-flex items-center gap-xs px-lg py-sm rounded-sm text-sm font-medium cursor-pointer transition-all duration-[var(--duration-glide)] bg-glide-bg text-glide-text-secondary border border-glide-border hover:border-glide-text-secondary hover:text-glide-text active:scale-[0.97]"
             title="Translate again"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -621,16 +614,16 @@
       </section>
 
       <!-- Loading overlay ------------------------------------------- -->
-      <div id="loading-overlay" class="glide-loading" style="display: none">
-        <div class="glide-loading__spinner"></div>
-        <p class="glide-loading__text">Generating with Gemini...</p>
+      <div id="loading-overlay" class="glide-loading fixed inset-0 flex flex-col items-center justify-center bg-white/80 z-50 backdrop-blur-sm" style="display: none">
+        <div class="glide-loading__spinner w-8 h-8 border-[3px] border-glide-border-light border-t-glide-blue rounded-full animate-spin mb-md"></div>
+        <p class="text-sm text-glide-text-secondary font-medium">Generating with Gemini...</p>
       </div>
 
       <!-- Error banner ---------------------------------------------- -->
-      <div id="error-banner" class="glide-error" style="display: none">
+      <div id="error-banner" class="glide-error fixed bottom-md left-md right-md flex items-center gap-sm px-md py-sm bg-glide-error-bg border border-glide-error-border rounded-sm text-glide-error-text text-sm z-50 shadow-lg" style="display: none">
         <i class="ms-Icon ms-Icon--ErrorBadge"></i>
-        <span id="error-message"></span>
-        <button id="btn-dismiss-error" class="glide-error__dismiss" title="Dismiss">
+        <span id="error-message" class="flex-1"></span>
+        <button id="btn-dismiss-error" class="glide-error__dismiss flex items-center justify-center w-6 h-6 rounded-xs bg-transparent border-none text-glide-error-text cursor-pointer opacity-60 hover:opacity-100 transition-opacity" title="Dismiss">
           <i class="ms-Icon ms-Icon--Cancel"></i>
         </button>
       </div>

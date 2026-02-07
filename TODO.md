@@ -193,11 +193,11 @@
 
 ### 4.1 Design System — Tailwind CSS v4
 
-- [ ] Install **Tailwind CSS v4.1** via PostCSS: `npm install -D tailwindcss @tailwindcss/postcss postcss postcss-loader`
-- [ ] Add PostCSS loader to `webpack.config.js` CSS rule
-- [ ] Create `src/styles/main.css` with `@import "tailwindcss"` and custom `@theme` tokens
-- [ ] Define custom design tokens via CSS-first `@theme` (colors, spacing, radii)
-- [ ] Support both **Light** and **Dark** theme (match Outlook's current theme via `prefers-color-scheme` + Office.js detection)
+- [x] Install **Tailwind CSS v4.1** via PostCSS: `npm install -D tailwindcss @tailwindcss/postcss postcss postcss-loader`
+- [x] Add PostCSS loader to `webpack.config.js` CSS rule
+- [x] Create `src/styles/main.css` with `@import "tailwindcss"` and custom `@theme` tokens
+- [x] Define custom design tokens via CSS-first `@theme` (colors, spacing, radii)
+- [x] Support both **Light** and **Dark** theme (match Outlook's current theme via `prefers-color-scheme` + Office.js detection)
 - [ ] Migrate existing `taskpane.css` utility classes to Tailwind equivalents
 - [ ] Ensure all task pane components use Tailwind utility classes
 
