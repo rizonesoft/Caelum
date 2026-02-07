@@ -10,6 +10,7 @@
 /* global document, Office */
 
 import '../styles/main.css';
+import './taskpane.css';
 import { initGeminiClient } from '../services/gemini';
 import {
   generateDraft,

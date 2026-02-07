@@ -8,7 +8,8 @@
    © Rizonetech (Pty) Ltd. — https://rizonesoft.com
    ================================================================ */
 
-@import "tailwindcss";
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
 
 /* ================================================================
    Custom Design Tokens
