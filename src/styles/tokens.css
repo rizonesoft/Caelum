@@ -1,0 +1,31 @@
+/* ------------------------------------------------------------------ */
+/* Glide — Design Tokens                                              */
+/* Custom properties for spacing, radius, and Glide-specific colours  */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Spacing scale (4 px grid) */
+  --glide-space-xxs: 2px;
+  --glide-space-xs: 4px;
+  --glide-space-sm: 8px;
+  --glide-space-md: 12px;
+  --glide-space-lg: 16px;
+  --glide-space-xl: 20px;
+  --glide-space-xxl: 24px;
+
+  /* Radii */
+  --glide-radius-sm: 4px;
+  --glide-radius-md: 8px;
+  --glide-radius-lg: 12px;
+
+  /* Transitions */
+  --glide-transition-fast: 120ms ease;
+  --glide-transition-normal: 200ms ease;
+
+  /* Accent — Glide brand blue (used sparingly alongside Fluent tokens) */
+  --glide-accent: #4f6bed;
+  --glide-accent-hover: #3b57d9;
+
+  /* Task pane width constraints */
+  --glide-pane-max-width: 420px;
+}
