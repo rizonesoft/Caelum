@@ -583,13 +583,64 @@ Office.onReady((info) => {
       // Client will be initialized when the user first triggers an action
     }
 
-    // --- Tab switching ---
-    document.querySelectorAll('.glide-tab').forEach((tab) => {
+    // --- Tab switching + dropdown ---
+    const DROPDOWN_TABS = new Set(['summarize', 'improve', 'extract']);
+    const moreBtn = $('tab-more');
+    const dropdown = $('more-dropdown');
+    const splitContainer = moreBtn?.closest('.glide-split');
+
+    const toggleDropdown = (show?: boolean): void => {
+      if (!dropdown || !splitContainer) return;
+      const isOpen = show !== undefined ? show : dropdown.style.display === 'none';
+      dropdown.style.display = isOpen ? '' : 'none';
+      splitContainer.classList.toggle('glide-split--open', isOpen);
+    }
+
+    // Regular tab buttons (Draft, Reply)
+    document.querySelectorAll('.glide-tabs > .glide-tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         const tabName = (tab as HTMLElement).dataset.tab;
-        if (tabName) switchTab(tabName);
+        if (tabName && tabName !== 'more') {
+          switchTab(tabName);
+          // Clear More button highlight
+          moreBtn?.classList.remove('glide-tab--active');
+          document.querySelectorAll('.glide-dropdown__item').forEach((item) =>
+            item.classList.remove('glide-dropdown__item--active'),
+          );
+          toggleDropdown(false);
+        }
       });
     });
+
+    // More button — toggle dropdown
+    moreBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    // Dropdown items
+    document.querySelectorAll('.glide-dropdown__item').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const tabName = (item as HTMLElement).dataset.tab;
+        if (tabName) {
+          switchTab(tabName);
+          // Highlight the More button and the selected item
+          document.querySelectorAll('.glide-tab').forEach((t) =>
+            t.classList.remove('glide-tab--active'),
+          );
+          moreBtn?.classList.add('glide-tab--active');
+          document.querySelectorAll('.glide-dropdown__item').forEach((di) =>
+            di.classList.remove('glide-dropdown__item--active'),
+          );
+          item.classList.add('glide-dropdown__item--active');
+          toggleDropdown(false);
+        }
+      });
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', () => toggleDropdown(false));
 
     // --- Draft Email ---
     $('btn-generate')?.addEventListener('click', handleGenerate);

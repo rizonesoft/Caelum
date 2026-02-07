@@ -195,39 +195,33 @@ body {
 }
 
 /* ================================================================
-   Tab bar — 2×2 grid with SVG icons
+   Tab bar — 3 buttons in a row, last is a split dropdown
    ================================================================ */
 
 .glide-tabs {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   padding: var(--glide-space-sm) var(--glide-space-lg);
   background: var(--glide-bg);
   border-bottom: 1px solid var(--glide-border);
   flex-shrink: 0;
 }
 
-.glide-tabs--grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding: var(--glide-space-md) var(--glide-space-lg);
-}
-
 .glide-tab {
+  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  padding: 9px 10px;
+  gap: 6px;
+  padding: 8px 10px;
   font-family: var(--glide-font);
   font-size: var(--glide-font-size-sm);
   font-weight: var(--glide-weight-medium);
   color: var(--glide-text-secondary);
   background: var(--glide-bg-panel);
   border: 1px solid var(--glide-border-light);
-  border-radius: var(--glide-radius);
+  border-radius: var(--glide-radius-sm);
   cursor: pointer;
   transition: all var(--glide-duration) var(--glide-ease);
   user-select: none;
@@ -247,13 +241,85 @@ body {
 }
 
 .glide-tab svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
 .glide-tab span {
   line-height: 1;
+}
+
+/* Split button container */
+.glide-split {
+  flex: 1;
+  position: relative;
+}
+
+.glide-split .glide-tab {
+  width: 100%;
+}
+
+.glide-split__caret {
+  width: 12px !important;
+  height: 12px !important;
+  margin-left: -2px;
+  opacity: 0.6;
+  transition: transform var(--glide-duration) var(--glide-ease);
+}
+
+.glide-split--open .glide-split__caret {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.glide-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--glide-bg);
+  border: 1px solid var(--glide-border);
+  border-radius: var(--glide-radius-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  z-index: 50;
+  overflow: hidden;
+}
+
+.glide-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  font-family: var(--glide-font);
+  font-size: var(--glide-font-size-sm);
+  font-weight: var(--glide-weight-medium);
+  color: var(--glide-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--glide-duration) var(--glide-ease);
+  text-align: left;
+}
+
+.glide-dropdown__item:hover {
+  background: var(--glide-bg-panel);
+}
+
+.glide-dropdown__item--active {
+  color: var(--glide-blue);
+  background: var(--glide-blue-light);
+}
+
+.glide-dropdown__item svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.glide-dropdown__item + .glide-dropdown__item {
+  border-top: 1px solid var(--glide-border-light);
 }
 
 /* ================================================================
