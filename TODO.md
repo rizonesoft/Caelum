@@ -191,31 +191,17 @@
 
 ## Phase 4 — UI / UX Design
 
-### 4.1 Design System
+### 4.1 Design System — Tailwind CSS v4
 
-- [ ] Choose a UI framework: **Fluent UI React v9** (`@fluentui/react-components`)
-- [ ] Install Fluent UI: `npm install @fluentui/react-components`
-- [ ] Create `src/styles/` — global styles
-- [ ] Create `src/styles/tokens.css` — custom design tokens (colors, spacing, fonts)
-- [ ] Support both **Light** and **Dark** theme (match Outlook's current theme)
+- [ ] Install **Tailwind CSS v4.1** via PostCSS: `npm install -D tailwindcss @tailwindcss/postcss postcss postcss-loader`
+- [ ] Add PostCSS loader to `webpack.config.js` CSS rule
+- [ ] Create `src/styles/main.css` with `@import "tailwindcss"` and custom `@theme` tokens
+- [ ] Define custom design tokens via CSS-first `@theme` (colors, spacing, radii)
+- [ ] Support both **Light** and **Dark** theme (match Outlook's current theme via `prefers-color-scheme` + Office.js detection)
+- [ ] Migrate existing `taskpane.css` utility classes to Tailwind equivalents
+- [ ] Ensure all task pane components use Tailwind utility classes
 
-### 4.2 Task Pane Layout
-
-- [ ] Create `src/taskpane/App.tsx` — main app wrapper with FluentProvider
-- [ ] Create a **sidebar navigation** or **tab bar** for switching between features:
-  - [ ] Draft Email
-  - [ ] Reply Assistant
-  - [ ] Summarize
-  - [ ] Improve Writing
-  - [ ] Extract Actions
-  - [ ] Translate
-  - [ ] Settings
-- [ ] Add a **header** with the Glide logo and current feature name
-- [ ] Add a **loading spinner** component for API calls
-- [ ] Add **error toast/banner** component for displaying errors
-- [ ] Ensure the task pane is responsive (320px – 500px width)
-
-### 4.3 Settings Page
+### 4.2 Settings Page
 
 - [ ] Create `src/features/settings.ts`
 - [ ] API key input field (masked, with show/hide toggle)
