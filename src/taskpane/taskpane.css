@@ -201,7 +201,7 @@ body {
 .glide-tabs {
   display: flex;
   gap: 4px;
-  padding: var(--glide-space-sm) var(--glide-space-lg);
+  padding: 6px 12px;
   background: var(--glide-bg);
   border-bottom: 1px solid var(--glide-border);
   flex-shrink: 0;
@@ -250,9 +250,15 @@ body {
   line-height: 1;
 }
 
+/* Icon-only tab (More button) */
+.glide-tab--icon {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+}
+
 /* Split button container */
 .glide-split {
-  flex: 1;
+  flex: 0 0 auto;
   position: relative;
 }
 
@@ -330,7 +336,7 @@ body {
 .glide-section {
   background: var(--glide-bg-elevated);
   margin: var(--glide-space-sm) var(--glide-space-sm) 0;
-  padding: var(--glide-space-lg);
+  padding: 12px;
   border-radius: var(--glide-radius);
   border: 1px solid var(--glide-border-light);
 }
