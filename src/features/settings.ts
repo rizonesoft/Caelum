@@ -23,6 +23,8 @@ export type SummaryStyle = 'bullets' | 'paragraph' | 'tldr';
 export interface GlideSettings {
   /** Google Gemini API key (stored in plain text in localStorage). */
   apiKey: string;
+  /** Gemini model to use for all features. */
+  defaultModel: string;
   /** Default tone for Draft Email and Reply. */
   defaultTone: Tone;
   /** Default summary style for Summarize. */
@@ -39,6 +41,7 @@ const STORAGE_KEY = 'glide_settings';
 
 const DEFAULT_SETTINGS: GlideSettings = {
   apiKey: '',
+  defaultModel: 'gemini-3-flash-preview',
   defaultTone: 'professional',
   defaultSummaryStyle: 'bullets',
   defaultLanguage: 'English',

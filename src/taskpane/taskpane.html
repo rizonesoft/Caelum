@@ -573,6 +573,27 @@
           </p>
         </div>
 
+        <!-- Gemini Model -->
+        <div class="mb-lg">
+          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-model">
+            Gemini Model
+          </label>
+          <select id="settings-model" class="glide-select">
+            <optgroup label="Gemini 3 (latest)">
+              <option value="gemini-3-flash-preview" selected>Gemini 3 Flash</option>
+              <option value="gemini-3-pro-preview">Gemini 3 Pro</option>
+            </optgroup>
+            <optgroup label="Gemini 2.5 (stable)">
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
+              <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+            </optgroup>
+          </select>
+          <p class="text-xs text-glide-text-tertiary mt-xs">
+            Flash models are faster and cheaper. Pro models offer deeper reasoning.
+          </p>
+        </div>
+
         <!-- Default Tone -->
         <div class="mb-lg">
           <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-tone">

@@ -689,10 +689,12 @@ Office.onReady((info) => {
 
       // Settings form itself
       const sApiKey = $('settings-api-key') as HTMLInputElement | null;
+      const sModel = $('settings-model') as HTMLSelectElement | null;
       const sTone = $('settings-tone') as HTMLSelectElement | null;
       const sStyle = $('settings-summary-style') as HTMLSelectElement | null;
       const sLang = $('settings-language') as HTMLSelectElement | null;
       if (sApiKey) sApiKey.value = s.apiKey;
+      if (sModel) sModel.value = s.defaultModel;
       if (sTone) sTone.value = s.defaultTone;
       if (sStyle) sStyle.value = s.defaultSummaryStyle;
       if (sLang) sLang.value = s.defaultLanguage;
@@ -853,12 +855,14 @@ Office.onReady((info) => {
     // Save settings
     $('btn-save-settings')?.addEventListener('click', () => {
       const apiKey = ($('settings-api-key') as HTMLInputElement)?.value?.trim() || '';
+      const model = ($('settings-model') as HTMLSelectElement)?.value || 'gemini-3-flash-preview';
       const tone = ($('settings-tone') as HTMLSelectElement)?.value || 'professional';
       const summaryStyle = ($('settings-summary-style') as HTMLSelectElement)?.value || 'bullets';
       const language = ($('settings-language') as HTMLSelectElement)?.value || 'English';
 
       const newSettings: GlideSettings = {
         apiKey,
+        defaultModel: model,
         defaultTone: tone as any,
         defaultSummaryStyle: summaryStyle as any,
         defaultLanguage: language,

@@ -9,6 +9,7 @@
  */
 
 import { GoogleGenerativeAI, GenerativeModel, GenerationConfig } from '@google/generative-ai';
+import { getSetting } from '../features/settings';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -24,7 +25,7 @@ export interface GenerateOptions {
   topP?: number;
   /** Top-K sampling. Default: 40 */
   topK?: number;
-  /** Which Gemini model to use. Default: 'gemini-3-pro-preview' */
+  /** Which Gemini model to use. Default: user's saved setting or 'gemini-2.5-flash' */
   model?: string;
 }
 
@@ -60,7 +61,7 @@ export class GeminiError extends Error {
 // Constants
 // ---------------------------------------------------------------------------
 
-const DEFAULT_MODEL = 'gemini-3-pro-preview';
+const FALLBACK_MODEL = 'gemini-3-flash-preview';
 const DEFAULT_TEMPERATURE = 1.0;
 const DEFAULT_MAX_OUTPUT_TOKENS = 2048;
 const DEFAULT_TOP_P = 0.95;
@@ -124,7 +125,7 @@ export async function generateText(
   options: GenerateOptions = {},
 ): Promise<string> {
   const client = getClient();
-  const modelName = options.model ?? DEFAULT_MODEL;
+  const modelName = options.model ?? getSetting('defaultModel') ?? FALLBACK_MODEL;
 
   const generationConfig: GenerationConfig = {
     temperature: options.temperature ?? DEFAULT_TEMPERATURE,
