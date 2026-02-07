@@ -123,17 +123,17 @@
 
 ### 3.2 Feature: Draft a New Email
 
-- [ ] Create `src/features/draft-email.ts`
-- [ ] Build a task pane form:
-  - [ ] Text area for user instructions/bullet points
-  - [ ] Dropdown for tone (formal, casual, friendly, professional)
-  - [ ] Dropdown for length (short, medium, detailed)
-  - [ ] "Generate Draft" button
-- [ ] On submit: call `generateText()` with `DRAFT_EMAIL_PROMPT`
-- [ ] Display the generated draft in a preview area
-- [ ] Add a "Copy to Compose" button that opens a new mail with the generated body
-- [ ] Add a "Regenerate" button to try again with the same inputs
-- [ ] Add a "Refine" text input to adjust the draft with follow-up instructions
+- [x] Create `src/features/draft-email.ts`
+- [x] Build a task pane form:
+  - [x] Text area for user instructions/bullet points
+  - [x] Dropdown for tone (formal, casual, friendly, professional)
+  - [x] Dropdown for length (short, medium, detailed)
+  - [x] "Generate Draft" button
+- [x] On submit: call `generateText()` with `DRAFT_EMAIL_PROMPT`
+- [x] Display the generated draft in a preview area
+- [x] Add a "Copy to Compose" button that opens a new mail with the generated body
+- [x] Add a "Regenerate" button to try again with the same inputs
+- [x] Add a "Refine" text input to adjust the draft with follow-up instructions
 
 ### 3.3 Feature: Draft a Reply
 

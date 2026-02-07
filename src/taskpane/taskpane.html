@@ -1,55 +1,191 @@
-<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
-<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+<!-- Caelum — Outlook AI Add-in Task Pane -->
+<!-- © Rizonetech (Pty) Ltd. — https://rizonesoft.com -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contoso Task Pane Add-in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Caelum — AI Email Assistant</title>
 
     <!-- Office JavaScript API -->
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script
+      type="text/javascript"
+      src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"
+    ></script>
 
-    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
-    <link rel="stylesheet" href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"/>
+    <!-- Fluent UI icons -->
+    <link
+      rel="stylesheet"
+      href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"
+    />
 
-    <!-- Template styles -->
+    <!-- Google Fonts — Inter for a modern, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Caelum styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
-</head>
+  </head>
 
-<body class="ms-font-m ms-welcome ms-Fabric">
-    <header class="ms-welcome__header ms-bgColor-neutralLighter">
-        <img width="90" height="90" src="../../assets/logo-filled.png" alt="Contoso" title="Contoso" />
-        <h1 class="ms-font-su">Welcome</h1>
+  <body class="ms-Fabric">
+    <!-- ================================================================ -->
+    <!-- Header                                                           -->
+    <!-- ================================================================ -->
+    <header class="caelum-header">
+      <div class="caelum-header__brand">
+        <img
+          width="28"
+          height="28"
+          src="../../assets/logo-filled.png"
+          alt="Caelum"
+          class="caelum-header__icon"
+        />
+        <span class="caelum-header__title">Caelum</span>
+      </div>
+      <span class="caelum-header__subtitle">AI Email Assistant</span>
     </header>
-    <section id="sideload-msg" class="ms-welcome__main">
-        <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
-    </section>
-    <main id="app-body" class="ms-welcome__main" style="display: none;">
-        <h2 class="ms-font-xl"> Discover what Office Add-ins can do for you today! </h2>
-        <ul class="ms-List ms-welcome__features">
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Ribbon ms-font-xl"></i>
-                <span class="ms-font-m">Achieve more with Office integration</span>
-            </li>
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Unlock ms-font-xl"></i>
-                <span class="ms-font-m">Unlock features and functionality</span>
-            </li>
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Design ms-font-xl"></i>
-                <span class="ms-font-m">Create and visualize like a pro</span>
-            </li>
-        </ul>
-        <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Run</span>
-        </div>
-        <p><label id="item-subject"></label></p>
-    </main>
-</body>
 
+    <!-- ================================================================ -->
+    <!-- Sideload message (shown when add-in isn't activated)             -->
+    <!-- ================================================================ -->
+    <section id="sideload-msg" class="caelum-sideload">
+      <div class="caelum-sideload__icon">
+        <i class="ms-Icon ms-Icon--PlugDisconnected ms-font-xxl"></i>
+      </div>
+      <h2>Add-in Not Loaded</h2>
+      <p>
+        Please
+        <a
+          target="_blank"
+          href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing"
+          >sideload</a
+        >
+        the add-in to get started.
+      </p>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- Main app (hidden until Office.js is ready)                       -->
+    <!-- ================================================================ -->
+    <main id="app-body" style="display: none">
+      <!-- Draft Email Form ------------------------------------------ -->
+      <section id="draft-section" class="caelum-section">
+        <h2 class="caelum-section__title">
+          <i class="ms-Icon ms-Icon--EditMail"></i>
+          Draft a New Email
+        </h2>
+
+        <!-- Instructions -->
+        <div class="caelum-field">
+          <label class="caelum-field__label" for="draft-instructions">
+            Instructions / bullet points
+          </label>
+          <textarea
+            id="draft-instructions"
+            class="caelum-textarea"
+            rows="5"
+            placeholder="e.g. Thank the client for the meeting, confirm next steps, mention deadline is Friday..."
+          ></textarea>
+        </div>
+
+        <!-- Tone & Length row -->
+        <div class="caelum-row">
+          <div class="caelum-field caelum-field--half">
+            <label class="caelum-field__label" for="draft-tone">Tone</label>
+            <select id="draft-tone" class="caelum-select">
+              <option value="professional" selected>Professional</option>
+              <option value="formal">Formal</option>
+              <option value="friendly">Friendly</option>
+              <option value="casual">Casual</option>
+            </select>
+          </div>
+          <div class="caelum-field caelum-field--half">
+            <label class="caelum-field__label" for="draft-length">Length</label>
+            <select id="draft-length" class="caelum-select">
+              <option value="short">Short</option>
+              <option value="medium" selected>Medium</option>
+              <option value="detailed">Detailed</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Generate button -->
+        <button id="btn-generate" class="caelum-btn caelum-btn--primary">
+          <i class="ms-Icon ms-Icon--LightningBolt"></i>
+          Generate Draft
+        </button>
+      </section>
+
+      <!-- Result area (hidden until a draft is generated) ----------- -->
+      <section
+        id="result-section"
+        class="caelum-section caelum-section--result"
+        style="display: none"
+      >
+        <h2 class="caelum-section__title">
+          <i class="ms-Icon ms-Icon--TextDocument"></i>
+          Generated Draft
+        </h2>
+
+        <div id="draft-preview" class="caelum-preview"></div>
+
+        <!-- Action buttons -->
+        <div class="caelum-actions">
+          <button
+            id="btn-copy-compose"
+            class="caelum-btn caelum-btn--primary"
+            title="Open a new email with this draft"
+          >
+            <i class="ms-Icon ms-Icon--NewMail"></i>
+            Copy to Compose
+          </button>
+          <button
+            id="btn-regenerate"
+            class="caelum-btn caelum-btn--secondary"
+            title="Generate a new version"
+          >
+            <i class="ms-Icon ms-Icon--Refresh"></i>
+            Regenerate
+          </button>
+        </div>
+
+        <!-- Refine input -->
+        <div class="caelum-field caelum-field--refine">
+          <label class="caelum-field__label" for="refine-input">Refine this draft</label>
+          <div class="caelum-refine-row">
+            <input
+              id="refine-input"
+              type="text"
+              class="caelum-input"
+              placeholder="e.g. make it shorter, add a P.S. note..."
+            />
+            <button id="btn-refine" class="caelum-btn caelum-btn--accent" title="Refine the draft">
+              <i class="ms-Icon ms-Icon--Send"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Loading overlay ------------------------------------------- -->
+      <div id="loading-overlay" class="caelum-loading" style="display: none">
+        <div class="caelum-loading__spinner"></div>
+        <p class="caelum-loading__text">Generating with Gemini...</p>
+      </div>
+
+      <!-- Error banner ---------------------------------------------- -->
+      <div id="error-banner" class="caelum-error" style="display: none">
+        <i class="ms-Icon ms-Icon--ErrorBadge"></i>
+        <span id="error-message"></span>
+        <button id="btn-dismiss-error" class="caelum-error__dismiss" title="Dismiss">
+          <i class="ms-Icon ms-Icon--Cancel"></i>
+        </button>
+      </div>
+    </main>
+  </body>
 </html>

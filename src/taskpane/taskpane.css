@@ -1,80 +1,498 @@
-/* 
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
+/**
+ * Caelum — Task Pane Styles
+ *
+ * Modern, premium design system for the Caelum Outlook add-in.
+ * Uses CSS custom properties for easy theming.
+ *
+ * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
- html,
- body {
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
- }
- 
- ul {
-     margin: 0;
-     padding: 0;
- }
- 
- .ms-welcome__header {
-    padding: 20px;
-    padding-bottom: 30px;
-    padding-top: 100px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    align-items: center;
- }
+/* ================================================================
+   Design Tokens
+   ================================================================ */
 
- .ms-welcome__main {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
-    padding: 10px 20px;
- }
- 
- .ms-welcome__main > h2 {
-     width: 100%;
-     text-align: center;
- }
- 
- .ms-welcome__features {
-     list-style-type: none;
-     margin-top: 20px;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem {
-     padding-bottom: 20px;
-     display: -webkit-flex;
-     display: flex;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-     margin-right: 10px;
- }
- 
- .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
- }
- 
-.ms-Button.ms-Button--hero .ms-Button-label {
-  color: #0078d7;
+:root {
+  /* Brand colours */
+  --caelum-primary: #4f46e5;
+  --caelum-primary-hover: #4338ca;
+  --caelum-primary-light: #eef2ff;
+  --caelum-accent: #7c3aed;
+  --caelum-accent-hover: #6d28d9;
+
+  /* Neutrals */
+  --caelum-bg: #ffffff;
+  --caelum-bg-subtle: #f9fafb;
+  --caelum-border: #e5e7eb;
+  --caelum-border-focus: #a5b4fc;
+  --caelum-text: #111827;
+  --caelum-text-secondary: #6b7280;
+  --caelum-text-placeholder: #9ca3af;
+
+  /* Status */
+  --caelum-error-bg: #fef2f2;
+  --caelum-error-text: #dc2626;
+  --caelum-error-border: #fecaca;
+
+  /* Spacing & radii */
+  --caelum-radius: 8px;
+  --caelum-radius-sm: 6px;
+  --caelum-spacing: 16px;
+  --caelum-spacing-sm: 8px;
+  --caelum-spacing-xs: 4px;
+
+  /* Typography */
+  --caelum-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --caelum-font-size: 13px;
+  --caelum-font-size-sm: 12px;
+  --caelum-line-height: 1.5;
+
+  /* Transitions */
+  --caelum-transition: 150ms ease;
 }
 
-.ms-Button.ms-Button--hero:hover .ms-Button-label,
-.ms-Button.ms-Button--hero:focus .ms-Button-label{
-  color: #005a9e;
+/* ================================================================
+   Reset & Base
+   ================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--caelum-font);
+  font-size: var(--caelum-font-size);
+  line-height: var(--caelum-line-height);
+  color: var(--caelum-text);
+  background: var(--caelum-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   Header
+   ================================================================ */
+
+.caelum-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px var(--caelum-spacing);
+  background: linear-gradient(135deg, var(--caelum-primary) 0%, var(--caelum-accent) 100%);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.caelum-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.caelum-header__icon {
+  border-radius: 6px;
+  filter: brightness(10);
+}
+
+.caelum-header__title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.caelum-header__subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ================================================================
+   Sideload message
+   ================================================================ */
+
+.caelum-sideload {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px var(--caelum-spacing);
+  text-align: center;
+  color: var(--caelum-text-secondary);
+}
+
+.caelum-sideload__icon {
+  margin-bottom: 16px;
+  color: var(--caelum-primary);
+}
+
+.caelum-sideload h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--caelum-text);
+}
+
+.caelum-sideload p {
+  font-size: var(--caelum-font-size-sm);
+  margin: 0;
+}
+
+.caelum-sideload a {
+  color: var(--caelum-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.caelum-sideload a:hover {
+  text-decoration: underline;
+}
+
+/* ================================================================
+   Main content area
+   ================================================================ */
+
+#app-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* ================================================================
+   Sections
+   ================================================================ */
+
+.caelum-section {
+  padding: var(--caelum-spacing);
+}
+
+.caelum-section + .caelum-section {
+  border-top: 1px solid var(--caelum-border);
+}
+
+.caelum-section__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--caelum-text);
+}
+
+.caelum-section__title .ms-Icon {
+  color: var(--caelum-primary);
+  font-size: 16px;
+}
+
+/* ================================================================
+   Form Fields
+   ================================================================ */
+
+.caelum-field {
+  margin-bottom: 12px;
+}
+
+.caelum-field__label {
+  display: block;
+  font-size: var(--caelum-font-size-sm);
+  font-weight: 500;
+  color: var(--caelum-text-secondary);
+  margin-bottom: var(--caelum-spacing-xs);
+}
+
+.caelum-textarea,
+.caelum-select,
+.caelum-input {
+  width: 100%;
+  font-family: var(--caelum-font);
+  font-size: var(--caelum-font-size);
+  color: var(--caelum-text);
+  background: var(--caelum-bg);
+  border: 1.5px solid var(--caelum-border);
+  border-radius: var(--caelum-radius-sm);
+  padding: 8px 10px;
+  transition:
+    border-color var(--caelum-transition),
+    box-shadow var(--caelum-transition);
+  outline: none;
+}
+
+.caelum-textarea:focus,
+.caelum-select:focus,
+.caelum-input:focus {
+  border-color: var(--caelum-border-focus);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.caelum-textarea::placeholder,
+.caelum-input::placeholder {
+  color: var(--caelum-text-placeholder);
+}
+
+.caelum-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.caelum-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' fill='none' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
   cursor: pointer;
 }
 
-b {
-    font-weight: bold;
+/* Row layout for side-by-side fields */
+.caelum-row {
+  display: flex;
+  gap: 10px;
+}
+
+.caelum-field--half {
+  flex: 1;
+}
+
+/* ================================================================
+   Buttons
+   ================================================================ */
+
+.caelum-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--caelum-font);
+  font-size: var(--caelum-font-size);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--caelum-radius-sm);
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: all var(--caelum-transition);
+  white-space: nowrap;
+}
+
+.caelum-btn .ms-Icon {
+  font-size: 14px;
+}
+
+/* Primary (Indigo) */
+.caelum-btn--primary {
+  background: var(--caelum-primary);
+  color: #fff;
+}
+
+.caelum-btn--primary:hover {
+  background: var(--caelum-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+}
+
+.caelum-btn--primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Secondary (Outline) */
+.caelum-btn--secondary {
+  background: var(--caelum-bg);
+  color: var(--caelum-text);
+  border: 1.5px solid var(--caelum-border);
+}
+
+.caelum-btn--secondary:hover {
+  background: var(--caelum-bg-subtle);
+  border-color: var(--caelum-text-placeholder);
+}
+
+/* Accent (Purple — for refine) */
+.caelum-btn--accent {
+  background: var(--caelum-accent);
+  color: #fff;
+  padding: 9px 12px;
+}
+
+.caelum-btn--accent:hover {
+  background: var(--caelum-accent-hover);
+}
+
+/* Full-width generate button */
+#btn-generate {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ================================================================
+   Actions row
+   ================================================================ */
+
+.caelum-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.caelum-actions .caelum-btn {
+  flex: 1;
+}
+
+/* ================================================================
+   Preview area
+   ================================================================ */
+
+.caelum-preview {
+  background: var(--caelum-bg-subtle);
+  border: 1px solid var(--caelum-border);
+  border-radius: var(--caelum-radius);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: var(--caelum-font-size);
+  line-height: 1.6;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.caelum-preview__subject {
+  font-weight: 600;
+  color: var(--caelum-primary);
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--caelum-border);
+}
+
+/* ================================================================
+   Refine row
+   ================================================================ */
+
+.caelum-refine-row {
+  display: flex;
+  gap: 6px;
+}
+
+.caelum-refine-row .caelum-input {
+  flex: 1;
+}
+
+.caelum-refine-row .caelum-btn {
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   Loading overlay
+   ================================================================ */
+
+.caelum-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+}
+
+.caelum-loading__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--caelum-border);
+  border-top-color: var(--caelum-primary);
+  border-radius: 50%;
+  animation: caelum-spin 0.7s linear infinite;
+}
+
+@keyframes caelum-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.caelum-loading__text {
+  margin-top: 12px;
+  font-size: var(--caelum-font-size-sm);
+  font-weight: 500;
+  color: var(--caelum-text-secondary);
+}
+
+/* ================================================================
+   Error banner
+   ================================================================ */
+
+.caelum-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 var(--caelum-spacing) var(--caelum-spacing);
+  padding: 10px 12px;
+  background: var(--caelum-error-bg);
+  border: 1px solid var(--caelum-error-border);
+  border-radius: var(--caelum-radius-sm);
+  color: var(--caelum-error-text);
+  font-size: var(--caelum-font-size-sm);
+  font-weight: 500;
+}
+
+.caelum-error .ms-Icon {
+  flex-shrink: 0;
+}
+
+.caelum-error span {
+  flex: 1;
+}
+
+.caelum-error__dismiss {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--caelum-error-text);
+  opacity: 0.6;
+  transition: opacity var(--caelum-transition);
+}
+
+.caelum-error__dismiss:hover {
+  opacity: 1;
+}
+
+/* ================================================================
+   Scrollbar styling
+   ================================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--caelum-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--caelum-text-placeholder);
 }
