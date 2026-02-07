@@ -336,7 +336,7 @@ export function getConversationId(): string | undefined {
 /**
  * Get the currently active mailbox item, or throw if none is available.
  */
-function getItemOrThrow(): Office.Item & Office.ItemCompose & Office.ItemRead {
+function getItemOrThrow(): any {
   const item = Office.context.mailbox.item;
   if (!item) {
     throw new Error(
