@@ -26,12 +26,12 @@
 ### 1.1 GitHub Repository
 
 - [x] Create a new public GitHub repo named **Glide** — [rizonesoft/Glide](https://github.com/rizonesoft/Glide)
-- [ ] Add a short description: _"AI-powered Outlook & Teams plugin using Google Gemini"_
-- [ ] Add topics/tags: `outlook-addin`, `teams-app`, `gemini-api`, `ai`, `open-source`
-- [ ] Choose the **MIT** license (or your preferred OSS license)
-- [ ] Create a `develop` branch and set it as the default working branch
-- [ ] Enable **GitHub Issues** and **Discussions**
-- [ ] Create issue labels: `outlook-plugin`, `teams-plugin`, `gemini-api`, `bug`, `enhancement`, `docs`, `good first issue`
+- [x] Add a short description: _"AI-powered Outlook & Teams plugin using Google Gemini"_
+- [x] Add topics/tags: `outlook-addin`, `teams-app`, `gemini-api`, `ai`, `open-source`
+- [x] Choose the **MIT** license (or your preferred OSS license)
+- [x] ~~Create a `develop` branch~~ — using `main` as the working branch (simpler for a new project)
+- [x] Enable **GitHub Issues** and **Discussions**
+- [x] Create issue labels: `outlook-plugin`, `teams-plugin`, `gemini-api`, `bug`, `enhancement`, `docs`, `good first issue`
 
 ### 1.2 Scaffold the Outlook Add-in
 
