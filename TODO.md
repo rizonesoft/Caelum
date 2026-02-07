@@ -35,12 +35,12 @@
 
 ### 1.2 Scaffold the Outlook Add-in
 
-- [ ] Run `yo office` and select:
+- [x] Run `yo office` and select:
   - Project type: **Office Add-in Task Pane**
   - Script type: **TypeScript**
   - Office app: **Outlook**
   - Project name: **glide-outlook**
-- [ ] Verify the generated folder structure exists:
+- [x] Verify the generated folder structure exists:
   ```
   glide-outlook/
   ├── src/
@@ -51,7 +51,6 @@
   ├── package.json
   └── tsconfig.json
   ```
-- [ ] Open the project in VS Code and confirm no TypeScript errors
 - [ ] Run `npm start` — verify the add-in sideloads in Outlook on the web
 
 ### 1.3 Project Hygiene Files
