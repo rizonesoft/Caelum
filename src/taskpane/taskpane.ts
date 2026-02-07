@@ -60,6 +60,11 @@ import {
   renderTranslationHtml,
   copyToClipboard as copyTranslationToClipboard,
 } from '../features/translate';
+import {
+  loadSettings,
+  saveSettings,
+  GlideSettings,
+} from '../features/settings';
 
 // ---------------------------------------------------------------------------
 // DOM helpers
@@ -133,6 +138,7 @@ const TAB_CONFIG: Record<string, string[]> = {
   improve: ['improve-section', 'improve-result-section'],
   extract: ['extract-section', 'extract-result-section'],
   translate: ['translate-section', 'translate-result-section'],
+  settings: ['settings-section'],
 };
 
 function switchTab(tabName: string): void {
@@ -652,15 +658,47 @@ Office.onReady((info) => {
     hideElement('sideload-msg');
     showElement('app-body');
 
-    // Initialize Gemini client
+    // Load settings and initialize Gemini client from stored API key
+    const settings = loadSettings();
     try {
-      const apiKey = (window as any).__Glide_API_KEY__ || '';
+      const apiKey = settings.apiKey || (window as any).__Glide_API_KEY__ || '';
       if (apiKey) {
         initGeminiClient(apiKey);
       }
     } catch {
-      // Client will be initialized when the user first triggers an action
+      // Client will be initialized when settings are saved
     }
+
+    // Populate feature defaults from settings
+    const applySettingsToForms = (s: GlideSettings): void => {
+      // Tone selects
+      const draftTone = $('draft-tone') as HTMLSelectElement | null;
+      const replyTone = $('reply-tone') as HTMLSelectElement | null;
+      if (draftTone) draftTone.value = s.defaultTone;
+      if (replyTone) replyTone.value = s.defaultTone;
+
+      // Summary style radio buttons
+      const summaryRadio = document.querySelector(
+        `input[name="summary-style"][value="${s.defaultSummaryStyle}"]`,
+      ) as HTMLInputElement | null;
+      if (summaryRadio) summaryRadio.checked = true;
+
+      // Translation language
+      const langSelect = $('translate-language') as HTMLSelectElement | null;
+      if (langSelect) langSelect.value = s.defaultLanguage;
+
+      // Settings form itself
+      const sApiKey = $('settings-api-key') as HTMLInputElement | null;
+      const sTone = $('settings-tone') as HTMLSelectElement | null;
+      const sStyle = $('settings-summary-style') as HTMLSelectElement | null;
+      const sLang = $('settings-language') as HTMLSelectElement | null;
+      if (sApiKey) sApiKey.value = s.apiKey;
+      if (sTone) sTone.value = s.defaultTone;
+      if (sStyle) sStyle.value = s.defaultSummaryStyle;
+      if (sLang) sLang.value = s.defaultLanguage;
+    };
+
+    applySettingsToForms(settings);
 
     // --- Outlook theme detection (light/dark) ---
     try {
@@ -779,6 +817,70 @@ Office.onReady((info) => {
     $('btn-translate')?.addEventListener('click', handleTranslate);
     $('btn-regenerate-translate')?.addEventListener('click', handleRegenerateTranslate);
     $('btn-copy-translation')?.addEventListener('click', handleCopyTranslation);
+
+    // --- Settings ---
+    $('tab-settings')?.addEventListener('click', () => {
+      switchTab('settings');
+      // Highlight settings button
+      document.querySelectorAll('.glide-tab').forEach((t) =>
+        t.classList.remove('glide-tab--active'),
+      );
+      $('tab-settings')?.classList.add('glide-tab--active');
+      document.querySelectorAll('.glide-dropdown__item').forEach((di) =>
+        di.classList.remove('glide-dropdown__item--active'),
+      );
+      toggleDropdown(false);
+    });
+
+    // API key show/hide toggle
+    $('btn-toggle-api-key')?.addEventListener('click', () => {
+      const input = $('settings-api-key') as HTMLInputElement | null;
+      const showIcon = $('icon-eye-show');
+      const hideIcon = $('icon-eye-hide');
+      if (!input) return;
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (showIcon) showIcon.style.display = 'none';
+        if (hideIcon) hideIcon.style.display = '';
+      } else {
+        input.type = 'password';
+        if (showIcon) showIcon.style.display = '';
+        if (hideIcon) hideIcon.style.display = 'none';
+      }
+    });
+
+    // Save settings
+    $('btn-save-settings')?.addEventListener('click', () => {
+      const apiKey = ($('settings-api-key') as HTMLInputElement)?.value?.trim() || '';
+      const tone = ($('settings-tone') as HTMLSelectElement)?.value || 'professional';
+      const summaryStyle = ($('settings-summary-style') as HTMLSelectElement)?.value || 'bullets';
+      const language = ($('settings-language') as HTMLSelectElement)?.value || 'English';
+
+      const newSettings: GlideSettings = {
+        apiKey,
+        defaultTone: tone as any,
+        defaultSummaryStyle: summaryStyle as any,
+        defaultLanguage: language,
+      };
+
+      saveSettings(newSettings);
+      applySettingsToForms(newSettings);
+
+      // Show confirmation
+      const msg = $('settings-saved-msg');
+      if (msg) {
+        msg.style.display = '';
+        setTimeout(() => { msg.style.display = 'none'; }, 2000);
+      }
+
+      // Flash the save button green
+      const btn = $('btn-save-settings');
+      if (btn) {
+        btn.classList.add('glide-btn--success');
+        setTimeout(() => btn.classList.remove('glide-btn--success'), 1500);
+      }
+    });
 
     // --- Error banner ---
     $('btn-dismiss-error')?.addEventListener('click', hideError);
