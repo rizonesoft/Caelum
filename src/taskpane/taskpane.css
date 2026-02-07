@@ -1,11 +1,9 @@
 /**
  * Glide — Component Styles
  *
- * Minimal CSS for JavaScript-toggled states, dynamic content,
- * and complex components that can't be expressed as pure Tailwind utilities.
- * All static layout/spacing/color styling lives in the HTML as Tailwind classes.
- *
- * Design tokens are defined in `src/styles/main.css` via Tailwind @theme.
+ * Component-level CSS for interactive states, dynamic content,
+ * and polished UI elements that benefit from semantic class names.
+ * Design tokens come from `src/styles/main.css` via Tailwind @theme.
  *
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
@@ -32,7 +30,7 @@
 }
 
 /* ================================================================
-   Tab bar — JS-toggled active state
+   Tab bar
    ================================================================ */
 
 .glide-tab {
@@ -72,18 +70,66 @@
 }
 
 /* ================================================================
-   Dropdown — JS-toggled active item
+   Dropdown menu — proper menu component
    ================================================================ */
 
-.glide-dropdown__item--active {
+.glide-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  min-width: 200px;
+  background: var(--color-glide-bg-elevated);
+  border: 1px solid var(--color-glide-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10),
+              0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: var(--spacing-xs) 0;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.glide-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-glide);
+  font-size: var(--text-sm);
+  color: var(--color-glide-text);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--duration-glide) var(--ease-glide);
+  text-align: left;
+}
+
+.glide-dropdown__item:hover {
   background: var(--color-glide-bg-panel);
+}
+
+.glide-dropdown__item:active {
+  background: var(--color-glide-blue-light);
+}
+
+.glide-dropdown__item svg {
+  color: var(--color-glide-text-tertiary);
+  flex-shrink: 0;
+}
+
+.glide-dropdown__item:hover svg {
+  color: var(--color-glide-blue);
+}
+
+.glide-dropdown__item--active {
+  background: var(--color-glide-blue-light);
   color: var(--color-glide-blue);
   font-weight: 500;
 }
 
-/* ================================================================
-   Split button — open state (dropdown visible)
-   ================================================================ */
+.glide-dropdown__item--active svg {
+  color: var(--color-glide-blue);
+}
 
 .glide-split--open .glide-tab--icon {
   color: var(--color-glide-blue);
@@ -92,9 +138,70 @@
 }
 
 /* ================================================================
-   Button success state (JS-toggled after copy actions)
+   Buttons
    ================================================================ */
 
+.glide-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: 9px var(--spacing-lg);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-glide);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-glide) var(--ease-glide);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  line-height: 1;
+}
+
+.glide-btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary — blue filled */
+.glide-btn--primary {
+  background: var(--color-glide-blue);
+  color: var(--color-glide-text-inverse);
+  border-color: var(--color-glide-blue);
+}
+
+.glide-btn--primary:hover {
+  background: var(--color-glide-blue-hover);
+  border-color: var(--color-glide-blue-hover);
+  box-shadow: 0 2px 8px rgba(59, 158, 255, 0.25);
+}
+
+/* Secondary — outlined */
+.glide-btn--secondary {
+  background: var(--color-glide-bg);
+  color: var(--color-glide-text-secondary);
+  border-color: var(--color-glide-border);
+}
+
+.glide-btn--secondary:hover {
+  border-color: var(--color-glide-text-secondary);
+  color: var(--color-glide-text);
+  background: var(--color-glide-bg-panel);
+}
+
+/* Accent — purple filled */
+.glide-btn--accent {
+  background: var(--color-glide-purple);
+  color: var(--color-glide-text-inverse);
+  border-color: var(--color-glide-purple);
+  padding: 9px var(--spacing-sm);
+}
+
+.glide-btn--accent:hover {
+  background: var(--color-glide-purple-hover);
+  border-color: var(--color-glide-purple-hover);
+}
+
+/* Success state (JS-toggled after copy actions) */
 .glide-btn--success {
   background: var(--color-glide-success) !important;
   border-color: var(--color-glide-success) !important;
@@ -102,8 +209,153 @@
 }
 
 /* ================================================================
+   Form controls — shared styles for select, input, textarea
+   ================================================================ */
+
+.glide-select {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-sm);
+  font-family: var(--font-glide);
+  font-size: var(--text-md);
+  color: var(--color-glide-text);
+  background: var(--color-glide-bg);
+  border: 1px solid var(--color-glide-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235E6470' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+  transition: border-color var(--duration-glide) var(--ease-glide),
+              box-shadow var(--duration-glide) var(--ease-glide);
+}
+
+.glide-select:hover {
+  border-color: var(--color-glide-text-secondary);
+}
+
+.glide-select:focus {
+  border-color: var(--color-glide-blue);
+  box-shadow: 0 0 0 2px var(--color-glide-blue-glow);
+}
+
+.glide-input {
+  flex: 1;
+  padding: var(--spacing-sm);
+  font-family: var(--font-glide);
+  font-size: var(--text-md);
+  color: var(--color-glide-text);
+  background: var(--color-glide-bg);
+  border: 1px solid var(--color-glide-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--duration-glide) var(--ease-glide),
+              box-shadow var(--duration-glide) var(--ease-glide);
+}
+
+.glide-input::placeholder {
+  color: var(--color-glide-text-tertiary);
+}
+
+.glide-input:focus {
+  border-color: var(--color-glide-blue);
+  box-shadow: 0 0 0 2px var(--color-glide-blue-glow);
+}
+
+/* ================================================================
+   Radio group
+   ================================================================ */
+
+.glide-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.glide-radio-group--vertical {
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.glide-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--color-glide-text);
+}
+
+.glide-radio input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-glide-blue);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* ================================================================
+   Checkbox
+   ================================================================ */
+
+.glide-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--color-glide-text);
+}
+
+.glide-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-glide-blue);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* ================================================================
+   Context banner (reply-context)
+   ================================================================ */
+
+.glide-context-banner {
+  background: var(--color-glide-bg-panel);
+  border: 1px solid var(--color-glide-border-light);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ================================================================
+   Hint text
+   ================================================================ */
+
+.glide-hint {
+  font-size: var(--text-sm);
+  color: var(--color-glide-text-tertiary);
+  margin-bottom: var(--spacing-lg);
+  font-style: italic;
+}
+
+/* ================================================================
    Preview — rendered HTML content area
    ================================================================ */
+
+.glide-preview {
+  background: var(--color-glide-bg-panel);
+  border: 1px solid var(--color-glide-border-light);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  font-size: var(--text-md);
+  line-height: 1.65;
+  margin-bottom: var(--spacing-lg);
+  max-height: 300px;
+  overflow-y: auto;
+}
 
 .glide-preview p {
   margin-bottom: var(--spacing-sm);
@@ -121,6 +373,73 @@
 
 .glide-preview li {
   margin-bottom: var(--spacing-xs);
+}
+
+/* ================================================================
+   Loading overlay
+   ================================================================ */
+
+.glide-loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 50;
+  backdrop-filter: blur(4px);
+}
+
+.glide-loading__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-glide-border-light);
+  border-top-color: var(--color-glide-blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ================================================================
+   Error banner
+   ================================================================ */
+
+.glide-error {
+  position: fixed;
+  bottom: var(--spacing-md);
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-glide-error-bg);
+  border: 1px solid var(--color-glide-error-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-glide-error-text);
+  font-size: var(--text-sm);
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.glide-error__dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  border: none;
+  color: var(--color-glide-error-text);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--duration-glide) var(--ease-glide);
+}
+
+.glide-error__dismiss:hover {
+  opacity: 1;
 }
 
 /* ================================================================
@@ -302,7 +621,7 @@
 }
 
 /* ================================================================
-   Spinner animation
+   Spinner keyframes
    ================================================================ */
 
 @keyframes spin {

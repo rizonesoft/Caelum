@@ -198,8 +198,8 @@
 - [x] Create `src/styles/main.css` with `@import "tailwindcss"` and custom `@theme` tokens
 - [x] Define custom design tokens via CSS-first `@theme` (colors, spacing, radii)
 - [x] Support both **Light** and **Dark** theme (match Outlook's current theme via `prefers-color-scheme` + Office.js detection)
-- [ ] Migrate existing `taskpane.css` utility classes to Tailwind equivalents
-- [ ] Ensure all task pane components use Tailwind utility classes
+- [x] Migrate existing `taskpane.css` utility classes to Tailwind equivalents
+- [x] Ensure all task pane components use Tailwind utility classes
 
 ### 4.2 Settings Page
 
