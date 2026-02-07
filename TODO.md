@@ -78,14 +78,14 @@
 
 ### 2.2 Gemini Client Service
 
-- [ ] Install the Google Generative AI SDK: `npm install @google/generative-ai`
-- [ ] Create `src/services/gemini.ts`:
-  - [ ] Export a function `initGeminiClient(apiKey: string)` that creates a `GoogleGenerativeAI` instance
-  - [ ] Export a function `generateText(prompt: string, options?: GenerateOptions): Promise<string>`
-  - [ ] Add configurable parameters: `temperature`, `maxOutputTokens`, `topP`, `topK`
-  - [ ] Add error handling for API quota limits (+rate limiting with retry)
-  - [ ] Add error handling for network failures (timeout, offline)
-  - [ ] Add error handling for invalid/expired API keys
+- [x] Install the Google Generative AI SDK: `npm install @google/generative-ai`
+- [x] Create `src/services/gemini.ts`:
+  - [x] Export a function `initGeminiClient(apiKey: string)` that creates a `GoogleGenerativeAI` instance
+  - [x] Export a function `generateText(prompt: string, options?: GenerateOptions): Promise<string>`
+  - [x] Add configurable parameters: `temperature`, `maxOutputTokens`, `topP`, `topK`
+  - [x] Add error handling for API quota limits (+rate limiting with retry)
+  - [x] Add error handling for network failures (timeout, offline)
+  - [x] Add error handling for invalid/expired API keys
 - [ ] Create `src/services/gemini.test.ts` — unit tests with mocked API responses
 - [ ] Verify the service works by calling it from a simple test script
 
