@@ -216,11 +216,11 @@ body {
 
 .glide-tab {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 10px 8px;
+  gap: 7px;
+  padding: 9px 10px;
   font-family: var(--glide-font);
   font-size: var(--glide-font-size-sm);
   font-weight: var(--glide-weight-medium);
