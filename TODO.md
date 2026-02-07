@@ -111,15 +111,15 @@
 
 ### 3.1 Read Current Email Context
 
-- [ ] Learn the `Office.js` mailbox API basics: `Office.context.mailbox.item`
-- [ ] Create `src/services/outlook.ts`:
-  - [ ] Function `getCurrentEmailBody(): Promise<string>` — reads the body of the open email
-  - [ ] Function `getCurrentEmailSubject(): Promise<string>` — reads the subject
-  - [ ] Function `getEmailSender(): Promise<{ name: string; email: string }>`
-  - [ ] Function `getEmailRecipients(): Promise<Array<{ name: string; email: string }>>`
-  - [ ] Function `getConversationMessages(): Promise<EmailMessage[]>` — reads thread (if available via EWS/Graph)
-- [ ] Handle both **Read** mode and **Compose** mode item types
-- [ ] Test each function with different email types (plain text, HTML, attachments)
+- [x] Learn the `Office.js` mailbox API basics: `Office.context.mailbox.item`
+- [x] Create `src/services/outlook.ts`:
+  - [x] Function `getCurrentEmailBody(): Promise<string>` — reads the body of the open email
+  - [x] Function `getCurrentEmailSubject(): Promise<string>` — reads the subject
+  - [x] Function `getEmailSender(): Promise<{ name: string; email: string }>`
+  - [x] Function `getEmailRecipients(): Promise<Array<{ name: string; email: string }>>`
+  - [x] Function `getConversationMessages(): Promise<EmailMessage[]>` — reads thread (if available via EWS/Graph)
+- [x] Handle both **Read** mode and **Compose** mode item types
+- [x] Test each function with different email types (plain text, HTML, attachments)
 
 ### 3.2 Feature: Draft a New Email
 
