@@ -91,19 +91,19 @@
 
 ### 2.3 Prompt Engineering Module
 
-- [ ] Create `src/prompts/` directory
-- [ ] Create `src/prompts/templates.ts`:
-  - [ ] `DRAFT_EMAIL_PROMPT` — template for composing new emails from bullet points/instructions
-  - [ ] `REPLY_PROMPT` — template that includes original email context + desired tone
-  - [ ] `SUMMARIZE_THREAD_PROMPT` — template for summarizing multi-message threads
-  - [ ] `IMPROVE_WRITING_PROMPT` — template for grammar, clarity, tone adjustments
-  - [ ] `EXTRACT_ACTION_ITEMS_PROMPT` — template to pull tasks/deadlines from emails
-  - [ ] `TRANSLATE_PROMPT` — template for translating email content
-  - [ ] `CHANGE_TONE_PROMPT` — template for formal/casual/friendly/professional rewrites
-- [ ] Create `src/prompts/builder.ts`:
-  - [ ] Function `buildPrompt(template, variables)` — replaces placeholders in templates
-  - [ ] Function `truncateContext(text, maxTokens)` — safely truncates long emails
-- [ ] Write unit tests for prompt builder functions
+- [x] Create `src/prompts/` directory
+- [x] Create `src/prompts/templates.ts`:
+  - [x] `DRAFT_EMAIL_PROMPT` — template for composing new emails from bullet points/instructions
+  - [x] `REPLY_PROMPT` — template that includes original email context + desired tone
+  - [x] `SUMMARIZE_THREAD_PROMPT` — template for summarizing multi-message threads
+  - [x] `IMPROVE_WRITING_PROMPT` — template for grammar, clarity, tone adjustments
+  - [x] `EXTRACT_ACTION_ITEMS_PROMPT` — template to pull tasks/deadlines from emails
+  - [x] `TRANSLATE_PROMPT` — template for translating email content
+  - [x] `CHANGE_TONE_PROMPT` — template for formal/casual/friendly/professional rewrites
+- [x] Create `src/prompts/builder.ts`:
+  - [x] Function `buildPrompt(template, variables)` — replaces placeholders in templates
+  - [x] Function `truncateContext(text, maxTokens)` — safely truncates long emails
+- [x] Write unit tests for prompt builder functions
 
 ---
 
