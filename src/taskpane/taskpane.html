@@ -85,6 +85,10 @@
           <i class="ms-Icon ms-Icon--Reply"></i>
           Reply
         </button>
+        <button id="tab-summarize" class="caelum-tab" data-tab="summarize">
+          <i class="ms-Icon ms-Icon--Articles"></i>
+          Summarize
+        </button>
       </nav>
 
       <!-- Draft Email Form ------------------------------------------ -->
@@ -301,6 +305,90 @@
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- Summarize Section                                                 -->
+      <!-- ================================================================ -->
+
+      <!-- Summarize Form ---------------------------------------------- -->
+      <section id="summarize-section" class="caelum-section" style="display: none">
+        <h2 class="caelum-section__title">
+          <i class="ms-Icon ms-Icon--Articles"></i>
+          Summarize Email
+        </h2>
+
+        <!-- Summary style (radio buttons) -->
+        <div class="caelum-field">
+          <label class="caelum-field__label">Summary format</label>
+          <div class="caelum-radio-group">
+            <label class="caelum-radio">
+              <input type="radio" name="summary-style" value="bullets" checked />
+              <span class="caelum-radio__mark"></span>
+              <span>Bullet points</span>
+            </label>
+            <label class="caelum-radio">
+              <input type="radio" name="summary-style" value="paragraph" />
+              <span class="caelum-radio__mark"></span>
+              <span>Paragraph</span>
+            </label>
+            <label class="caelum-radio">
+              <input type="radio" name="summary-style" value="tldr" />
+              <span class="caelum-radio__mark"></span>
+              <span>TL;DR</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Summary length -->
+        <div class="caelum-field">
+          <label class="caelum-field__label" for="summary-length">Length</label>
+          <select id="summary-length" class="caelum-select">
+            <option value="brief">Brief (2-3 sentences)</option>
+            <option value="standard" selected>Standard (1 paragraph)</option>
+            <option value="detailed">Detailed (multiple paragraphs)</option>
+          </select>
+        </div>
+
+        <!-- Summarize button -->
+        <button id="btn-summarize" class="caelum-btn caelum-btn--primary caelum-btn--full">
+          <i class="ms-Icon ms-Icon--LightningBolt"></i>
+          Summarize
+        </button>
+      </section>
+
+      <!-- Summarize result area --------------------------------------- -->
+      <section
+        id="summarize-result-section"
+        class="caelum-section caelum-section--result"
+        style="display: none"
+      >
+        <h2 class="caelum-section__title">
+          <i class="ms-Icon ms-Icon--TextDocument"></i>
+          Summary
+        </h2>
+
+        <div id="summary-preview" class="caelum-preview caelum-preview--readonly"></div>
+
+        <!-- Summary action buttons -->
+        <div class="caelum-actions">
+          <button
+            id="btn-copy-summary"
+            class="caelum-btn caelum-btn--primary"
+            title="Copy summary to clipboard"
+          >
+            <i class="ms-Icon ms-Icon--Copy"></i>
+            Copy to Clipboard
+          </button>
+          <button
+            id="btn-regenerate-summary"
+            class="caelum-btn caelum-btn--secondary"
+            title="Generate a new summary"
+          >
+            <i class="ms-Icon ms-Icon--Refresh"></i>
+            Regenerate
+          </button>
         </div>
       </section>
 

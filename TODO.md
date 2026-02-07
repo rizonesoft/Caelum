@@ -150,15 +150,15 @@
 
 ### 3.4 Feature: Summarize Email Thread
 
-- [ ] Create `src/features/summarize-thread.ts`
-- [ ] Read the full conversation/thread (use `getConversationMessages()`)
-- [ ] Build a task pane UI:
-  - [ ] "Summarize" button
-  - [ ] Radio buttons for summary style: bullet points, paragraph, TL;DR
-  - [ ] Slider or dropdown for summary length
-- [ ] On submit: call `generateText()` with `SUMMARIZE_THREAD_PROMPT`
-- [ ] Display summary in a scrollable read-only panel
-- [ ] Add a "Copy to Clipboard" button
+- [x] Create `src/features/summarize-thread.ts`
+- [x] Read the full conversation/thread (use `getConversationMessages()`)
+- [x] Build a task pane UI:
+  - [x] "Summarize" button
+  - [x] Radio buttons for summary style: bullet points, paragraph, TL;DR
+  - [x] Slider or dropdown for summary length
+- [x] On submit: call `generateText()` with `SUMMARIZE_THREAD_PROMPT`
+- [x] Display summary in a scrollable read-only panel
+- [x] Add a "Copy to Clipboard" button
 
 ### 3.5 Feature: Improve Writing
 

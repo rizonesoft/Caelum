@@ -27,6 +27,14 @@ import {
   clearEmailContext,
   DraftReplyOptions,
 } from '../features/draft-reply';
+import {
+  summarizeThread,
+  regenerateSummary,
+  copyToClipboard,
+  SummarizeOptions,
+  SummaryStyle,
+  SummaryLength,
+} from '../features/summarize-thread';
 
 // ---------------------------------------------------------------------------
 // DOM helpers
@@ -96,6 +104,7 @@ function setPreview(elementId: string, text: string): void {
 const TAB_CONFIG: Record<string, string[]> = {
   draft: ['draft-section', 'result-section'],
   reply: ['reply-section', 'reply-result-section'],
+  summarize: ['summarize-section', 'summarize-result-section'],
 };
 
 function switchTab(tabName: string): void {
@@ -333,6 +342,77 @@ function handleInsertReplyAll(): void {
 }
 
 // ---------------------------------------------------------------------------
+// Summarize handlers
+// ---------------------------------------------------------------------------
+
+function getSelectedStyle(): SummaryStyle {
+  const checked = document.querySelector('input[name="summary-style"]:checked') as HTMLInputElement;
+  return (checked?.value as SummaryStyle) || 'bullets';
+}
+
+async function handleSummarize(): Promise<void> {
+  const style = getSelectedStyle();
+  const length = ($('summary-length') as HTMLSelectElement)?.value as SummaryLength || 'standard';
+
+  const options: SummarizeOptions = { style, length };
+
+  hideError();
+  showLoading('Summarizing with Gemini...');
+
+  try {
+    const summary = await summarizeThread(options);
+    setPreview('summary-preview', summary);
+    showElement('summarize-result-section');
+  } catch (err: any) {
+    showError(err.message || 'Failed to summarize. Please try again.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleRegenerateSummary(): Promise<void> {
+  hideError();
+  showLoading('Regenerating summary...');
+
+  try {
+    const summary = await regenerateSummary();
+    setPreview('summary-preview', summary);
+  } catch (err: any) {
+    showError(err.message || 'Failed to regenerate summary. Please try again.');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function handleCopySummary(): Promise<void> {
+  const preview = $('summary-preview');
+  if (!preview) return;
+
+  const text = preview.innerText || preview.textContent || '';
+  if (!text.trim()) {
+    showError('No summary to copy.');
+    return;
+  }
+
+  try {
+    await copyToClipboard(text);
+    // Brief visual feedback
+    const btn = $('btn-copy-summary');
+    if (btn) {
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
+      btn.classList.add('caelum-btn--success');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('caelum-btn--success');
+      }, 1500);
+    }
+  } catch (err: any) {
+    showError(err.message || 'Failed to copy to clipboard.');
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Initialization
 // ---------------------------------------------------------------------------
 
@@ -379,6 +459,11 @@ Office.onReady((info) => {
     $('reply-refine-input')?.addEventListener('keydown', (e: Event) => {
       if ((e as KeyboardEvent).key === 'Enter') handleRefineReply();
     });
+
+    // --- Summarize ---
+    $('btn-summarize')?.addEventListener('click', handleSummarize);
+    $('btn-regenerate-summary')?.addEventListener('click', handleRegenerateSummary);
+    $('btn-copy-summary')?.addEventListener('click', handleCopySummary);
 
     // --- Error banner ---
     $('btn-dismiss-error')?.addEventListener('click', hideError);
