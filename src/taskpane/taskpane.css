@@ -195,7 +195,7 @@ body {
 }
 
 /* ================================================================
-   Tab bar — Segmented control style
+   Tab bar — 2×2 grid with SVG icons
    ================================================================ */
 
 .glide-tabs {
@@ -207,20 +207,27 @@ body {
   flex-shrink: 0;
 }
 
+.glide-tabs--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: var(--glide-space-md) var(--glide-space-lg);
+}
+
 .glide-tab {
-  flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 7px 10px;
+  gap: 4px;
+  padding: 10px 8px;
   font-family: var(--glide-font);
   font-size: var(--glide-font-size-sm);
   font-weight: var(--glide-weight-medium);
   color: var(--glide-text-secondary);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--glide-radius-sm);
+  background: var(--glide-bg-panel);
+  border: 1px solid var(--glide-border-light);
+  border-radius: var(--glide-radius);
   cursor: pointer;
   transition: all var(--glide-duration) var(--glide-ease);
   user-select: none;
@@ -228,18 +235,25 @@ body {
 
 .glide-tab:hover {
   color: var(--glide-text);
-  background: var(--glide-bg-panel);
+  background: var(--glide-bg);
+  border-color: var(--glide-border);
 }
 
 .glide-tab--active {
   color: var(--glide-blue);
   background: var(--glide-blue-light);
-  border-color: rgba(59, 158, 255, 0.2);
+  border-color: rgba(59, 158, 255, 0.25);
   font-weight: var(--glide-weight-semibold);
 }
 
-.glide-tab .ms-Icon {
-  font-size: 13px;
+.glide-tab svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.glide-tab span {
+  line-height: 1;
 }
 
 /* ================================================================
