@@ -60,13 +60,13 @@
 
       <!-- Tab bar ---------------------------------------------------- -->
       <nav class="glide-tabs flex items-center gap-0 border-b border-glide-border-light bg-glide-bg sticky top-0 z-10">
-        <button id="tab-draft" class="glide-tab glide-tab--active" data-tab="draft">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>
-          <span>Draft</span>
-        </button>
-        <button id="tab-reply" class="glide-tab" data-tab="reply">
+        <button id="tab-reply" class="glide-tab glide-tab--active" data-tab="reply">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 18v-2a4 4 0 0 0-4-4H4"/><path d="m9 17-5-5 5-5"/></svg>
           <span>Reply</span>
+        </button>
+        <button id="tab-draft" class="glide-tab" data-tab="draft">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>
+          <span>Draft</span>
         </button>
         <!-- Icon-only utility buttons -->
         <button id="tab-settings" class="glide-tab glide-tab--icon" title="Settings">
@@ -102,7 +102,7 @@
       <!-- Draft Email                                                    -->
       <!-- ============================================================ -->
 
-      <section id="draft-section" class="glide-section p-lg">
+      <section id="draft-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <!-- Pen-line icon -->
           <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>
@@ -192,7 +192,7 @@
       <!-- Reply                                                          -->
       <!-- ============================================================ -->
 
-      <section id="reply-section" class="glide-section p-lg" style="display: none">
+      <section id="reply-section" class="glide-section p-lg">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 18v-2a4 4 0 0 0-4-4H4"/><path d="m9 17-5-5 5-5"/></svg>
           Draft a Reply
