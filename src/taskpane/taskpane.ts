@@ -658,6 +658,17 @@ Office.onReady((info) => {
     hideElement('sideload-msg');
     showElement('app-body');
 
+    // Load reply context immediately (Reply is the default tab)
+    loadReplyContext();
+
+    // Refresh context when user switches to a different email
+    if (Office.context.mailbox) {
+      Office.context.mailbox.addHandlerAsync(
+        Office.EventType.ItemChanged,
+        () => { loadReplyContext(); },
+      );
+    }
+
     // Load settings and initialize Gemini client from stored API key
     const settings = loadSettings();
     try {
