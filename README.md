@@ -39,22 +39,24 @@ Glide is an open-source Outlook add-in that brings the power of **Google Gemini 
 
 **Option A — Install from GitHub Pages (recommended)**
 
-1. Download the production manifest:
-   **[manifest.xml](https://rizonesoft.github.io/Glide/manifest.xml)**
-2. Open **Outlook on the web** → click **Get Add-ins** (or **Manage Add-ins**)
-3. Go to **My add-ins** → **Add a custom add-in** → **Add from file**
-4. Upload the downloaded `manifest.xml`
-5. Open any email → click the **Glide** button in the ribbon
-6. Enter your Gemini API key in **Settings** (gear icon)
+1. Open **Outlook on the web** → click **Get Add-ins** (or **Manage Add-ins**)
+2. Go to **My add-ins** → **Add a custom add-in** → **Add from URL**
+3. Paste the production manifest URL:
+   ```
+   https://rizonesoft.github.io/Glide/manifest.xml
+   ```
+4. Click **Install** → open any email → click the **Glide** button in the ribbon
+5. Enter your Gemini API key in **Settings** (gear icon)
 
 **Option B — Install the Dev/Nightly build**
 
 For early access to the latest features:
 
-1. Download the dev manifest:
-   **[manifest.xml](https://rizonesoft.github.io/Glide/dev/manifest.xml)**
-2. Follow the same sideloading steps as Option A
-3. The dev build appears as **"Glide (Dev)"** in Outlook so it won't conflict with the production version
+1. Follow the same steps as Option A, but use the dev manifest URL:
+   ```
+   https://rizonesoft.github.io/Glide/dev/manifest.xml
+   ```
+2. The dev build appears as **"Glide (Dev)"** in Outlook so it won't conflict with the production version
 
 **Option C — Organization-wide deployment (M365 Admin)**
 
