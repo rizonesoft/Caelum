@@ -15,6 +15,7 @@
 import { generateText } from '../services/gemini';
 import { buildPrompt } from '../prompts/builder';
 import { DRAFT_EMAIL_PROMPT } from '../prompts/templates';
+import { getItemMode } from '../services/outlook';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -117,17 +118,39 @@ Requirements:
 }
 
 /**
- * Copy the generated draft into a new Outlook compose window.
- * Parses the "Subject: ..." line from the draft if present.
+ * Insert the generated draft into the current compose window (inline),
+ * or open a new compose window if in read mode.
+ *
+ * In compose mode: sets the subject and body directly in the active editor.
+ * In read mode: falls back to displayNewMessageForm (opens new window).
  */
 export function copyToCompose(draft: string): void {
   const { subject, body } = parseSubjectAndBody(draft);
+  const mode = getItemMode();
 
-  // Office.context.mailbox.displayNewMessageForm opens a new compose window
-  Office.context.mailbox.displayNewMessageForm({
-    subject: subject,
-    htmlBody: bodyToHtml(body),
-  });
+  if (mode === 'compose') {
+    // Insert directly into the active compose window
+    const item = Office.context.mailbox.item as any;
+
+    // Set the body inline
+    if (item && item.body && typeof item.body.setAsync === 'function') {
+      item.body.setAsync(
+        bodyToHtml(body),
+        { coercionType: Office.CoercionType.Html },
+      );
+    }
+
+    // Set the subject inline (if the draft has one)
+    if (subject && item && item.subject && typeof item.subject.setAsync === 'function') {
+      item.subject.setAsync(subject);
+    }
+  } else {
+    // Read mode — open a new compose window
+    Office.context.mailbox.displayNewMessageForm({
+      subject: subject,
+      htmlBody: bodyToHtml(body),
+    });
+  }
 }
 
 /**

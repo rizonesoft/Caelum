@@ -12,6 +12,7 @@
 import '../styles/main.css';
 import './taskpane.css';
 import { initGeminiClient } from '../services/gemini';
+import { getItemMode } from '../services/outlook';
 import {
   generateDraft,
   regenerateDraft,
@@ -125,6 +126,58 @@ function setPreview(elementId: string, text: string): void {
     .join('');
 
   preview.innerHTML = html;
+}
+
+// ---------------------------------------------------------------------------
+// Compose-mode UI adaptation
+// ---------------------------------------------------------------------------
+
+type UIMode = 'read' | 'compose' | 'unknown';
+
+function adaptUIForMode(mode: UIMode): void {
+  if (mode === 'compose') {
+    // Draft section: "Copy to Compose" → "Insert into Email"
+    const copyComposeBtn = $('btn-copy-compose');
+    if (copyComposeBtn) {
+      copyComposeBtn.innerHTML =
+        '<i class="ms-Icon ms-Icon--Edit"></i> Insert into Email';
+      copyComposeBtn.title = 'Insert the draft into the current email';
+    }
+
+    // Reply section: "Reply" → "Insert Reply", hide "Reply All"
+    const insertReplyBtn = $('btn-insert-reply');
+    if (insertReplyBtn) {
+      insertReplyBtn.innerHTML =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>' +
+        ' Insert Reply';
+      insertReplyBtn.title = 'Insert the reply into the current email';
+    }
+
+    const insertReplyAllBtn = $('btn-insert-reply-all');
+    if (insertReplyAllBtn) {
+      insertReplyAllBtn.style.display = 'none';
+    }
+
+    // Reply context banner: show compose mode info
+    const senderEl = $('reply-sender');
+    const subjectEl = $('reply-subject');
+    if (senderEl) senderEl.textContent = 'You (composing)';
+    if (subjectEl) {
+      // Try to read the compose subject
+      const item = Office.context.mailbox.item as any;
+      if (item && item.subject && typeof item.subject.getAsync === 'function') {
+        item.subject.getAsync((result: any) => {
+          if (result.status === Office.AsyncResultStatus.Succeeded) {
+            subjectEl.textContent = result.value || '(new email)';
+          } else {
+            subjectEl.textContent = '(new email)';
+          }
+        });
+      } else {
+        subjectEl.textContent = '(new email)';
+      }
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -658,8 +711,14 @@ Office.onReady((info) => {
     hideElement('sideload-msg');
     showElement('app-body');
 
+    // Detect compose mode and adapt UI
+    const currentMode = getItemMode();
+    adaptUIForMode(currentMode);
+
     // Load reply context immediately (Reply is the default tab)
-    loadReplyContext();
+    if (currentMode === 'read') {
+      loadReplyContext();
+    }
 
     // Refresh context when user switches to a different email
     if (Office.context.mailbox) {

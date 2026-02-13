@@ -203,25 +203,59 @@ export function insertIntoReply(replyText: string): Promise<void> {
 
 /**
  * Open a Reply window for the current email with the generated text.
+ * In compose mode: inserts the text directly into the active compose body.
+ * In read mode: opens a Reply compose window via displayReplyForm.
  */
 export function openReply(replyText: string): void {
+  const mode = getItemMode();
   const item = Office.context.mailbox.item as any;
-  if (item && typeof item.displayReplyForm === 'function') {
-    item.displayReplyForm(bodyToHtml(replyText));
+
+  if (mode === 'compose') {
+    // Insert directly into the active compose body
+    if (item && item.body && typeof item.body.setAsync === 'function') {
+      item.body.setAsync(
+        bodyToHtml(replyText),
+        { coercionType: Office.CoercionType.Html },
+      );
+    } else {
+      throw new Error('Cannot insert reply — compose body is not accessible.');
+    }
   } else {
-    throw new Error('Cannot open reply window. Please make sure an email is selected.');
+    // Read mode — open a reply window
+    if (item && typeof item.displayReplyForm === 'function') {
+      item.displayReplyForm(bodyToHtml(replyText));
+    } else {
+      throw new Error('Cannot open reply window. Please make sure an email is selected.');
+    }
   }
 }
 
 /**
  * Open a Reply All window for the current email with the generated text.
+ * In compose mode: inserts the text directly into the active compose body.
+ * In read mode: opens a Reply All compose window via displayReplyAllForm.
  */
 export function openReplyAll(replyText: string): void {
+  const mode = getItemMode();
   const item = Office.context.mailbox.item as any;
-  if (item && typeof item.displayReplyAllForm === 'function') {
-    item.displayReplyAllForm(bodyToHtml(replyText));
+
+  if (mode === 'compose') {
+    // In compose mode, Reply All is the same as Reply — insert inline
+    if (item && item.body && typeof item.body.setAsync === 'function') {
+      item.body.setAsync(
+        bodyToHtml(replyText),
+        { coercionType: Office.CoercionType.Html },
+      );
+    } else {
+      throw new Error('Cannot insert reply — compose body is not accessible.');
+    }
   } else {
-    throw new Error('Cannot open Reply All window. Please make sure an email is selected.');
+    // Read mode — open a Reply All window
+    if (item && typeof item.displayReplyAllForm === 'function') {
+      item.displayReplyAllForm(bodyToHtml(replyText));
+    } else {
+      throw new Error('Cannot open Reply All window. Please make sure an email is selected.');
+    }
   }
 }
 
