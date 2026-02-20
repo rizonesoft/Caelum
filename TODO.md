@@ -46,7 +46,7 @@
   ├── src/
   │   ├── taskpane/        # Task Pane HTML, CSS, TS
   │   └── commands/        # Function commands
-  ├── manifest.xml         # Add-in manifest
+  ├── manifest.xml         # Add-in manifest (production)
   ├── webpack.config.js
   ├── package.json
   └── tsconfig.json

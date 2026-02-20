@@ -8,8 +8,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/rizonesoft/ai-email-writer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-  <a href="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-dev.yml"><img alt="Deploy Dev" src="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-dev.yml/badge.svg"></a>
-  <a href="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-prod.yml"><img alt="Deploy Production" src="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-prod.yml/badge.svg"></a>
+  <a href="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy.yml"><img alt="Deploy" src="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy.yml/badge.svg"></a>
 </p>
 
 ---
@@ -40,7 +39,7 @@
 
 **Option A — Install from GitHub Pages (recommended)**
 
-1. Download the production manifest: **[manifest.xml](https://rizonesoft.github.io/ai-email-writer/manifest.xml)** (right-click → Save As)
+1. Download the manifest: **[manifest.xml](https://rizonesoft.github.io/ai-email-writer/manifest.xml)** (right-click → Save As)
 2. Visit **[aka.ms/olksideload](https://aka.ms/olksideload)** — this opens Outlook on the web and the Add-Ins dialog
 3. In the **"Custom Addins"** section at the bottom, click **Add a custom add-in** → **Add from File**
 4. Select the downloaded `manifest.xml` and click **Install**
@@ -49,22 +48,22 @@
 
 > **Tip:** In classic Outlook on Windows, you can also access this via **File → Info → Manage Add-ins**.
 
-**Option B — Install the Dev/Nightly build**
+**Option B — Organization-wide deployment (M365 Admin)**
+
+1. Go to [admin.microsoft.com](https://admin.microsoft.com) → **Settings** → **Integrated Apps**
+2. Click **Upload custom apps** → **Provide link to manifest file**
+3. Enter: `https://rizonesoft.github.io/ai-email-writer/manifest.xml`
+4. Click **Validate** → assign to users or groups → **Deploy**
+
+> **Note:** Updates are automatic — when we deploy new code to GitHub Pages, the add-in updates for all users on the next load. No reinstallation needed.
+
+**Option C — Install the Dev/Nightly build**
 
 For early access to the latest features:
 
 1. Download the dev manifest: **[manifest.xml](https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml)** (right-click → Save As)
 2. Follow the same steps as Option A using [aka.ms/olksideload](https://aka.ms/olksideload)
 3. The dev build appears as **"AI Compose (Dev)"** in Outlook so it won't conflict with the production version
-
-**Option C — Organization-wide deployment (M365 Admin)**
-
-1. Go to [admin.microsoft.com](https://admin.microsoft.com) → **Settings** → **Integrated Apps**
-2. Click **Upload custom apps** → **Provide link to manifest file**
-3. Enter: `https://rizonesoft.github.io/ai-email-writer/manifest.xml`
-4. Assign to users or groups → **Deploy**
-
-> **Note:** Updates are automatic — when we deploy new code to GitHub Pages, the add-in updates for all users on the next load. No reinstallation needed.
 
 ## 🛠️ Development
 
@@ -115,15 +114,13 @@ ai-email-writer/
 │   └── commands/          # Outlook ribbon command handlers
 ├── assets/
 │   └── icons/             # Lucide SVG icons
-├── manifest.xml           # Local development manifest (localhost)
-├── manifest.dev.xml       # Dev/Nightly manifest (GitHub Pages /dev/)
-├── manifest.prod.xml      # Production manifest (GitHub Pages root)
+├── manifest.xml           # Add-in manifest (GitHub Pages production)
 └── .github/workflows/     # CI/CD deployment workflows
 ```
 
 ## 🔄 Deployment
 
-AI Compose uses a **dual-environment** deployment strategy on GitHub Pages:
+AI Compose uses a **dual-environment** deployment strategy on GitHub Pages with a **single source manifest**. The dev workflow automatically patches `manifest.xml` at CI time (different App ID, `/dev/` URLs, and "(Dev)" label).
 
 | Environment    | URL                                                                                            | Trigger                          | Manifest                                                                         |
 | -------------- | ---------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------------------------------------------- |
@@ -132,9 +129,21 @@ AI Compose uses a **dual-environment** deployment strategy on GitHub Pages:
 
 ### Promoting Dev to Production
 
-1. Test the dev build by sideloading the dev manifest
-2. When satisfied, go to **[GitHub Actions](https://github.com/rizonesoft/ai-email-writer/actions)** → **Deploy Production** → **Run workflow**
-3. Production users will receive the update automatically on their next add-in load
+1. Test the dev build by sideloading the [dev manifest](https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml)
+2. When satisfied, go to **[GitHub Actions](https://github.com/rizonesoft/ai-email-writer/actions)** → **Deploy** → **Run workflow**
+3. Check the **Deploy to production** checkbox → **Run workflow**
+4. Production users will receive the update automatically on their next add-in load
+
+### Updating in MS365 Admin Centre
+
+If you need to update or re-deploy the add-in for your organization:
+
+1. Go to [admin.microsoft.com](https://admin.microsoft.com) → **Settings** → **Integrated Apps**
+2. Find **AI Compose** → click **Update app** (or remove and re-add)
+3. Select **Provide link to manifest file**
+4. Enter: `https://rizonesoft.github.io/ai-email-writer/manifest.xml`
+5. Click **Validate** → **Update** / **Deploy**
+6. Changes propagate to assigned users within 24 hours
 
 ## ⚙️ Settings
 

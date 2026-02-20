@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Consolidated `manifest.xml`, `manifest.dev.xml`, and `manifest.prod.xml` into a single `manifest.xml`
+- Dev manifest is now derived at CI time via `sed` transforms in the deploy workflow
 - Rebranded project from "Glide" to **Rizonesoft AI Email Writer** (short name **AI Compose**)
 - Updated Outlook ribbon labels, taskpane title, and all manifest display names
 - Updated README, CHANGELOG, CONTRIBUTING, and SECURITY documentation
