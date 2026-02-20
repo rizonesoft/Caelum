@@ -156,7 +156,7 @@ function adaptUIForMode(mode: UIMode): void {
 
     const insertReplyAllBtn = $('btn-insert-reply-all');
     if (insertReplyAllBtn) {
-      insertReplyAllBtn.style.display = 'none';
+      insertReplyAllBtn.classList.add('hidden');
     }
 
     // Reply context banner: show compose mode info
@@ -213,10 +213,10 @@ function switchTab(tabName: string): void {
         if (id.includes('result')) {
           // Keep current display state (only shown after generation)
         } else {
-          el.style.display = '';
+          el.classList.remove('hidden');
         }
       } else {
-        el.style.display = 'none';
+        el.classList.add('hidden');
       }
     }
   }
@@ -799,8 +799,8 @@ Office.onReady((info) => {
 
     const toggleDropdown = (show?: boolean): void => {
       if (!dropdown || !splitContainer) return;
-      const isOpen = show !== undefined ? show : dropdown.style.display === 'none';
-      dropdown.style.display = isOpen ? '' : 'none';
+      const isOpen = show !== undefined ? show : dropdown.classList.contains('hidden');
+      dropdown.classList.toggle('hidden', !isOpen);
       splitContainer.classList.toggle('glide-split--open', isOpen);
     }
 
@@ -914,12 +914,12 @@ Office.onReady((info) => {
 
       if (input.type === 'password') {
         input.type = 'text';
-        if (showIcon) showIcon.style.display = 'none';
-        if (hideIcon) hideIcon.style.display = '';
+        if (showIcon) showIcon.classList.add('hidden');
+        if (hideIcon) hideIcon.classList.remove('hidden');
       } else {
         input.type = 'password';
-        if (showIcon) showIcon.style.display = '';
-        if (hideIcon) hideIcon.style.display = 'none';
+        if (showIcon) showIcon.classList.remove('hidden');
+        if (hideIcon) hideIcon.classList.add('hidden');
       }
     });
 
@@ -945,8 +945,8 @@ Office.onReady((info) => {
       // Show confirmation
       const msg = $('settings-saved-msg');
       if (msg) {
-        msg.style.display = '';
-        setTimeout(() => { msg.style.display = 'none'; }, 2000);
+        msg.classList.remove('hidden');
+        setTimeout(() => { msg.classList.add('hidden'); }, 2000);
       }
 
       // Flash the save button green
