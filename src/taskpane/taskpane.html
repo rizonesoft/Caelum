@@ -2,7 +2,7 @@
 <!-- © Rizonetech (Pty) Ltd. — https://rizonesoft.com -->
 
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -60,7 +60,7 @@
     <!-- ================================================================ -->
     <!-- Main app (hidden until Office.js is ready)                       -->
     <!-- ================================================================ -->
-    <main id="app-body" style="display: none">
+    <main id="app-body" class="hidden">
       <!-- Tab bar ---------------------------------------------------- -->
       <nav
         class="glide-tabs flex items-center gap-0 border-b border-glide-border-light bg-glide-bg sticky top-0 z-10"
@@ -144,7 +144,7 @@
             </svg>
           </button>
           <!-- More dropdown menu -->
-          <div id="more-dropdown" class="glide-dropdown" style="display: none">
+          <div id="more-dropdown" class="glide-dropdown hidden">
             <button class="glide-dropdown__item" data-tab="summarize">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +235,7 @@
       <!-- Draft Email                                                    -->
       <!-- ============================================================ -->
 
-      <section id="draft-section" class="glide-section p-lg" style="display: none">
+      <section id="draft-section" class="glide-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <!-- Pen-line icon -->
           <svg
@@ -325,8 +325,7 @@
       <!-- Draft result ------------------------------------------------ -->
       <section
         id="result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light"
-        style="display: none"
+        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
@@ -494,8 +493,7 @@
       <!-- Reply result ------------------------------------------------ -->
       <section
         id="reply-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light"
-        style="display: none"
+        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
@@ -598,7 +596,7 @@
       <!-- Summarize                                                      -->
       <!-- ============================================================ -->
 
-      <section id="summarize-section" class="glide-section p-lg" style="display: none">
+      <section id="summarize-section" class="glide-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
             class="text-glide-blue shrink-0"
@@ -678,8 +676,7 @@
       <!-- Summarize result -------------------------------------------- -->
       <section
         id="summarize-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light"
-        style="display: none"
+        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
@@ -729,7 +726,7 @@
       <!-- Improve Writing                                                -->
       <!-- ============================================================ -->
 
-      <section id="improve-section" class="glide-section p-lg" style="display: none">
+      <section id="improve-section" class="glide-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg
             class="text-glide-blue shrink-0"
@@ -801,8 +798,7 @@
       <!-- Improve result ---------------------------------------------- -->
       <section
         id="improve-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light"
-        style="display: none"
+        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
@@ -851,7 +847,7 @@
       <!-- Extract Action Items                                           -->
       <!-- ============================================================ -->
 
-      <section id="extract-section" class="glide-section p-lg" style="display: none">
+      <section id="extract-section" class="glide-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg
             class="text-glide-blue shrink-0"
@@ -903,8 +899,7 @@
       <!-- Extract result ---------------------------------------------- -->
       <section
         id="extract-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light"
-        style="display: none"
+        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
@@ -953,7 +948,7 @@
       <!-- Translate                                                      -->
       <!-- ============================================================ -->
 
-      <section id="translate-section" class="glide-section p-lg" style="display: none">
+      <section id="translate-section" class="glide-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
           <svg
             class="text-glide-blue shrink-0"
@@ -1035,8 +1030,7 @@
       <!-- Translate result -------------------------------------------- -->
       <section
         id="translate-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light"
-        style="display: none"
+        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
@@ -1086,7 +1080,7 @@
       <!-- Settings                                                       -->
       <!-- ============================================================ -->
 
-      <section id="settings-section" class="glide-section p-lg" style="display: none">
+      <section id="settings-section" class="glide-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <svg
             class="text-glide-blue shrink-0"
@@ -1127,10 +1121,16 @@
             />
             <button
               id="btn-toggle-api-key"
+<<<<<<< HEAD
               class="glide-btn glide-btn--secondary"
               title="Show/hide API key"
               type="button"
               style="padding: 8px 10px"
+=======
+              class="glide-btn glide-btn--secondary glide-btn--icon-toggle"
+              title="Show/hide API key"
+              type="button"
+>>>>>>> 7c312ad (feat: rebrand from Glide to Rizonesoft AI Email Writer (AI Compose))
             >
               <!-- Eye icon -->
               <svg
@@ -1161,7 +1161,11 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+<<<<<<< HEAD
                 style="display: none"
+=======
+                class="hidden"
+>>>>>>> 7c312ad (feat: rebrand from Glide to Rizonesoft AI Email Writer (AI Compose))
               >
                 <path
                   d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"
@@ -1297,21 +1301,25 @@
 
         <div
           id="settings-saved-msg"
+<<<<<<< HEAD
           class="text-center text-sm text-glide-success font-medium mt-sm"
           style="display: none"
+=======
+          class="text-center text-sm text-glide-success font-medium mt-sm hidden"
+>>>>>>> 7c312ad (feat: rebrand from Glide to Rizonesoft AI Email Writer (AI Compose))
         >
           ✓ Settings saved
         </div>
       </section>
 
       <!-- Loading overlay --------------------------------------------- -->
-      <div id="loading-overlay" class="glide-loading" style="display: none">
+      <div id="loading-overlay" class="glide-loading hidden">
         <div class="glide-loading__spinner"></div>
         <p class="text-sm text-glide-text-secondary font-medium">Generating with Gemini...</p>
       </div>
 
       <!-- Error banner ------------------------------------------------ -->
-      <div id="error-banner" class="glide-error" style="display: none">
+      <div id="error-banner" class="glide-error hidden">
         <i class="ms-Icon ms-Icon--ErrorBadge"></i>
         <span id="error-message" class="flex-1"></span>
         <button id="btn-dismiss-error" class="glide-error__dismiss" title="Dismiss">

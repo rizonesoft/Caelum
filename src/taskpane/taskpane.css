@@ -208,6 +208,11 @@
   color: var(--color-glide-text-inverse) !important;
 }
 
+/* Icon-only toggle (e.g. API key show/hide) */
+.glide-btn--icon-toggle {
+  padding: 8px 10px;
+}
+
 /* ================================================================
    Form controls — shared styles for select, input, textarea
    ================================================================ */
