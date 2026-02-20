@@ -1012,10 +1012,19 @@ Office.onReady((info) => {
 
       try {
         initGeminiClient(apiKey);
-        await generateText('Respond with exactly: OK', {
-          maxOutputTokens: 10,
-          temperature: 0,
-        });
+        try {
+          await generateText('Say hello in one word.', {
+            maxOutputTokens: 20,
+            temperature: 0.5,
+          });
+        } catch (testErr: any) {
+          // If error is CONTENT_FILTERED, the API key and connection are still valid
+          if (testErr?.code === 'CONTENT_FILTERED') {
+            // Connection works — content filter is a non-issue for a test
+          } else {
+            throw testErr;
+          }
+        }
         resultEl.style.color = 'var(--color-glide-success)';
         resultEl.textContent = '✓ Connection successful! API key is valid.';
         if (btn) {
