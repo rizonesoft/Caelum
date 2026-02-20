@@ -351,6 +351,11 @@ async function handleGenerateReply(): Promise<void> {
     const reply = await generateReply(options);
     setPreview('reply-preview', reply);
     showElement('reply-result-section');
+
+    // In compose mode, Reply All is redundant — user already chose reply type
+    if (getItemMode() === 'compose') {
+      hideElement('btn-insert-reply-all');
+    }
   } catch (err: any) {
     showError(err.message || 'Failed to generate reply. Please try again.');
   } finally {
