@@ -440,13 +440,17 @@
 .glide-loading {
   position: fixed;
   inset: 0;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.85);
   z-index: 50;
   backdrop-filter: blur(4px);
+}
+
+.glide-loading:not(.hidden) {
+  display: flex;
 }
 
 .glide-loading__spinner {
@@ -468,7 +472,7 @@
   bottom: var(--spacing-md);
   left: var(--spacing-md);
   right: var(--spacing-md);
-  display: flex;
+  display: none;
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -479,6 +483,10 @@
   font-size: var(--text-sm);
   z-index: 50;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.glide-error:not(.hidden) {
+  display: flex;
 }
 
 .glide-error__dismiss {
