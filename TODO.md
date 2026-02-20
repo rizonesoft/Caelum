@@ -220,8 +220,8 @@
 - [ ] Implement secure storage for the API key:
   - [ ] Option A: Store in `Office.context.roamingSettings` (per-user, synced by Outlook)
   - [x] Option B: Prompt the user to enter their own key in the Settings page
-- [ ] Validate the API key format before storing
-- [ ] Add a "Test Connection" button in Settings to verify the key works
+- [x] Validate the API key format before storing
+- [x] Add a "Test Connection" button in Settings to verify the key works
 
 ### 5.2 Privacy & Data Handling
 

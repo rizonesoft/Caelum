@@ -11,7 +11,7 @@
 
 import '../styles/main.css';
 import './taskpane.css';
-import { initGeminiClient } from '../services/gemini';
+import { initGeminiClient, generateText } from '../services/gemini';
 import { getItemMode } from '../services/outlook';
 import {
   generateDraft,
@@ -73,6 +73,11 @@ import {
 // ---------------------------------------------------------------------------
 
 const $ = (id: string) => document.getElementById(id);
+
+/** Validate Google Gemini API key format (starts with AIza, 39 chars). */
+function isValidApiKeyFormat(key: string): boolean {
+  return /^AIza[0-9A-Za-z_-]{35}$/.test(key);
+}
 
 function showElement(id: string): void {
   const el = $(id);
@@ -936,6 +941,17 @@ Office.onReady((info) => {
       const summaryStyle = ($('settings-summary-style') as HTMLSelectElement)?.value || 'bullets';
       const language = ($('settings-language') as HTMLSelectElement)?.value || 'English';
 
+      // Validate API key format
+      const keyError = $('api-key-error');
+      if (apiKey && !isValidApiKeyFormat(apiKey)) {
+        if (keyError) {
+          keyError.textContent = 'Invalid API key format. Keys typically start with "AIza" and are 39 characters long.';
+          keyError.classList.remove('hidden');
+        }
+        return;
+      }
+      if (keyError) keyError.classList.add('hidden');
+
       const newSettings: GlideSettings = {
         apiKey,
         defaultModel: model,
@@ -959,6 +975,58 @@ Office.onReady((info) => {
       if (btn) {
         btn.classList.add('glide-btn--success');
         setTimeout(() => btn.classList.remove('glide-btn--success'), 1500);
+      }
+    });
+
+    // Test Connection button
+    $('btn-test-connection')?.addEventListener('click', async () => {
+      const apiKey = ($('settings-api-key') as HTMLInputElement)?.value?.trim() || '';
+      const resultEl = $('test-connection-result');
+      const keyError = $('api-key-error');
+      const btn = $('btn-test-connection');
+
+      if (!resultEl) return;
+
+      // Validate format first
+      if (!apiKey) {
+        if (keyError) {
+          keyError.textContent = 'Please enter an API key first.';
+          keyError.classList.remove('hidden');
+        }
+        return;
+      }
+      if (!isValidApiKeyFormat(apiKey)) {
+        if (keyError) {
+          keyError.textContent = 'Invalid API key format. Keys typically start with "AIza" and are 39 characters long.';
+          keyError.classList.remove('hidden');
+        }
+        return;
+      }
+      if (keyError) keyError.classList.add('hidden');
+
+      // Show testing state
+      resultEl.classList.remove('hidden');
+      resultEl.style.color = 'var(--color-glide-text-secondary)';
+      resultEl.textContent = 'Testing connection…';
+      if (btn) btn.setAttribute('disabled', 'true');
+
+      try {
+        initGeminiClient(apiKey);
+        await generateText('Respond with exactly: OK', {
+          maxOutputTokens: 10,
+          temperature: 0,
+        });
+        resultEl.style.color = 'var(--color-glide-success)';
+        resultEl.textContent = '✓ Connection successful! API key is valid.';
+        if (btn) {
+          btn.classList.add('glide-btn--success');
+          setTimeout(() => btn.classList.remove('glide-btn--success'), 2000);
+        }
+      } catch (err: any) {
+        resultEl.style.color = 'var(--color-glide-error-text)';
+        resultEl.textContent = `✗ ${err.message || 'Connection failed. Please check your API key.'}`;
+      } finally {
+        if (btn) btn.removeAttribute('disabled');
       }
     });
 
