@@ -5,7 +5,7 @@
   <ProviderName>Rizonesoft</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="AI Compose (Dev)"/>
-  <Description DefaultValue="AI-powered email writer and composer for Outlook, powered by Gemini — Development build."/>
+  <Description DefaultValue="AI-powered email writer and composer for Outlook, powered by Gemini."/>
   <IconUrl DefaultValue="https://rizonesoft.github.io/ai-email-writer/dev/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://rizonesoft.github.io/ai-email-writer/dev/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://rizonesoft.com/support"/>
@@ -178,7 +178,7 @@
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="AI Compose (Dev)"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="AI Compose (Dev)"/>
-        <bt:String id="AIMenu.Label" DefaultValue="AI Compose"/>
+        <bt:String id="AIMenu.Label" DefaultValue="AI Compose (Dev)"/>
         <bt:String id="AIFixGrammar.Label" DefaultValue="Fix Grammar &amp; Spelling"/>
         <bt:String id="AIImproveClarity.Label" DefaultValue="Improve Clarity"/>
         <bt:String id="AIMakeConcise.Label" DefaultValue="Make Concise"/>
@@ -339,7 +339,7 @@
         <bt:ShortStrings>
           <bt:String id="GroupLabel" DefaultValue="AI Compose (Dev)"/>
           <bt:String id="TaskpaneButton.Label" DefaultValue="AI Compose (Dev)"/>
-          <bt:String id="AIMenu.Label" DefaultValue="AI Compose"/>
+          <bt:String id="AIMenu.Label" DefaultValue="AI Compose (Dev)"/>
           <bt:String id="AIFixGrammar.Label" DefaultValue="Fix Grammar &amp; Spelling"/>
           <bt:String id="AIImproveClarity.Label" DefaultValue="Improve Clarity"/>
           <bt:String id="AIMakeConcise.Label" DefaultValue="Make Concise"/>
