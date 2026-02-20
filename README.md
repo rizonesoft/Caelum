@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="assets/icon-128.png" alt="AI Compose Logo" width="80" />
+  <img src="assets/banner.png" alt="AI Email Writer Banner" width="100%" />
 </p>
 
-<h1 align="center">Rizonesoft AI Email Writer (AI Compose)</h1>
+<h1 align="center">AI Email Writer (AI Compose)</h1>
 <p align="center">
-  <strong>An open-source AI email writer and composer for Microsoft Outlook, powered by the Gemini API.</strong>
+  <strong>An open-source AI email writer and composer for Microsoft Outlook, powered by Google Gemini.</strong>
 </p>
 <p align="center">
   <a href="https://github.com/rizonesoft/ai-email-writer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
@@ -22,7 +22,7 @@
 | **📝 AI-Powered Drafting** | Generate full professional emails from short prompts and a desired tone |
 | **↩️ Contextual Replies**  | Analyze incoming mail to suggest relevant, context-aware responses      |
 | **📋 Summarize**           | Condense long email threads into bullet points, paragraphs, or TL;DR    |
-| **✍️ Tone Adjustment**     | Switch between Formal, Casual, Concise, and Professional styles         |
+| **✍️ Improve Writing**     | Fix grammar, improve clarity, make concise, or make professional        |
 | **✅ Extract Actions**     | Pull out action items, deadlines, and tasks from emails                 |
 | **🌐 Translate**           | Translate email content into 20+ languages                              |
 | **🔒 Privacy-First**       | Open-source architecture ensures your API keys stay local               |
@@ -31,7 +31,7 @@
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v18 or higher
+- [Node.js](https://nodejs.org/) v20 or higher
 - A [Google Gemini API key](https://aistudio.google.com/apikey) (free tier available)
 - Microsoft Outlook (desktop, web, or Microsoft 365)
 
@@ -110,10 +110,11 @@ ai-email-writer/
 │   ├── features/          # Feature modules (draft, reply, summarize, etc.)
 │   ├── services/          # Gemini API client, Outlook service
 │   ├── prompts/           # Prompt templates and builder
+│   ├── styles/            # Design tokens and global CSS
 │   ├── taskpane/          # Main UI (HTML, TypeScript, CSS)
 │   └── commands/          # Outlook ribbon command handlers
 ├── assets/
-│   └── icons/             # Lucide SVG icons
+│   └── tool-icons/        # Ribbon control icons (PNG, multiple sizes)
 ├── manifest.xml           # Add-in manifest (GitHub Pages production)
 └── .github/workflows/     # CI/CD deployment workflows
 ```
@@ -150,7 +151,7 @@ If you need to update or re-deploy the add-in for your organization:
 Access settings via the **gear icon** in the add-in:
 
 - **API Key** — Your Google Gemini API key (stored locally in your browser)
-- **Model** — Choose between Gemini 3 Flash/Pro (latest) or Gemini 2.5 Flash/Pro (stable)
+- **Model** — Choose between Gemini 3.1 Pro (latest), Gemini 3 Flash/Pro, or Gemini 2.5 Flash/Pro (stable)
 - **Default Tone** — Set the default writing tone (Professional, Formal, Friendly, Casual)
 - **Summary Style** — Default format for summaries (Bullets, Paragraph, TL;DR)
 - **Language** — Default translation target language
