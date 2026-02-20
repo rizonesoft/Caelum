@@ -76,12 +76,12 @@ const $ = (id: string) => document.getElementById(id);
 
 function showElement(id: string): void {
   const el = $(id);
-  if (el) el.style.display = '';
+  if (el) el.classList.remove('hidden');
 }
 
 function hideElement(id: string): void {
   const el = $(id);
-  if (el) el.style.display = 'none';
+  if (el) el.classList.add('hidden');
 }
 
 function showLoading(message?: string): void {
