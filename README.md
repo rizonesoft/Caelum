@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="AI Email Writer Banner" width="100%" />
+  <img src="assets/banner.png?v=2" alt="AI Email Writer Banner" width="100%" />
 </p>
 
 <h1 align="center">AI Email Writer (AI Compose)</h1>
