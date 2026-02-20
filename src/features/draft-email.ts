@@ -1,5 +1,5 @@
 /**
- * Glide — Draft Email Feature
+ * AI Compose — Draft Email Feature
  *
  * Orchestrates the "Draft a New Email" workflow:
  *   1. Collect user instructions, tone, and length preferences.

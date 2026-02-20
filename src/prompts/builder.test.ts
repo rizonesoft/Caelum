@@ -1,5 +1,5 @@
 /**
- * Glide — Prompt Builder Unit Tests
+ * AI Compose — Prompt Builder Unit Tests
  *
  * Tests for buildPrompt, truncateContext, and listPlaceholders.
  *

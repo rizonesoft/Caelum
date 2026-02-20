@@ -1,9 +1,9 @@
 {
-  "name": "Glide",
+  "name": "ai-email-writer",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rizonesoft/Glide.git"
+    "url": "https://github.com/rizonesoft/ai-email-writer.git"
   },
   "license": "MIT",
   "config": {

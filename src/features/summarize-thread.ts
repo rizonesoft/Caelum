@@ -1,5 +1,5 @@
 /**
- * Glide — Summarize Email Thread Feature
+ * AI Compose — Summarize Email Thread Feature
  *
  * Orchestrates the "Summarize Email Thread" workflow:
  *   1. Read the current email / conversation via the Outlook service.

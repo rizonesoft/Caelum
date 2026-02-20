@@ -1,4 +1,4 @@
-<!-- Glide — Outlook AI Add-in Task Pane -->
+<!-- AI Compose — Outlook AI Add-in Task Pane -->
 <!-- © Rizonetech (Pty) Ltd. — https://rizonesoft.com -->
 
 <!doctype html>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Glide — AI Email Assistant</title>
+    <title>AI Compose — AI Email Writer</title>
 
     <!-- Office JavaScript API -->
     <script
@@ -28,15 +28,18 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
   </head>
 
-  <body class="ms-Fabric m-0 p-0 bg-glide-bg text-glide-text font-glide text-md leading-normal antialiased overflow-x-hidden">
-
+  <body
+    class="ms-Fabric m-0 p-0 bg-glide-bg text-glide-text font-glide text-md leading-normal antialiased overflow-x-hidden"
+  >
     <!-- ================================================================ -->
     <!-- Sideload message (shown when add-in isn't activated)             -->
     <!-- ================================================================ -->
-    <section id="sideload-msg" class="flex flex-col items-center justify-center min-h-[50vh] p-xl text-center text-glide-text-secondary">
+    <section
+      id="sideload-msg"
+      class="flex flex-col items-center justify-center min-h-[50vh] p-xl text-center text-glide-text-secondary"
+    >
       <div class="mb-lg text-glide-blue">
         <i class="ms-Icon ms-Icon--PlugDisconnected ms-font-xxl"></i>
       </div>
@@ -45,6 +48,7 @@
         Please
         <a
           target="_blank"
+          rel="noopener noreferrer"
           href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing"
           class="text-glide-blue no-underline hover:underline"
           >sideload</a
@@ -57,41 +61,170 @@
     <!-- Main app (hidden until Office.js is ready)                       -->
     <!-- ================================================================ -->
     <main id="app-body" style="display: none">
-
       <!-- Tab bar ---------------------------------------------------- -->
-      <nav class="glide-tabs flex items-center gap-0 border-b border-glide-border-light bg-glide-bg sticky top-0 z-10">
+      <nav
+        class="glide-tabs flex items-center gap-0 border-b border-glide-border-light bg-glide-bg sticky top-0 z-10"
+      >
         <button id="tab-reply" class="glide-tab glide-tab--active" data-tab="reply">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 18v-2a4 4 0 0 0-4-4H4"/><path d="m9 17-5-5 5-5"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
+            <path d="m9 17-5-5 5-5" />
+          </svg>
           <span>Reply</span>
         </button>
         <button id="tab-draft" class="glide-tab" data-tab="draft">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            <path d="M19 16v6" />
+            <path d="M16 19h6" />
+          </svg>
           <span>Draft</span>
         </button>
         <!-- Icon-only utility buttons -->
         <button id="tab-settings" class="glide-tab glide-tab--icon" title="Settings">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
         </button>
         <div class="glide-split relative">
-          <button id="tab-more" class="glide-tab glide-tab--icon" data-tab="more" title="More features">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          <button
+            id="tab-more"
+            class="glide-tab glide-tab--icon"
+            data-tab="more"
+            title="More features"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="1" />
+              <circle cx="12" cy="5" r="1" />
+              <circle cx="12" cy="19" r="1" />
+            </svg>
           </button>
           <!-- More dropdown menu -->
           <div id="more-dropdown" class="glide-dropdown" style="display: none">
             <button class="glide-dropdown__item" data-tab="summarize">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 18h-5" />
+                <path d="M18 14h-8" />
+                <path
+                  d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"
+                />
+                <rect width="8" height="4" x="10" y="6" rx="1" />
+              </svg>
               <span>Summarize</span>
             </button>
             <button class="glide-dropdown__item" data-tab="improve">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m9 15 2 2 4-4"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+                />
+                <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                <path d="m9 15 2 2 4-4" />
+              </svg>
               <span>Improve Writing</span>
             </button>
             <button class="glide-dropdown__item" data-tab="extract">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M13 5h8" />
+                <path d="M13 12h8" />
+                <path d="M13 19h8" />
+                <path d="m3 17 2 2 4-4" />
+                <rect x="3" y="4" width="6" height="6" rx="1" />
+              </svg>
               <span>Extract Action Items</span>
             </button>
             <button class="glide-dropdown__item" data-tab="translate">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m5 8 6 6" />
+                <path d="m4 14 6-6 2-3" />
+                <path d="M2 5h12" />
+                <path d="M7 2h1" />
+                <path d="m22 22-5-10-5 10" />
+                <path d="M14 18h6" />
+              </svg>
               <span>Translate</span>
             </button>
           </div>
@@ -105,12 +238,31 @@
       <section id="draft-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
           <!-- Pen-line icon -->
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            <path d="M19 16v6" />
+            <path d="M16 19h6" />
+          </svg>
           Draft a New Email
         </h2>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="draft-instructions">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="draft-instructions"
+          >
             Instructions / bullet points
           </label>
           <textarea
@@ -124,7 +276,11 @@
         <!-- Tone & Length row -->
         <div class="flex gap-sm mb-lg">
           <div class="flex-1 min-w-0">
-            <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="draft-tone">Tone</label>
+            <label
+              class="block text-sm font-medium text-glide-text-secondary mb-xs"
+              for="draft-tone"
+              >Tone</label
+            >
             <select id="draft-tone" class="glide-select">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
@@ -133,7 +289,11 @@
             </select>
           </div>
           <div class="flex-1 min-w-0">
-            <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="draft-length">Length</label>
+            <label
+              class="block text-sm font-medium text-glide-text-secondary mb-xs"
+              for="draft-length"
+              >Length</label
+            >
             <select id="draft-length" class="glide-select">
               <option value="short">Short</option>
               <option value="medium" selected>Medium</option>
@@ -143,7 +303,21 @@
         </div>
 
         <button id="btn-generate" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+            />
+          </svg>
           Generate Draft
         </button>
       </section>
@@ -155,25 +329,54 @@
         style="display: none"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M10 9H8" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+          </svg>
           Generated Draft
         </h2>
 
         <div id="draft-preview" class="glide-preview"></div>
 
         <div class="flex gap-sm flex-wrap mb-lg">
-          <button id="btn-copy-compose" class="glide-btn glide-btn--primary flex-1" title="Open a new email with this draft">
+          <button
+            id="btn-copy-compose"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Open a new email with this draft"
+          >
             <i class="ms-Icon ms-Icon--NewMail"></i>
             Copy to Compose
           </button>
-          <button id="btn-regenerate" class="glide-btn glide-btn--secondary" title="Generate a new version">
+          <button
+            id="btn-regenerate"
+            class="glide-btn glide-btn--secondary"
+            title="Generate a new version"
+          >
             <i class="ms-Icon ms-Icon--Refresh"></i>
             Regenerate
           </button>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="refine-input">Refine this draft</label>
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="refine-input"
+            >Refine this draft</label
+          >
           <div class="flex gap-xs">
             <input
               id="refine-input"
@@ -194,38 +397,65 @@
 
       <section id="reply-section" class="glide-section p-lg">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 18v-2a4 4 0 0 0-4-4H4"/><path d="m9 17-5-5 5-5"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
+            <path d="m9 17-5-5 5-5" />
+          </svg>
           Draft a Reply
         </h2>
 
         <!-- Email context banner -->
         <div id="reply-context" class="glide-context-banner">
           <div class="flex gap-sm mb-xs">
-            <span class="font-medium text-glide-text-secondary text-xs uppercase tracking-wide min-w-[55px]">From</span>
+            <span
+              class="font-medium text-glide-text-secondary text-xs uppercase tracking-wide min-w-[55px]"
+              >From</span
+            >
             <span id="reply-sender" class="text-glide-text text-sm truncate">Loading...</span>
           </div>
           <div class="flex gap-sm">
-            <span class="font-medium text-glide-text-secondary text-xs uppercase tracking-wide min-w-[55px]">Subject</span>
+            <span
+              class="font-medium text-glide-text-secondary text-xs uppercase tracking-wide min-w-[55px]"
+              >Subject</span
+            >
             <span id="reply-subject" class="text-glide-text text-sm truncate">Loading...</span>
           </div>
         </div>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="reply-instructions">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="reply-instructions"
+          >
             Reply instructions
           </label>
           <textarea
             id="reply-instructions"
             class="glide-textarea w-full p-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide resize-y min-h-[80px] focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
             rows="4"
-            placeholder='e.g. Agree to the meeting, decline politely, ask for more details...'
+            placeholder="e.g. Agree to the meeting, decline politely, ask for more details..."
           ></textarea>
         </div>
 
         <!-- Tone & options row -->
         <div class="flex gap-sm mb-lg items-end">
           <div class="flex-1 min-w-0">
-            <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="reply-tone">Tone</label>
+            <label
+              class="block text-sm font-medium text-glide-text-secondary mb-xs"
+              for="reply-tone"
+              >Tone</label
+            >
             <select id="reply-tone" class="glide-select">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
@@ -242,7 +472,21 @@
         </div>
 
         <button id="btn-generate-reply" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+            />
+          </svg>
           Generate Reply
         </button>
       </section>
@@ -254,28 +498,88 @@
         style="display: none"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M10 9H8" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+          </svg>
           Generated Reply
         </h2>
 
         <div id="reply-preview" class="glide-preview"></div>
 
         <div class="flex gap-sm flex-wrap mb-lg">
-          <button id="btn-insert-reply" class="glide-btn glide-btn--primary flex-1" title="Insert into Reply">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 18v-2a4 4 0 0 0-4-4H4"/><path d="m9 17-5-5 5-5"/></svg>
+          <button
+            id="btn-insert-reply"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Insert into Reply"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
+              <path d="m9 17-5-5 5-5" />
+            </svg>
             Reply
           </button>
-          <button id="btn-insert-reply-all" class="glide-btn glide-btn--primary flex-1" title="Insert into Reply All">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 17-5-5 5-5"/><path d="M22 18v-2a4 4 0 0 0-4-4H7"/><path d="m7 17-5-5 5-5"/></svg>
+          <button
+            id="btn-insert-reply-all"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Insert into Reply All"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m12 17-5-5 5-5" />
+              <path d="M22 18v-2a4 4 0 0 0-4-4H7" />
+              <path d="m7 17-5-5 5-5" />
+            </svg>
             Reply All
           </button>
-          <button id="btn-regenerate-reply" class="glide-btn glide-btn--secondary" title="Generate a new version">
+          <button
+            id="btn-regenerate-reply"
+            class="glide-btn glide-btn--secondary"
+            title="Generate a new version"
+          >
             <i class="ms-Icon ms-Icon--Refresh"></i>
           </button>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="reply-refine-input">Refine this reply</label>
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="reply-refine-input"
+            >Refine this reply</label
+          >
           <div class="flex gap-xs">
             <input
               id="reply-refine-input"
@@ -296,12 +600,32 @@
 
       <section id="summarize-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 18h-5" />
+            <path d="M18 14h-8" />
+            <path
+              d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"
+            />
+            <rect width="8" height="4" x="10" y="6" rx="1" />
+          </svg>
           Summarize Email
         </h2>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-sm">Summary format</label>
+          <label class="block text-sm font-medium text-glide-text-secondary mb-sm"
+            >Summary format</label
+          >
           <div class="glide-radio-group">
             <label class="glide-radio">
               <input type="radio" name="summary-style" value="bullets" checked />
@@ -319,7 +643,11 @@
         </div>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="summary-length">Length</label>
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="summary-length"
+            >Length</label
+          >
           <select id="summary-length" class="glide-select">
             <option value="brief">Brief (2-3 sentences)</option>
             <option value="standard" selected>Standard (1 paragraph)</option>
@@ -328,7 +656,21 @@
         </div>
 
         <button id="btn-summarize" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+            />
+          </svg>
           Summarize
         </button>
       </section>
@@ -340,18 +682,43 @@
         style="display: none"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M10 9H8" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+          </svg>
           Summary
         </h2>
 
         <div id="summary-preview" class="glide-preview glide-preview--readonly"></div>
 
         <div class="flex gap-sm flex-wrap">
-          <button id="btn-copy-summary" class="glide-btn glide-btn--primary flex-1" title="Copy summary to clipboard">
+          <button
+            id="btn-copy-summary"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Copy summary to clipboard"
+          >
             <i class="ms-Icon ms-Icon--Copy"></i>
             Copy to Clipboard
           </button>
-          <button id="btn-regenerate-summary" class="glide-btn glide-btn--secondary" title="Generate a new summary">
+          <button
+            id="btn-regenerate-summary"
+            class="glide-btn glide-btn--secondary"
+            title="Generate a new summary"
+          >
             <i class="ms-Icon ms-Icon--Refresh"></i>
             Regenerate
           </button>
@@ -364,16 +731,33 @@
 
       <section id="improve-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m9 15 2 2 4-4"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+            />
+            <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+            <path d="m9 15 2 2 4-4" />
+          </svg>
           Improve Writing
         </h2>
 
-        <p class="glide-hint">
-          Select text in your email, or Glide will use the full body.
-        </p>
+        <p class="glide-hint">Select text in your email, or AI Compose will use the full body.</p>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-sm">What to improve</label>
+          <label class="block text-sm font-medium text-glide-text-secondary mb-sm"
+            >What to improve</label
+          >
           <div class="glide-radio-group glide-radio-group--vertical">
             <label class="glide-radio">
               <input type="radio" name="improve-focus" value="fix_grammar" checked />
@@ -395,7 +779,21 @@
         </div>
 
         <button id="btn-improve" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+            />
+          </svg>
           Improve
         </button>
       </section>
@@ -407,18 +805,43 @@
         style="display: none"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+            <path d="M10 9H8" />
+            <path d="M16 13H8" />
+            <path d="M16 17H8" />
+          </svg>
           Changes
         </h2>
 
         <div id="improve-diff" class="glide-diff-container mb-lg"></div>
 
         <div class="flex gap-sm flex-wrap">
-          <button id="btn-accept-changes" class="glide-btn glide-btn--primary flex-1" title="Accept and replace the original text">
+          <button
+            id="btn-accept-changes"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Accept and replace the original text"
+          >
             <i class="ms-Icon ms-Icon--Accept"></i>
             Accept Changes
           </button>
-          <button id="btn-regenerate-improve" class="glide-btn glide-btn--secondary" title="Generate a new improvement">
+          <button
+            id="btn-regenerate-improve"
+            class="glide-btn glide-btn--secondary"
+            title="Generate a new improvement"
+          >
             <i class="ms-Icon ms-Icon--Refresh"></i>
           </button>
         </div>
@@ -430,16 +853,49 @@
 
       <section id="extract-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M13 5h8" />
+            <path d="M13 12h8" />
+            <path d="M13 19h8" />
+            <path d="m3 17 2 2 4-4" />
+            <rect x="3" y="4" width="6" height="6" rx="1" />
+          </svg>
           Extract Action Items
         </h2>
 
         <p class="glide-hint">
-          Glide will scan the current email for tasks, owners, and deadlines.
+          AI Compose will scan the current email for tasks, owners, and deadlines.
         </p>
 
         <button id="btn-extract" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M13 5h8" />
+            <path d="M13 12h8" />
+            <path d="M13 19h8" />
+            <path d="m3 17 2 2 4-4" />
+            <rect x="3" y="4" width="6" height="6" rx="1" />
+          </svg>
           Extract Tasks
         </button>
       </section>
@@ -451,18 +907,43 @@
         style="display: none"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M13 5h8" />
+            <path d="M13 12h8" />
+            <path d="M13 19h8" />
+            <path d="m3 17 2 2 4-4" />
+            <rect x="3" y="4" width="6" height="6" rx="1" />
+          </svg>
           Action Items
         </h2>
 
         <div id="extract-checklist" class="glide-checklist-container mb-lg"></div>
 
         <div class="flex gap-sm flex-wrap">
-          <button id="btn-copy-tasks" class="glide-btn glide-btn--primary flex-1" title="Copy tasks as plain text">
+          <button
+            id="btn-copy-tasks"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Copy tasks as plain text"
+          >
             <i class="ms-Icon ms-Icon--Copy"></i>
             Copy as Tasks
           </button>
-          <button id="btn-regenerate-extract" class="glide-btn glide-btn--secondary" title="Re-extract action items">
+          <button
+            id="btn-regenerate-extract"
+            class="glide-btn glide-btn--secondary"
+            title="Re-extract action items"
+          >
             <i class="ms-Icon ms-Icon--Refresh"></i>
           </button>
         </div>
@@ -474,16 +955,36 @@
 
       <section id="translate-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m5 8 6 6" />
+            <path d="m4 14 6-6 2-3" />
+            <path d="M2 5h12" />
+            <path d="M7 2h1" />
+            <path d="m22 22-5-10-5 10" />
+            <path d="M14 18h6" />
+          </svg>
           Translate Email
         </h2>
 
-        <p class="glide-hint">
-          Translate the current email into another language.
-        </p>
+        <p class="glide-hint">Translate the current email into another language.</p>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="translate-language">Target Language</label>
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="translate-language"
+            >Target Language</label
+          >
           <select id="translate-language" class="glide-select">
             <option value="Afrikaans">Afrikaans</option>
             <option value="Arabic">Arabic</option>
@@ -509,7 +1010,24 @@
         </div>
 
         <button id="btn-translate" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m5 8 6 6" />
+            <path d="m4 14 6-6 2-3" />
+            <path d="M2 5h12" />
+            <path d="M7 2h1" />
+            <path d="m22 22-5-10-5 10" />
+            <path d="M14 18h6" />
+          </svg>
           Translate
         </button>
       </section>
@@ -521,18 +1039,44 @@
         style="display: none"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m5 8 6 6" />
+            <path d="m4 14 6-6 2-3" />
+            <path d="M2 5h12" />
+            <path d="M7 2h1" />
+            <path d="m22 22-5-10-5 10" />
+            <path d="M14 18h6" />
+          </svg>
           Translation
         </h2>
 
         <div id="translate-output" class="glide-translate-container mb-lg"></div>
 
         <div class="flex gap-sm flex-wrap">
-          <button id="btn-copy-translation" class="glide-btn glide-btn--primary flex-1" title="Copy translation to clipboard">
+          <button
+            id="btn-copy-translation"
+            class="glide-btn glide-btn--primary flex-1"
+            title="Copy translation to clipboard"
+          >
             <i class="ms-Icon ms-Icon--Copy"></i>
             Copy Translation
           </button>
-          <button id="btn-regenerate-translate" class="glide-btn glide-btn--secondary" title="Translate again">
+          <button
+            id="btn-regenerate-translate"
+            class="glide-btn glide-btn--secondary"
+            title="Translate again"
+          >
             <i class="ms-Icon ms-Icon--Refresh"></i>
           </button>
         </div>
@@ -544,13 +1088,32 @@
 
       <section id="settings-section" class="glide-section p-lg" style="display: none">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
-          <svg class="text-glide-blue shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg
+            class="text-glide-blue shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
           Settings
         </h2>
 
         <!-- API Key -->
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-api-key">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="settings-api-key"
+          >
             Gemini API Key
           </label>
           <div class="flex gap-xs">
@@ -562,20 +1125,73 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <button id="btn-toggle-api-key" class="glide-btn glide-btn--secondary" title="Show/hide API key" type="button" style="padding: 8px 10px;">
+            <button
+              id="btn-toggle-api-key"
+              class="glide-btn glide-btn--secondary"
+              title="Show/hide API key"
+              type="button"
+              style="padding: 8px 10px"
+            >
               <!-- Eye icon -->
-              <svg id="icon-eye-show" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg id="icon-eye-hide" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+              <svg
+                id="icon-eye-show"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+                />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg
+                id="icon-eye-hide"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="display: none"
+              >
+                <path
+                  d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"
+                />
+                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+                <path
+                  d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"
+                />
+                <path d="m2 2 20 20" />
+              </svg>
             </button>
           </div>
           <p class="text-xs text-glide-text-tertiary mt-xs">
-            Get your key from <a href="https://aistudio.google.com/apikey" target="_blank" class="text-glide-blue no-underline hover:underline">Google AI Studio</a>
+            Get your key from
+            <a
+              href="https://aistudio.google.com/apikey"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-glide-blue no-underline hover:underline"
+              >Google AI Studio</a
+            >
           </p>
         </div>
 
         <!-- Gemini Model -->
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-model">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="settings-model"
+          >
             Gemini Model
           </label>
           <select id="settings-model" class="glide-select">
@@ -596,7 +1212,10 @@
 
         <!-- Default Tone -->
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-tone">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="settings-tone"
+          >
             Default Tone
           </label>
           <select id="settings-tone" class="glide-select">
@@ -609,7 +1228,10 @@
 
         <!-- Default Summary Style -->
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-summary-style">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="settings-summary-style"
+          >
             Default Summary Style
           </label>
           <select id="settings-summary-style" class="glide-select">
@@ -621,7 +1243,10 @@
 
         <!-- Default Translation Language -->
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-xs" for="settings-language">
+          <label
+            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            for="settings-language"
+          >
             Default Translation Language
           </label>
           <select id="settings-language" class="glide-select">
@@ -650,11 +1275,31 @@
 
         <!-- Save button -->
         <button id="btn-save-settings" class="glide-btn glide-btn--primary w-full">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+            />
+            <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+            <path d="M7 3v4a1 1 0 0 0 1 1h7" />
+          </svg>
           Save Settings
         </button>
 
-        <div id="settings-saved-msg" class="text-center text-sm text-glide-success font-medium mt-sm" style="display: none">
+        <div
+          id="settings-saved-msg"
+          class="text-center text-sm text-glide-success font-medium mt-sm"
+          style="display: none"
+        >
           ✓ Settings saved
         </div>
       </section>

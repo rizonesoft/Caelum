@@ -1,5 +1,5 @@
 /**
- * Glide — Task Pane Controller
+ * AI Compose — Task Pane Controller
  *
  * Wires up the task pane HTML with the feature modules.
  * Handles Office.js initialization, DOM event binding, and tab switching.
@@ -65,6 +65,7 @@ import {
   loadSettings,
   saveSettings,
   GlideSettings,
+  AIComposeSettings,
 } from '../features/settings';
 
 // ---------------------------------------------------------------------------
@@ -731,7 +732,7 @@ Office.onReady((info) => {
     // Load settings and initialize Gemini client from stored API key
     const settings = loadSettings();
     try {
-      const apiKey = settings.apiKey || (window as any).__Glide_API_KEY__ || '';
+      const apiKey = settings.apiKey || (window as any).__AICompose_API_KEY__ || '';
       if (apiKey) {
         initGeminiClient(apiKey);
       }
@@ -740,7 +741,7 @@ Office.onReady((info) => {
     }
 
     // Populate feature defaults from settings
-    const applySettingsToForms = (s: GlideSettings): void => {
+    const applySettingsToForms = (s: AIComposeSettings): void => {
       // Tone selects
       const draftTone = $('draft-tone') as HTMLSelectElement | null;
       const replyTone = $('reply-tone') as HTMLSelectElement | null;

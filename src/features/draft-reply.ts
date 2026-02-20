@@ -1,5 +1,5 @@
 /**
- * Glide — Draft Reply Feature
+ * AI Compose — Draft Reply Feature
  *
  * Orchestrates the "Draft a Reply" workflow:
  *   1. Auto-read the current email's body, subject, and sender.

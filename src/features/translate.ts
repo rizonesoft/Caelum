@@ -1,5 +1,5 @@
 /**
- * Glide — Quick Translate Feature
+ * AI Compose — Quick Translate Feature
  *
  * Reads the current email body, translates it to the selected language
  * using Gemini, and displays the result side-by-side with the original.

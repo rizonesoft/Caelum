@@ -1,5 +1,5 @@
 /**
- * Glide — Improve Writing Feature
+ * AI Compose — Improve Writing Feature
  *
  * Reads selected text or the full compose body, sends it to Gemini
  * with an improvement focus, and displays a before/after diff.

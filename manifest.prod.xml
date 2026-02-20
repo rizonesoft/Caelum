@@ -4,10 +4,10 @@
   <Version>1.1.0.0</Version>
   <ProviderName>Rizonesoft</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Glide"/>
-  <Description DefaultValue="AI-powered Outlook plugin using Google Gemini."/>
-  <IconUrl DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-64.png"/>
-  <HighResolutionIconUrl DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-128.png"/>
+  <DisplayName DefaultValue="AI Compose"/>
+  <Description DefaultValue="AI-powered email writer and composer for Outlook, powered by Gemini."/>
+  <IconUrl DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://rizonesoft.com/support"/>
   <AppDomains>
     <AppDomain>https://rizonesoft.com</AppDomain>
@@ -24,7 +24,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://rizonesoft.github.io/Glide/taskpane.html"/>
+        <SourceLocation DefaultValue="https://rizonesoft.github.io/ai-email-writer/taskpane.html"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -167,25 +167,25 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://rizonesoft.github.io/Glide/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://rizonesoft.github.io/Glide/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://rizonesoft.github.io/ai-email-writer/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://rizonesoft.github.io/ai-email-writer/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabel" DefaultValue="Glide"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Glide"/>
-        <bt:String id="AIMenu.Label" DefaultValue="Glide AI"/>
+        <bt:String id="GroupLabel" DefaultValue="AI Compose"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="AI Compose"/>
+        <bt:String id="AIMenu.Label" DefaultValue="AI Compose"/>
         <bt:String id="AIFixGrammar.Label" DefaultValue="Fix Grammar &amp; Spelling"/>
         <bt:String id="AIImproveClarity.Label" DefaultValue="Improve Clarity"/>
         <bt:String id="AIMakeConcise.Label" DefaultValue="Make Concise"/>
         <bt:String id="AIMakeProfessional.Label" DefaultValue="Make Professional"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the Glide AI assistant panel."/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the AI Compose assistant panel."/>
         <bt:String id="AIMenu.Tooltip" DefaultValue="AI writing tools for your email."/>
         <bt:String id="AIFixGrammar.Tooltip" DefaultValue="Fix grammar, spelling, and punctuation in the selected text."/>
         <bt:String id="AIImproveClarity.Tooltip" DefaultValue="Improve clarity and readability of the selected text."/>
@@ -328,25 +328,25 @@
       </Hosts>
       <Resources>
         <bt:Images>
-          <bt:Image id="Icon.16x16" DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-16.png"/>
-          <bt:Image id="Icon.32x32" DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-32.png"/>
-          <bt:Image id="Icon.80x80" DefaultValue="https://rizonesoft.github.io/Glide/assets/icon-80.png"/>
+          <bt:Image id="Icon.16x16" DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-16.png"/>
+          <bt:Image id="Icon.32x32" DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-32.png"/>
+          <bt:Image id="Icon.80x80" DefaultValue="https://rizonesoft.github.io/ai-email-writer/assets/icon-80.png"/>
         </bt:Images>
         <bt:Urls>
-          <bt:Url id="Commands.Url" DefaultValue="https://rizonesoft.github.io/Glide/commands.html"/>
-          <bt:Url id="Taskpane.Url" DefaultValue="https://rizonesoft.github.io/Glide/taskpane.html"/>
+          <bt:Url id="Commands.Url" DefaultValue="https://rizonesoft.github.io/ai-email-writer/commands.html"/>
+          <bt:Url id="Taskpane.Url" DefaultValue="https://rizonesoft.github.io/ai-email-writer/taskpane.html"/>
         </bt:Urls>
         <bt:ShortStrings>
-          <bt:String id="GroupLabel" DefaultValue="Glide"/>
-          <bt:String id="TaskpaneButton.Label" DefaultValue="Glide"/>
-          <bt:String id="AIMenu.Label" DefaultValue="Glide AI"/>
+          <bt:String id="GroupLabel" DefaultValue="AI Compose"/>
+          <bt:String id="TaskpaneButton.Label" DefaultValue="AI Compose"/>
+          <bt:String id="AIMenu.Label" DefaultValue="AI Compose"/>
           <bt:String id="AIFixGrammar.Label" DefaultValue="Fix Grammar &amp; Spelling"/>
           <bt:String id="AIImproveClarity.Label" DefaultValue="Improve Clarity"/>
           <bt:String id="AIMakeConcise.Label" DefaultValue="Make Concise"/>
           <bt:String id="AIMakeProfessional.Label" DefaultValue="Make Professional"/>
         </bt:ShortStrings>
         <bt:LongStrings>
-          <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the Glide AI assistant panel."/>
+          <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the AI Compose assistant panel."/>
           <bt:String id="AIMenu.Tooltip" DefaultValue="AI writing tools for your email."/>
           <bt:String id="AIFixGrammar.Tooltip" DefaultValue="Fix grammar, spelling, and punctuation in the selected text."/>
           <bt:String id="AIImproveClarity.Tooltip" DefaultValue="Improve clarity and readability of the selected text."/>

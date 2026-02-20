@@ -1,5 +1,5 @@
 /**
- * Glide — Extract Action Items Feature
+ * AI Compose — Extract Action Items Feature
  *
  * Reads the current email or thread, sends it to Gemini to extract
  * tasks, owners, and deadlines, then renders a checklist UI.

@@ -1,5 +1,5 @@
 /**
- * Glide — Gemini Service Unit Tests
+ * AI Compose — Gemini Service Unit Tests
  *
  * Tests the Gemini client service with mocked Google AI SDK responses
  * to verify error handling, retry logic, and generation behavior.

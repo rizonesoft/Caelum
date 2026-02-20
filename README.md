@@ -1,31 +1,32 @@
 <p align="center">
-  <img src="assets/icon-128.png" alt="Glide Logo" width="80" />
+  <img src="assets/icon-128.png" alt="AI Compose Logo" width="80" />
 </p>
 
-<h1 align="center">Glide</h1>
+<h1 align="center">Rizonesoft AI Email Writer (AI Compose)</h1>
 <p align="center">
-  <strong>AI-Powered Email Assistant for Microsoft Outlook</strong>
+  <strong>An open-source AI email writer and composer for Microsoft Outlook, powered by the Gemini API.</strong>
 </p>
 <p align="center">
-  <a href="https://github.com/rizonesoft/Glide/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-  <a href="https://github.com/rizonesoft/Glide/actions/workflows/deploy-dev.yml"><img alt="Deploy Dev" src="https://github.com/rizonesoft/Glide/actions/workflows/deploy-dev.yml/badge.svg"></a>
-  <a href="https://github.com/rizonesoft/Glide/actions/workflows/deploy-prod.yml"><img alt="Deploy Production" src="https://github.com/rizonesoft/Glide/actions/workflows/deploy-prod.yml/badge.svg"></a>
+  <a href="https://github.com/rizonesoft/ai-email-writer/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+  <a href="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-dev.yml"><img alt="Deploy Dev" src="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-dev.yml/badge.svg"></a>
+  <a href="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-prod.yml"><img alt="Deploy Production" src="https://github.com/rizonesoft/ai-email-writer/actions/workflows/deploy-prod.yml/badge.svg"></a>
 </p>
 
 ---
 
-Glide is an open-source Outlook add-in that brings the power of **Google Gemini AI** directly into your inbox. Draft emails, generate replies, summarize threads, improve writing, extract action items, and translate — all without leaving Outlook.
+**AI Compose** is a lightweight, privacy-focused Outlook add-in developed by [Rizonesoft](https://rizonesoft.com). It leverages the **Google Gemini API** to help you draft, reply, and refine professional emails directly within the Outlook interface — without ever leaving your inbox.
 
 ## ✨ Features
 
-| Feature                | Description                                                            |
-| ---------------------- | ---------------------------------------------------------------------- |
-| **📝 Draft Email**     | Generate professional emails from a brief description and desired tone |
-| **↩️ Reply**           | Craft context-aware replies based on the original email thread         |
-| **📋 Summarize**       | Condense long email threads into bullet points, paragraphs, or TL;DR   |
-| **✍️ Improve Writing** | Polish grammar, tone, clarity, and professionalism of any text         |
-| **✅ Extract Actions** | Pull out action items, deadlines, and tasks from emails                |
-| **🌐 Translate**       | Translate email content into 20+ languages                             |
+| Feature                    | Description                                                             |
+| -------------------------- | ----------------------------------------------------------------------- |
+| **📝 AI-Powered Drafting** | Generate full professional emails from short prompts and a desired tone |
+| **↩️ Contextual Replies**  | Analyze incoming mail to suggest relevant, context-aware responses      |
+| **📋 Summarize**           | Condense long email threads into bullet points, paragraphs, or TL;DR    |
+| **✍️ Tone Adjustment**     | Switch between Formal, Casual, Concise, and Professional styles         |
+| **✅ Extract Actions**     | Pull out action items, deadlines, and tasks from emails                 |
+| **🌐 Translate**           | Translate email content into 20+ languages                              |
+| **🔒 Privacy-First**       | Open-source architecture ensures your API keys stay local               |
 
 ## 🚀 Quick Start
 
@@ -39,11 +40,11 @@ Glide is an open-source Outlook add-in that brings the power of **Google Gemini 
 
 **Option A — Install from GitHub Pages (recommended)**
 
-1. Download the production manifest: **[manifest.xml](https://rizonesoft.github.io/Glide/manifest.xml)** (right-click → Save As)
+1. Download the production manifest: **[manifest.xml](https://rizonesoft.github.io/ai-email-writer/manifest.xml)** (right-click → Save As)
 2. Visit **[aka.ms/olksideload](https://aka.ms/olksideload)** — this opens Outlook on the web and the Add-Ins dialog
 3. In the **"Custom Addins"** section at the bottom, click **Add a custom add-in** → **Add from File**
 4. Select the downloaded `manifest.xml` and click **Install**
-5. Open any email → click the **Glide** button in the ribbon
+5. Open any email → click the **AI Compose** button in the ribbon
 6. Enter your Gemini API key in **Settings** (gear icon)
 
 > **Tip:** In classic Outlook on Windows, you can also access this via **File → Info → Manage Add-ins**.
@@ -52,15 +53,15 @@ Glide is an open-source Outlook add-in that brings the power of **Google Gemini 
 
 For early access to the latest features:
 
-1. Download the dev manifest: **[manifest.xml](https://rizonesoft.github.io/Glide/dev/manifest.xml)** (right-click → Save As)
+1. Download the dev manifest: **[manifest.xml](https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml)** (right-click → Save As)
 2. Follow the same steps as Option A using [aka.ms/olksideload](https://aka.ms/olksideload)
-3. The dev build appears as **"Glide (Dev)"** in Outlook so it won't conflict with the production version
+3. The dev build appears as **"AI Compose (Dev)"** in Outlook so it won't conflict with the production version
 
 **Option C — Organization-wide deployment (M365 Admin)**
 
 1. Go to [admin.microsoft.com](https://admin.microsoft.com) → **Settings** → **Integrated Apps**
 2. Click **Upload custom apps** → **Provide link to manifest file**
-3. Enter: `https://rizonesoft.github.io/Glide/manifest.xml`
+3. Enter: `https://rizonesoft.github.io/ai-email-writer/manifest.xml`
 4. Assign to users or groups → **Deploy**
 
 > **Note:** Updates are automatic — when we deploy new code to GitHub Pages, the add-in updates for all users on the next load. No reinstallation needed.
@@ -71,8 +72,8 @@ For early access to the latest features:
 
 ```bash
 # Clone the repository
-git clone https://github.com/rizonesoft/Glide.git
-cd Glide
+git clone https://github.com/rizonesoft/ai-email-writer.git
+cd ai-email-writer
 
 # Install dependencies
 npm install
@@ -105,7 +106,7 @@ npm run lint
 ### Project Structure
 
 ```
-Glide/
+ai-email-writer/
 ├── src/
 │   ├── features/          # Feature modules (draft, reply, summarize, etc.)
 │   ├── services/          # Gemini API client, Outlook service
@@ -122,17 +123,17 @@ Glide/
 
 ## 🔄 Deployment
 
-Glide uses a **dual-environment** deployment strategy on GitHub Pages:
+AI Compose uses a **dual-environment** deployment strategy on GitHub Pages:
 
-| Environment    | URL                                                                        | Trigger                          | Manifest                                                               |
-| -------------- | -------------------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------- |
-| **Dev**        | [rizonesoft.github.io/Glide/dev/](https://rizonesoft.github.io/Glide/dev/) | Auto on every push to `main`     | [Dev manifest](https://rizonesoft.github.io/Glide/dev/manifest.xml)    |
-| **Production** | [rizonesoft.github.io/Glide/](https://rizonesoft.github.io/Glide/)         | Manual trigger in GitHub Actions | [Production manifest](https://rizonesoft.github.io/Glide/manifest.xml) |
+| Environment    | URL                                                                                            | Trigger                          | Manifest                                                                         |
+| -------------- | ---------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------------------------------------------- |
+| **Dev**        | [rizonesoft.github.io/ai-email-writer/dev/](https://rizonesoft.github.io/ai-email-writer/dev/) | Auto on every push to `main`     | [Dev manifest](https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml)    |
+| **Production** | [rizonesoft.github.io/ai-email-writer/](https://rizonesoft.github.io/ai-email-writer/)         | Manual trigger in GitHub Actions | [Production manifest](https://rizonesoft.github.io/ai-email-writer/manifest.xml) |
 
 ### Promoting Dev to Production
 
 1. Test the dev build by sideloading the dev manifest
-2. When satisfied, go to **[GitHub Actions](https://github.com/rizonesoft/Glide/actions)** → **Deploy Production** → **Run workflow**
+2. When satisfied, go to **[GitHub Actions](https://github.com/rizonesoft/ai-email-writer/actions)** → **Deploy Production** → **Run workflow**
 3. Production users will receive the update automatically on their next add-in load
 
 ## ⚙️ Settings
@@ -149,7 +150,7 @@ Access settings via the **gear icon** in the add-in:
 
 - Your **API key** is stored locally in your browser's `localStorage` — it never leaves your device
 - Email content is sent directly to the **Google Gemini API** for processing
-- **No data** is stored on our servers — Glide is entirely client-side
+- **No data** is stored on our servers — AI Compose is entirely client-side
 - The add-in only requests **ReadWriteItem** permissions (the minimum needed)
 
 ## 🤝 Contributing

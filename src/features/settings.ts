@@ -1,5 +1,5 @@
 /**
- * Glide — Settings Service
+ * AI Compose — Settings Service
  *
  * Manages user preferences and API configuration.
  * Persists settings to localStorage (syncs automatically across sessions).
@@ -20,7 +20,7 @@ export type Tone = 'professional' | 'formal' | 'friendly' | 'casual';
 export type SummaryStyle = 'bullets' | 'paragraph' | 'tldr';
 
 /** All persisted user preferences. */
-export interface GlideSettings {
+export interface AIComposeSettings {
   /** Google Gemini API key (stored in plain text in localStorage). */
   apiKey: string;
   /** Gemini model to use for all features. */
@@ -33,13 +33,17 @@ export interface GlideSettings {
   defaultLanguage: string;
 }
 
+/** @deprecated Use AIComposeSettings instead. */
+export type GlideSettings = AIComposeSettings;
+
 // ---------------------------------------------------------------------------
 // Defaults
 // ---------------------------------------------------------------------------
 
-const STORAGE_KEY = 'glide_settings';
+const STORAGE_KEY = 'ai_compose_settings';
+const LEGACY_STORAGE_KEY = 'glide_settings';
 
-const DEFAULT_SETTINGS: GlideSettings = {
+const DEFAULT_SETTINGS: AIComposeSettings = {
   apiKey: '',
   defaultModel: 'gemini-3-flash-preview',
   defaultTone: 'professional',
@@ -51,7 +55,7 @@ const DEFAULT_SETTINGS: GlideSettings = {
 // In-memory cache
 // ---------------------------------------------------------------------------
 
-let cached: GlideSettings | null = null;
+let cached: AIComposeSettings | null = null;
 
 // ---------------------------------------------------------------------------
 // Public API
@@ -60,13 +64,24 @@ let cached: GlideSettings | null = null;
 /**
  * Load settings from localStorage (or return defaults).
  */
-export function loadSettings(): GlideSettings {
+export function loadSettings(): AIComposeSettings {
   if (cached) return { ...cached };
 
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    let raw = localStorage.getItem(STORAGE_KEY);
+
+    // One-time migration from legacy "glide_settings" key
+    if (!raw) {
+      const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (legacy) {
+        raw = legacy;
+        localStorage.setItem(STORAGE_KEY, legacy);
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+      }
+    }
+
     if (raw) {
-      const parsed = JSON.parse(raw) as Partial<GlideSettings>;
+      const parsed = JSON.parse(raw) as Partial<AIComposeSettings>;
       cached = { ...DEFAULT_SETTINGS, ...parsed };
     } else {
       cached = { ...DEFAULT_SETTINGS };
@@ -82,7 +97,7 @@ export function loadSettings(): GlideSettings {
  * Save settings to localStorage and update the in-memory cache.
  * If the API key changed, automatically re-initializes the Gemini client.
  */
-export function saveSettings(settings: GlideSettings): void {
+export function saveSettings(settings: AIComposeSettings): void {
   const previousKey = cached?.apiKey || '';
 
   cached = { ...settings };
@@ -122,7 +137,7 @@ export function setApiKey(key: string): void {
 /**
  * Get a single setting value.
  */
-export function getSetting<K extends keyof GlideSettings>(key: K): GlideSettings[K] {
+export function getSetting<K extends keyof AIComposeSettings>(key: K): AIComposeSettings[K] {
   return loadSettings()[key];
 }
 

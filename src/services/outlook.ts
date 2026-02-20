@@ -1,5 +1,5 @@
 /**
- * Glide — Outlook Email Reader Service
+ * AI Compose — Outlook Email Reader Service
  *
  * Provides a clean, typed interface to the Office.js mailbox API
  * for reading email data in both Read and Compose modes.

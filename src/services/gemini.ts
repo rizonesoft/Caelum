@@ -1,5 +1,5 @@
 /**
- * Glide — Gemini Client Service
+ * AI Compose — Gemini Client Service
  *
  * Provides a typed interface to the Google Generative AI (Gemini) API
  * with configurable parameters, rate-limiting with exponential backoff,

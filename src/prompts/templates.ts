@@ -1,7 +1,7 @@
 /**
- * Glide — Prompt Templates
+ * AI Compose — Prompt Templates
  *
- * Reusable prompt templates for all Glide AI features.
+ * Reusable prompt templates for all AI Compose features.
  * Each template uses {{PLACEHOLDER}} syntax for variable substitution
  * via the `buildPrompt` function in builder.ts.
  *

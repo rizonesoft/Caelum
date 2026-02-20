@@ -1,5 +1,5 @@
 /**
- * Glide — Add-in Commands (Function Commands)
+ * AI Compose — Add-in Commands (Function Commands)
  *
  * Registers ExecuteFunction handlers for compose-mode ribbon buttons.
  * These run silently (no taskpane) on the user's selected text:
@@ -133,7 +133,7 @@ function showNotification(message: string, event: Office.AddinCommands.Event): v
   const item = Office.context.mailbox.item;
 
   if (item) {
-    item.notificationMessages.replaceAsync('GlideNotification', {
+    item.notificationMessages.replaceAsync('AIComposeNotification', {
       type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
       message,
       icon: 'Icon.16x16',
