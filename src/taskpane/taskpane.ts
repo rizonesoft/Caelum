@@ -164,25 +164,44 @@ function adaptUIForMode(mode: UIMode): void {
       insertReplyAllBtn.classList.add('hidden');
     }
 
-    // Reply context banner: show compose mode info
+    // Reply context banner: load the original sender and subject
     const senderEl = $('reply-sender');
     const subjectEl = $('reply-subject');
-    if (senderEl) senderEl.textContent = 'You (composing)';
-    if (subjectEl) {
-      // Try to read the compose subject
-      const item = Office.context.mailbox.item as any;
-      if (item && item.subject && typeof item.subject.getAsync === 'function') {
-        item.subject.getAsync((result: any) => {
-          if (result.status === Office.AsyncResultStatus.Succeeded) {
-            subjectEl.textContent = result.value || '(new email)';
-          } else {
-            subjectEl.textContent = '(new email)';
-          }
-        });
-      } else {
-        subjectEl.textContent = '(new email)';
+    if (senderEl) senderEl.textContent = 'Loading…';
+
+    // Use getOriginalSender to get the person being replied to
+    import('../services/outlook').then(async ({ getOriginalSender, getCurrentEmailSubject }) => {
+      try {
+        const [sender, subject] = await Promise.all([
+          getOriginalSender(),
+          (async () => {
+            const item = Office.context.mailbox.item as any;
+            if (item && item.subject && typeof item.subject.getAsync === 'function') {
+              return new Promise<string>((resolve) => {
+                item.subject.getAsync((result: any) => {
+                  resolve(result.status === Office.AsyncResultStatus.Succeeded
+                    ? result.value || '(new email)'
+                    : '(new email)');
+                });
+              });
+            }
+            return '(new email)';
+          })(),
+        ]);
+
+        if (senderEl) {
+          senderEl.textContent = sender.name
+            ? `${sender.name} <${sender.email}>`
+            : sender.email || 'Unknown sender';
+        }
+        if (subjectEl) {
+          subjectEl.textContent = subject;
+        }
+      } catch {
+        if (senderEl) senderEl.textContent = 'Could not read email';
+        if (subjectEl) subjectEl.textContent = '—';
       }
-    }
+    });
   }
 }
 
