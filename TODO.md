@@ -435,8 +435,161 @@
 - [ ] **Custom prompts** — let users save their own prompt templates
 - [ ] **Usage analytics** — local-only stats (emails drafted, summaries generated)
 - [ ] **Offline mode** — queue actions and process when back online
-- [ ] **Multi-model support** — allow switching between Gemini models (Pro, Flash)
+- [x] **Multi-model support** — allow switching between Gemini models (Pro, Flash)
 - [ ] **Scheduled summaries** — auto-summarize unread emails at a set time
 - [ ] **Attachment awareness** — summarize attached PDFs or documents
 - [ ] **Calendar integration** — draft meeting agendas from calendar events
 - [ ] **Voice input** — dictate instructions using Web Speech API
+
+---
+
+## Phase 12 — UI Polish & Improvements
+
+> _Improvements identified from live testing and competitor analysis._
+
+### 12.1 Button & Control Polish
+
+- [x] Set all `.glide-btn` border-radius to 4px (`--radius-xs`)
+- [ ] Make the "Refine" send button a perfect square (equal width/height, icon-only)
+- [ ] Add subtle focus ring (`:focus-visible`) to all buttons for keyboard navigation
+- [ ] Add press/active state (`:active`) — slight scale-down for tactile feedback
+- [ ] Ensure button disabled state is clear (opacity + cursor not-allowed)
+- [ ] Add loading spinner inside buttons when action is in progress (instead of overlay)
+- [ ] Review all icon sizes for consistency (standardise to 15×15 or 16×16)
+
+### 12.2 Form & Input Polish
+
+- [ ] Add character counter on instruction textareas
+- [ ] Auto-resize textareas as user types (auto-grow)
+- [ ] Add clear/reset button (×) on text inputs
+- [ ] Improve placeholder text — more contextual examples per feature
+- [ ] Add subtle border animation on focus (not just colour change)
+
+### 12.3 Layout & Spacing
+
+- [ ] Review section padding consistency (p-lg everywhere)
+- [ ] Add a subtle separator between form area and result preview
+- [ ] Ensure result sections scroll independently (sticky action buttons)
+- [ ] Add a "scroll to top" button when content is long
+- [ ] Full-width mobile-friendly layout for Outlook desktop narrow pane
+
+### 12.4 Typography & Colours
+
+- [ ] Review font size hierarchy (xs=11, sm=12, md=13 feels tight — consider bumping)
+- [ ] Add subtle text-shadow or letter-spacing to section headings
+- [ ] Use colour coding for different action types (blue=compose, green=improve, purple=translate)
+- [ ] Ensure dark mode colours have sufficient contrast (WCAG AA)
+
+### 12.5 Animations & Transitions
+
+- [ ] Add slide-in animation for result sections when they appear
+- [ ] Add fade-out animation for loading overlay dismissal
+- [ ] Add skeleton loading state while waiting for AI response
+- [ ] Smooth scroll to result section after generation completes
+- [ ] Add typing/streaming effect for AI-generated text (character-by-character reveal)
+
+---
+
+## Phase 13 — UX Enhancements
+
+### 13.1 Reply & Draft Improvements
+
+- [ ] Auto-detect reply context from subject line (RE:, FW:, etc.)
+- [ ] Show estimated generation time based on email length
+- [ ] Allow editing the generated text inline (contenteditable preview)
+- [ ] Add "Copy to Clipboard" button alongside Reply/Reply All
+- [ ] Remember last-used tone and instructions per email thread
+- [ ] Add undo/redo for text insertions (prependAsync doesn't support undo natively)
+- [ ] Word count & reading time on generated content
+
+### 13.2 Smart Features (Competitor-Inspired)
+
+- [ ] **Quick Reply Suggestions** — show 3 smart one-click reply options (Agree / Decline / Follow up)
+- [ ] **Email Templates** — save & reuse common reply patterns
+- [ ] **Tone Meter** — visual indicator showing the current tone (formal ↔ casual slider)
+- [ ] **Recipient-Aware Drafting** — adjust tone based on whether recipient is internal/external
+- [ ] **Follow-Up Reminders** — flag emails that need a follow-up after X days
+- [ ] **Email Scoring** — rate the clarity/professionalism of your draft before sending
+- [ ] **Thread Timeline** — visual timeline of a conversation showing key decisions
+- [ ] **Smart CC Suggestions** — suggest who should be CC'd based on email content
+
+### 13.3 Settings & Preferences
+
+- [ ] Add "Test Connection" button for API key validation
+- [ ] Add temperature/creativity slider in advanced settings
+- [ ] Add max response length setting
+- [ ] Add language preference for generated content
+- [ ] Store settings in `Office.context.roamingSettings` for cross-device sync
+- [ ] Export/import settings (backup & restore)
+- [ ] Show current model capabilities (context window, speed) in model selector
+
+---
+
+## Phase 14 — Performance & Reliability
+
+### 14.1 Speed Optimisations
+
+- [ ] Implement response streaming (`generateContentStream`) for real-time text output
+- [ ] Cache last-used email context to avoid re-reading on tab switch
+- [ ] Debounce rapid button clicks (prevent double submissions)
+- [ ] Lazy-load feature modules (only load Translate when tab is opened)
+- [ ] Pre-warm the API connection on add-in start
+
+### 14.2 Error Handling & Recovery
+
+- [ ] Show specific, actionable error messages (not generic "Failed to generate")
+- [ ] Add "Retry" button directly in error messages
+- [ ] Save draft-in-progress to localStorage (recover after crash/reload)
+- [ ] Handle token limit exceeded gracefully (auto-truncate and inform user)
+- [ ] Add offline detection banner ("You're offline — features unavailable")
+
+### 14.3 Logging & Debugging
+
+- [ ] Add optional debug console in settings (toggle verbose logging)
+- [ ] Log API response times for performance monitoring
+- [ ] Add telemetry opt-in for anonymous usage stats
+
+---
+
+## Phase 15 — Accessibility (a11y)
+
+- [ ] Add `aria-label` to all icon-only buttons
+- [ ] Ensure all form controls have associated labels
+- [ ] Add keyboard navigation for tab bar (arrow keys)
+- [ ] Test with screen reader (Narrator, NVDA)
+- [ ] Ensure colour contrast meets WCAG 2.1 AA (4.5:1 for text)
+- [ ] Add `role="alert"` to error and success messages
+- [ ] Support `prefers-reduced-motion` — disable animations
+- [ ] Add skip-to-content link for keyboard users
+
+---
+
+## Phase 16 — Production Readiness
+
+### 16.1 Manifest & Icons
+
+- [x] Add unique icons for each ribbon control (Open Panel, AI Tools, menu items)
+- [x] Rename ribbon labels to avoid "AI Compose" × 3 confusion
+- [x] Fix `.hidden` CSS class (Tailwind v4 wasn't generating it)
+- [x] Add Gemini 3.1 Pro to model selector
+- [ ] Create production manifest with actual domain URLs
+- [ ] Validate manifest with office-addin-manifest tool
+- [ ] Add high-resolution icons (128×128, 256×256) for store listing
+
+### 16.2 Build & Deploy
+
+- [ ] Add source maps stripping for production build
+- [ ] Minify HTML output
+- [ ] Add Content Security Policy (CSP) meta tag
+- [ ] Configure webpack for tree-shaking unused features
+- [ ] Add build version injection (show version in Settings footer)
+- [ ] Set up staging deploy environment for testing before production
+
+### 16.3 Security
+
+- [ ] Encrypt stored API key in localStorage (AES with device fingerprint)
+- [ ] Add CSP headers to prevent XSS
+- [ ] Sanitize all AI-generated HTML before rendering (DOMPurify)
+- [ ] Rate-limit client-side API calls (prevent abuse)
+- [ ] First-run privacy consent dialog
+- [ ] Create PRIVACY.md documenting data handling
