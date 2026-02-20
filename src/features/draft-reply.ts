@@ -212,8 +212,8 @@ export function openReply(replyText: string): void {
 
   if (mode === 'compose') {
     // Insert directly into the active compose body
-    if (item && item.body && typeof item.body.setAsync === 'function') {
-      item.body.setAsync(
+    if (item && item.body && typeof item.body.prependAsync === 'function') {
+      item.body.prependAsync(
         bodyToHtml(replyText),
         { coercionType: Office.CoercionType.Html },
       );
@@ -240,9 +240,9 @@ export function openReplyAll(replyText: string): void {
   const item = Office.context.mailbox.item as any;
 
   if (mode === 'compose') {
-    // In compose mode, Reply All is the same as Reply — insert inline
-    if (item && item.body && typeof item.body.setAsync === 'function') {
-      item.body.setAsync(
+    // In compose mode, Reply All is the same as Reply — prepend inline
+    if (item && item.body && typeof item.body.prependAsync === 'function') {
+      item.body.prependAsync(
         bodyToHtml(replyText),
         { coercionType: Office.CoercionType.Html },
       );
