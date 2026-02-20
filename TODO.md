@@ -203,12 +203,12 @@
 
 ### 4.2 Settings Page
 
-- [ ] Create `src/features/settings.ts`
-- [ ] API key input field (masked, with show/hide toggle)
-- [ ] Default tone preference
-- [ ] Default summary style preference
-- [ ] Default language for translations
-- [ ] Store settings in `localStorage` or `Office.context.roamingSettings`
+- [x] Create `src/features/settings.ts`
+- [x] API key input field (masked, with show/hide toggle)
+- [x] Default tone preference
+- [x] Default summary style preference
+- [x] Default language for translations
+- [x] Store settings in `localStorage` or `Office.context.roamingSettings`
 
 ---
 
