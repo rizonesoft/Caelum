@@ -216,10 +216,10 @@
 
 ### 5.1 API Key Management
 
-- [ ] **Never** ship the API key in the source code or manifest
+- [x] **Never** ship the API key in the source code or manifest
 - [ ] Implement secure storage for the API key:
   - [ ] Option A: Store in `Office.context.roamingSettings` (per-user, synced by Outlook)
-  - [ ] Option B: Prompt the user to enter their own key in the Settings page
+  - [x] Option B: Prompt the user to enter their own key in the Settings page
 - [ ] Validate the API key format before storing
 - [ ] Add a "Test Connection" button in Settings to verify the key works
 
