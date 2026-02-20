@@ -206,6 +206,56 @@ export function getEmailSender(): Promise<EmailContact> {
   });
 }
 
+/**
+ * Get the original sender of the email being replied to.
+ *
+ * - Read mode: Returns the `from` field (same as getEmailSender).
+ * - Compose mode (reply): Returns the first To recipient, who is
+ *   the person the user is replying to.
+ * - Compose mode (new): Falls back to the current user.
+ */
+export async function getOriginalSender(): Promise<EmailContact> {
+  const mode = getItemMode();
+
+  if (mode === 'read') {
+    return getEmailSender();
+  }
+
+  // In compose mode, the first To recipient is the person being replied to
+  const item = getItemOrThrow();
+  const toRecipients = await getComposeToRecipients(item);
+
+  if (toRecipients.length > 0) {
+    return toRecipients[0];
+  }
+
+  // Fallback for new compose (no recipients yet)
+  return getEmailSender();
+}
+
+/** Get only the To recipients in compose mode. */
+function getComposeToRecipients(item: any): Promise<EmailContact[]> {
+  return new Promise((resolve) => {
+    const toObj = item.to;
+    if (toObj && typeof toObj.getAsync === 'function') {
+      toObj.getAsync((result: Office.AsyncResult<Office.EmailAddressDetails[]>) => {
+        if (result.status === Office.AsyncResultStatus.Succeeded && result.value) {
+          resolve(
+            result.value.map((r) => ({
+              name: r.displayName || '',
+              email: r.emailAddress || '',
+            })),
+          );
+        } else {
+          resolve([]);
+        }
+      });
+    } else {
+      resolve([]);
+    }
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Recipients
 // ---------------------------------------------------------------------------

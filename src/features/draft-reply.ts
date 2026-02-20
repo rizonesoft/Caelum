@@ -19,7 +19,7 @@ import { REPLY_PROMPT } from '../prompts/templates';
 import {
   getCurrentEmailBody,
   getCurrentEmailSubject,
-  getEmailSender,
+  getOriginalSender,
   getItemMode,
   EmailContact,
 } from '../services/outlook';
@@ -60,7 +60,7 @@ export async function loadEmailContext(): Promise<EmailContext> {
   const [body, subject, sender] = await Promise.all([
     getCurrentEmailBody(),
     getCurrentEmailSubject(),
-    getEmailSender(),
+    getOriginalSender(),
   ]);
 
   cachedContext = { subject, body, sender };
