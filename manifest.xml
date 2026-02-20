@@ -55,9 +55,9 @@
                     <Description resid="TaskpaneButton.Tooltip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
+                    <bt:Image size="16" resid="OpenPanel.16x16"/>
+                    <bt:Image size="32" resid="OpenPanel.32x32"/>
+                    <bt:Image size="80" resid="OpenPanel.80x80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <SourceLocation resid="Taskpane.Url"/>
@@ -77,9 +77,9 @@
                     <Description resid="TaskpaneButton.Tooltip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
+                    <bt:Image size="16" resid="OpenPanel.16x16"/>
+                    <bt:Image size="32" resid="OpenPanel.32x32"/>
+                    <bt:Image size="80" resid="OpenPanel.80x80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <SourceLocation resid="Taskpane.Url"/>
@@ -92,9 +92,9 @@
                     <Description resid="AIMenu.Tooltip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
+                    <bt:Image size="16" resid="AITools.16x16"/>
+                    <bt:Image size="32" resid="AITools.32x32"/>
+                    <bt:Image size="80" resid="AITools.80x80"/>
                   </Icon>
                   <Items>
                     <Item id="aiFixGrammar">
@@ -104,9 +104,9 @@
                         <Description resid="AIFixGrammar.Tooltip"/>
                       </Supertip>
                       <Icon>
-                        <bt:Image size="16" resid="Icon.16x16"/>
-                        <bt:Image size="32" resid="Icon.32x32"/>
-                        <bt:Image size="80" resid="Icon.80x80"/>
+                        <bt:Image size="16" resid="FixGrammar.16x16"/>
+                        <bt:Image size="32" resid="FixGrammar.32x32"/>
+                        <bt:Image size="80" resid="FixGrammar.80x80"/>
                       </Icon>
                       <Action xsi:type="ExecuteFunction">
                         <FunctionName>fixGrammar</FunctionName>
@@ -119,9 +119,9 @@
                         <Description resid="AIImproveClarity.Tooltip"/>
                       </Supertip>
                       <Icon>
-                        <bt:Image size="16" resid="Icon.16x16"/>
-                        <bt:Image size="32" resid="Icon.32x32"/>
-                        <bt:Image size="80" resid="Icon.80x80"/>
+                        <bt:Image size="16" resid="ImproveClarity.16x16"/>
+                        <bt:Image size="32" resid="ImproveClarity.32x32"/>
+                        <bt:Image size="80" resid="ImproveClarity.80x80"/>
                       </Icon>
                       <Action xsi:type="ExecuteFunction">
                         <FunctionName>improveClarity</FunctionName>
@@ -134,9 +134,9 @@
                         <Description resid="AIMakeConcise.Tooltip"/>
                       </Supertip>
                       <Icon>
-                        <bt:Image size="16" resid="Icon.16x16"/>
-                        <bt:Image size="32" resid="Icon.32x32"/>
-                        <bt:Image size="80" resid="Icon.80x80"/>
+                        <bt:Image size="16" resid="MakeConcise.16x16"/>
+                        <bt:Image size="32" resid="MakeConcise.32x32"/>
+                        <bt:Image size="80" resid="MakeConcise.80x80"/>
                       </Icon>
                       <Action xsi:type="ExecuteFunction">
                         <FunctionName>makeConcise</FunctionName>
@@ -149,9 +149,9 @@
                         <Description resid="AIMakeProfessional.Tooltip"/>
                       </Supertip>
                       <Icon>
-                        <bt:Image size="16" resid="Icon.16x16"/>
-                        <bt:Image size="32" resid="Icon.32x32"/>
-                        <bt:Image size="80" resid="Icon.80x80"/>
+                        <bt:Image size="16" resid="MakeProfessional.16x16"/>
+                        <bt:Image size="32" resid="MakeProfessional.32x32"/>
+                        <bt:Image size="80" resid="MakeProfessional.80x80"/>
                       </Icon>
                       <Action xsi:type="ExecuteFunction">
                         <FunctionName>makeProfessional</FunctionName>
@@ -170,6 +170,24 @@
         <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
         <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
         <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="OpenPanel.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/open-panel-16.png"/>
+        <bt:Image id="OpenPanel.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/open-panel-32.png"/>
+        <bt:Image id="OpenPanel.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/open-panel-80.png"/>
+        <bt:Image id="AITools.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/ai-tools-16.png"/>
+        <bt:Image id="AITools.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/ai-tools-32.png"/>
+        <bt:Image id="AITools.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/ai-tools-80.png"/>
+        <bt:Image id="FixGrammar.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/fix-grammer-spelling-16.png"/>
+        <bt:Image id="FixGrammar.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/fix-grammer-spelling-32.png"/>
+        <bt:Image id="FixGrammar.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/fix-grammer-spelling-80.png"/>
+        <bt:Image id="ImproveClarity.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/improve-clarity-16.png"/>
+        <bt:Image id="ImproveClarity.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/improve-clarity-32.png"/>
+        <bt:Image id="ImproveClarity.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/improve-clarity-80.png"/>
+        <bt:Image id="MakeConcise.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/make-concise-16.png"/>
+        <bt:Image id="MakeConcise.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/make-concise-32.png"/>
+        <bt:Image id="MakeConcise.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/make-concise-80.png"/>
+        <bt:Image id="MakeProfessional.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/make-professional-16.png"/>
+        <bt:Image id="MakeProfessional.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/make-professional-32.png"/>
+        <bt:Image id="MakeProfessional.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/make-professional-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
@@ -214,9 +232,9 @@
                       <Description resid="TaskpaneButton.Tooltip"/>
                     </Supertip>
                     <Icon>
-                      <bt:Image size="16" resid="Icon.16x16"/>
-                      <bt:Image size="32" resid="Icon.32x32"/>
-                      <bt:Image size="80" resid="Icon.80x80"/>
+                      <bt:Image size="16" resid="OpenPanel.16x16"/>
+                      <bt:Image size="32" resid="OpenPanel.32x32"/>
+                      <bt:Image size="80" resid="OpenPanel.80x80"/>
                     </Icon>
                     <Action xsi:type="ShowTaskpane">
                       <SourceLocation resid="Taskpane.Url"/>
@@ -237,9 +255,9 @@
                       <Description resid="TaskpaneButton.Tooltip"/>
                     </Supertip>
                     <Icon>
-                      <bt:Image size="16" resid="Icon.16x16"/>
-                      <bt:Image size="32" resid="Icon.32x32"/>
-                      <bt:Image size="80" resid="Icon.80x80"/>
+                      <bt:Image size="16" resid="OpenPanel.16x16"/>
+                      <bt:Image size="32" resid="OpenPanel.32x32"/>
+                      <bt:Image size="80" resid="OpenPanel.80x80"/>
                     </Icon>
                     <Action xsi:type="ShowTaskpane">
                       <SourceLocation resid="Taskpane.Url"/>
@@ -253,9 +271,9 @@
                       <Description resid="AIMenu.Tooltip"/>
                     </Supertip>
                     <Icon>
-                      <bt:Image size="16" resid="Icon.16x16"/>
-                      <bt:Image size="32" resid="Icon.32x32"/>
-                      <bt:Image size="80" resid="Icon.80x80"/>
+                      <bt:Image size="16" resid="AITools.16x16"/>
+                      <bt:Image size="32" resid="AITools.32x32"/>
+                      <bt:Image size="80" resid="AITools.80x80"/>
                     </Icon>
                     <Items>
                       <Item id="aiFixGrammar">
@@ -265,9 +283,9 @@
                           <Description resid="AIFixGrammar.Tooltip"/>
                         </Supertip>
                         <Icon>
-                          <bt:Image size="16" resid="Icon.16x16"/>
-                          <bt:Image size="32" resid="Icon.32x32"/>
-                          <bt:Image size="80" resid="Icon.80x80"/>
+                          <bt:Image size="16" resid="FixGrammar.16x16"/>
+                          <bt:Image size="32" resid="FixGrammar.32x32"/>
+                          <bt:Image size="80" resid="FixGrammar.80x80"/>
                         </Icon>
                         <Action xsi:type="ExecuteFunction">
                           <FunctionName>fixGrammar</FunctionName>
@@ -280,9 +298,9 @@
                           <Description resid="AIImproveClarity.Tooltip"/>
                         </Supertip>
                         <Icon>
-                          <bt:Image size="16" resid="Icon.16x16"/>
-                          <bt:Image size="32" resid="Icon.32x32"/>
-                          <bt:Image size="80" resid="Icon.80x80"/>
+                          <bt:Image size="16" resid="ImproveClarity.16x16"/>
+                          <bt:Image size="32" resid="ImproveClarity.32x32"/>
+                          <bt:Image size="80" resid="ImproveClarity.80x80"/>
                         </Icon>
                         <Action xsi:type="ExecuteFunction">
                           <FunctionName>improveClarity</FunctionName>
@@ -295,9 +313,9 @@
                           <Description resid="AIMakeConcise.Tooltip"/>
                         </Supertip>
                         <Icon>
-                          <bt:Image size="16" resid="Icon.16x16"/>
-                          <bt:Image size="32" resid="Icon.32x32"/>
-                          <bt:Image size="80" resid="Icon.80x80"/>
+                          <bt:Image size="16" resid="MakeConcise.16x16"/>
+                          <bt:Image size="32" resid="MakeConcise.32x32"/>
+                          <bt:Image size="80" resid="MakeConcise.80x80"/>
                         </Icon>
                         <Action xsi:type="ExecuteFunction">
                           <FunctionName>makeConcise</FunctionName>
@@ -310,9 +328,9 @@
                           <Description resid="AIMakeProfessional.Tooltip"/>
                         </Supertip>
                         <Icon>
-                          <bt:Image size="16" resid="Icon.16x16"/>
-                          <bt:Image size="32" resid="Icon.32x32"/>
-                          <bt:Image size="80" resid="Icon.80x80"/>
+                          <bt:Image size="16" resid="MakeProfessional.16x16"/>
+                          <bt:Image size="32" resid="MakeProfessional.32x32"/>
+                          <bt:Image size="80" resid="MakeProfessional.80x80"/>
                         </Icon>
                         <Action xsi:type="ExecuteFunction">
                           <FunctionName>makeProfessional</FunctionName>
@@ -331,6 +349,24 @@
           <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
           <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
           <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+          <bt:Image id="OpenPanel.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/open-panel-16.png"/>
+          <bt:Image id="OpenPanel.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/open-panel-32.png"/>
+          <bt:Image id="OpenPanel.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/open-panel-80.png"/>
+          <bt:Image id="AITools.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/ai-tools-16.png"/>
+          <bt:Image id="AITools.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/ai-tools-32.png"/>
+          <bt:Image id="AITools.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/ai-tools-80.png"/>
+          <bt:Image id="FixGrammar.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/fix-grammer-spelling-16.png"/>
+          <bt:Image id="FixGrammar.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/fix-grammer-spelling-32.png"/>
+          <bt:Image id="FixGrammar.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/fix-grammer-spelling-80.png"/>
+          <bt:Image id="ImproveClarity.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/improve-clarity-16.png"/>
+          <bt:Image id="ImproveClarity.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/improve-clarity-32.png"/>
+          <bt:Image id="ImproveClarity.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/improve-clarity-80.png"/>
+          <bt:Image id="MakeConcise.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/make-concise-16.png"/>
+          <bt:Image id="MakeConcise.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/make-concise-32.png"/>
+          <bt:Image id="MakeConcise.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/make-concise-80.png"/>
+          <bt:Image id="MakeProfessional.16x16" DefaultValue="https://localhost:3000/assets/tool-icons/make-professional-16.png"/>
+          <bt:Image id="MakeProfessional.32x32" DefaultValue="https://localhost:3000/assets/tool-icons/make-professional-32.png"/>
+          <bt:Image id="MakeProfessional.80x80" DefaultValue="https://localhost:3000/assets/tool-icons/make-professional-80.png"/>
         </bt:Images>
         <bt:Urls>
           <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
