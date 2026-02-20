@@ -121,19 +121,11 @@ ai-email-writer/
 
 ## 🔄 Deployment
 
-AI Compose uses **GitHub Pages** for hosting with a single `manifest.xml` in the repository. The CI pipeline builds the project and deploys to two environments — the dev deployment automatically patches the manifest at build time (different App ID, `/dev/` URLs, and "(Dev)" label).
+AI Compose is automatically deployed to **GitHub Pages** on every push to `main`. The manifest and all assets are served from:
 
-| Environment    | URL                                                                                            | Trigger                          |
-| -------------- | ---------------------------------------------------------------------------------------------- | -------------------------------- |
-| **Dev**        | [rizonesoft.github.io/ai-email-writer/dev/](https://rizonesoft.github.io/ai-email-writer/dev/) | Auto on every push to `main`     |
-| **Production** | [rizonesoft.github.io/ai-email-writer/](https://rizonesoft.github.io/ai-email-writer/)         | Manual trigger in GitHub Actions |
+**[rizonesoft.github.io/ai-email-writer/](https://rizonesoft.github.io/ai-email-writer/)**
 
-### Promoting Dev to Production
-
-1. Test the dev build by sideloading from `https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml`
-2. When satisfied, go to **[GitHub Actions](https://github.com/rizonesoft/ai-email-writer/actions)** → **Deploy** → **Run workflow**
-3. Check the **Deploy to production** checkbox → **Run workflow**
-4. Production users will receive the update automatically on their next add-in load
+Users who have sideloaded or had the add-in deployed via the M365 Admin Centre will receive updates automatically on their next add-in load — no reinstallation needed.
 
 ### Updating in MS365 Admin Centre
 
