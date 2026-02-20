@@ -84,6 +84,80 @@
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
+                <Control xsi:type="Menu" id="msgComposeAIMenu">
+                  <Label resid="AIMenu.Label"/>
+                  <Supertip>
+                    <Title resid="AIMenu.Label"/>
+                    <Description resid="AIMenu.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Items>
+                    <Item id="aiFixGrammar">
+                      <Label resid="AIFixGrammar.Label"/>
+                      <Supertip>
+                        <Title resid="AIFixGrammar.Label"/>
+                        <Description resid="AIFixGrammar.Tooltip"/>
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="Icon.16x16"/>
+                        <bt:Image size="32" resid="Icon.32x32"/>
+                        <bt:Image size="80" resid="Icon.80x80"/>
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>fixGrammar</FunctionName>
+                      </Action>
+                    </Item>
+                    <Item id="aiImproveClarity">
+                      <Label resid="AIImproveClarity.Label"/>
+                      <Supertip>
+                        <Title resid="AIImproveClarity.Label"/>
+                        <Description resid="AIImproveClarity.Tooltip"/>
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="Icon.16x16"/>
+                        <bt:Image size="32" resid="Icon.32x32"/>
+                        <bt:Image size="80" resid="Icon.80x80"/>
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>improveClarity</FunctionName>
+                      </Action>
+                    </Item>
+                    <Item id="aiMakeConcise">
+                      <Label resid="AIMakeConcise.Label"/>
+                      <Supertip>
+                        <Title resid="AIMakeConcise.Label"/>
+                        <Description resid="AIMakeConcise.Tooltip"/>
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="Icon.16x16"/>
+                        <bt:Image size="32" resid="Icon.32x32"/>
+                        <bt:Image size="80" resid="Icon.80x80"/>
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>makeConcise</FunctionName>
+                      </Action>
+                    </Item>
+                    <Item id="aiMakeProfessional">
+                      <Label resid="AIMakeProfessional.Label"/>
+                      <Supertip>
+                        <Title resid="AIMakeProfessional.Label"/>
+                        <Description resid="AIMakeProfessional.Tooltip"/>
+                      </Supertip>
+                      <Icon>
+                        <bt:Image size="16" resid="Icon.16x16"/>
+                        <bt:Image size="32" resid="Icon.32x32"/>
+                        <bt:Image size="80" resid="Icon.80x80"/>
+                      </Icon>
+                      <Action xsi:type="ExecuteFunction">
+                        <FunctionName>makeProfessional</FunctionName>
+                      </Action>
+                    </Item>
+                  </Items>
+                </Control>
               </Group>
             </OfficeTab>
           </ExtensionPoint>
@@ -103,9 +177,19 @@
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Glide"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Glide"/>
+        <bt:String id="AIMenu.Label" DefaultValue="Glide AI"/>
+        <bt:String id="AIFixGrammar.Label" DefaultValue="Fix Grammar &amp; Spelling"/>
+        <bt:String id="AIImproveClarity.Label" DefaultValue="Improve Clarity"/>
+        <bt:String id="AIMakeConcise.Label" DefaultValue="Make Concise"/>
+        <bt:String id="AIMakeProfessional.Label" DefaultValue="Make Professional"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the Glide AI assistant panel."/>
+        <bt:String id="AIMenu.Tooltip" DefaultValue="AI writing tools for your email."/>
+        <bt:String id="AIFixGrammar.Tooltip" DefaultValue="Fix grammar, spelling, and punctuation in the selected text."/>
+        <bt:String id="AIImproveClarity.Tooltip" DefaultValue="Improve clarity and readability of the selected text."/>
+        <bt:String id="AIMakeConcise.Tooltip" DefaultValue="Make the selected text shorter and more concise."/>
+        <bt:String id="AIMakeProfessional.Tooltip" DefaultValue="Make the selected text more professional and polished."/>
       </bt:LongStrings>
     </Resources>
     <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
@@ -161,6 +245,80 @@
                       <SupportsPinning>true</SupportsPinning>
                     </Action>
                   </Control>
+                  <Control xsi:type="Menu" id="msgComposeAIMenu">
+                    <Label resid="AIMenu.Label"/>
+                    <Supertip>
+                      <Title resid="AIMenu.Label"/>
+                      <Description resid="AIMenu.Tooltip"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.16x16"/>
+                      <bt:Image size="32" resid="Icon.32x32"/>
+                      <bt:Image size="80" resid="Icon.80x80"/>
+                    </Icon>
+                    <Items>
+                      <Item id="aiFixGrammar">
+                        <Label resid="AIFixGrammar.Label"/>
+                        <Supertip>
+                          <Title resid="AIFixGrammar.Label"/>
+                          <Description resid="AIFixGrammar.Tooltip"/>
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="Icon.16x16"/>
+                          <bt:Image size="32" resid="Icon.32x32"/>
+                          <bt:Image size="80" resid="Icon.80x80"/>
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>fixGrammar</FunctionName>
+                        </Action>
+                      </Item>
+                      <Item id="aiImproveClarity">
+                        <Label resid="AIImproveClarity.Label"/>
+                        <Supertip>
+                          <Title resid="AIImproveClarity.Label"/>
+                          <Description resid="AIImproveClarity.Tooltip"/>
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="Icon.16x16"/>
+                          <bt:Image size="32" resid="Icon.32x32"/>
+                          <bt:Image size="80" resid="Icon.80x80"/>
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>improveClarity</FunctionName>
+                        </Action>
+                      </Item>
+                      <Item id="aiMakeConcise">
+                        <Label resid="AIMakeConcise.Label"/>
+                        <Supertip>
+                          <Title resid="AIMakeConcise.Label"/>
+                          <Description resid="AIMakeConcise.Tooltip"/>
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="Icon.16x16"/>
+                          <bt:Image size="32" resid="Icon.32x32"/>
+                          <bt:Image size="80" resid="Icon.80x80"/>
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>makeConcise</FunctionName>
+                        </Action>
+                      </Item>
+                      <Item id="aiMakeProfessional">
+                        <Label resid="AIMakeProfessional.Label"/>
+                        <Supertip>
+                          <Title resid="AIMakeProfessional.Label"/>
+                          <Description resid="AIMakeProfessional.Tooltip"/>
+                        </Supertip>
+                        <Icon>
+                          <bt:Image size="16" resid="Icon.16x16"/>
+                          <bt:Image size="32" resid="Icon.32x32"/>
+                          <bt:Image size="80" resid="Icon.80x80"/>
+                        </Icon>
+                        <Action xsi:type="ExecuteFunction">
+                          <FunctionName>makeProfessional</FunctionName>
+                        </Action>
+                      </Item>
+                    </Items>
+                  </Control>
                 </Group>
               </OfficeTab>
             </ExtensionPoint>
@@ -180,9 +338,19 @@
         <bt:ShortStrings>
           <bt:String id="GroupLabel" DefaultValue="Glide"/>
           <bt:String id="TaskpaneButton.Label" DefaultValue="Glide"/>
+          <bt:String id="AIMenu.Label" DefaultValue="Glide AI"/>
+          <bt:String id="AIFixGrammar.Label" DefaultValue="Fix Grammar &amp; Spelling"/>
+          <bt:String id="AIImproveClarity.Label" DefaultValue="Improve Clarity"/>
+          <bt:String id="AIMakeConcise.Label" DefaultValue="Make Concise"/>
+          <bt:String id="AIMakeProfessional.Label" DefaultValue="Make Professional"/>
         </bt:ShortStrings>
         <bt:LongStrings>
           <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the Glide AI assistant panel."/>
+          <bt:String id="AIMenu.Tooltip" DefaultValue="AI writing tools for your email."/>
+          <bt:String id="AIFixGrammar.Tooltip" DefaultValue="Fix grammar, spelling, and punctuation in the selected text."/>
+          <bt:String id="AIImproveClarity.Tooltip" DefaultValue="Improve clarity and readability of the selected text."/>
+          <bt:String id="AIMakeConcise.Tooltip" DefaultValue="Make the selected text shorter and more concise."/>
+          <bt:String id="AIMakeProfessional.Tooltip" DefaultValue="Make the selected text more professional and polished."/>
         </bt:LongStrings>
       </Resources>
     </VersionOverrides>

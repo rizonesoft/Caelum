@@ -1,35 +1,177 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
+/**
+ * Glide — Add-in Commands (Function Commands)
+ *
+ * Registers ExecuteFunction handlers for compose-mode ribbon buttons.
+ * These run silently (no taskpane) on the user's selected text:
+ *   - Fix Grammar & Spelling
+ *   - Improve Clarity
+ *   - Make Concise
+ *   - Make Professional
+ *
+ * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
 /* global Office */
 
-Office.onReady(() => {
-  // If needed, Office.js is ready to be called.
-});
+import { generateText } from '../services/gemini';
+import { buildPrompt } from '../prompts/builder';
+import { IMPROVE_WRITING_PROMPT } from '../prompts/templates';
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+type ImprovementFocus =
+  | 'fix_grammar'
+  | 'improve_clarity'
+  | 'make_concise'
+  | 'make_professional';
+
+const FOCUS_LABELS: Record<ImprovementFocus, string> = {
+  fix_grammar: 'Fix grammar, spelling, and punctuation errors',
+  improve_clarity: 'Improve clarity and readability',
+  make_concise: 'Make the text more concise — remove unnecessary words',
+  make_professional: 'Make the tone more professional and polished',
+};
+
+// ---------------------------------------------------------------------------
+// Core helper — improve selected text in-place
+// ---------------------------------------------------------------------------
 
 /**
- * Shows a notification when the add-in command is executed.
- * @param event
+ * Read the selected text in compose mode, send it to Gemini with the given
+ * improvement focus, and replace the selection with the improved version.
  */
-function action(event: Office.AddinCommands.Event) {
-  const message: Office.NotificationMessageDetails = {
-    type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
-    message: "Performed action.",
-    icon: "Icon.80x80",
-    persistent: true,
-  };
+async function improveSelectedText(
+  focus: ImprovementFocus,
+  event: Office.AddinCommands.Event,
+): Promise<void> {
+  const item = Office.context.mailbox.item;
 
-  // Show a notification message.
-  Office.context.mailbox.item.notificationMessages.replaceAsync(
-    "ActionPerformanceNotification",
-    message
-  );
+  if (!item) {
+    showNotification('No email is open.', event);
+    return;
+  }
 
-  // Be sure to indicate when the add-in command function is complete.
+  try {
+    // 1. Read the selected text
+    const selectedText = await getSelectedText(item);
+
+    if (!selectedText.trim()) {
+      showNotification('Please select some text first.', event);
+      return;
+    }
+
+    // 2. Build the prompt and call Gemini
+    const focusLabel = FOCUS_LABELS[focus];
+    const prompt = buildPrompt(IMPROVE_WRITING_PROMPT, {
+      TEXT: selectedText,
+      IMPROVEMENT_FOCUS: focusLabel,
+    });
+
+    const improved = await generateText(prompt, {
+      temperature: 0.3,
+      maxOutputTokens: 2048,
+    });
+
+    // 3. Replace the selected text with the improved version
+    await setSelectedText(item, improved);
+
+    showNotification('✓ Text improved', event);
+  } catch (err: any) {
+    const message = err?.message || 'Failed to improve text.';
+    showNotification(`Error: ${message}`, event);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Office.js helpers
+// ---------------------------------------------------------------------------
+
+function getSelectedText(item: any): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (typeof item.getSelectedDataAsync !== 'function') {
+      reject(new Error('Selection API not available. Ensure you are in compose mode.'));
+      return;
+    }
+
+    item.getSelectedDataAsync(
+      Office.CoercionType.Text,
+      (result: Office.AsyncResult<any>) => {
+        if (result.status === Office.AsyncResultStatus.Succeeded) {
+          resolve(result.value?.data || '');
+        } else {
+          reject(new Error(result.error?.message || 'Failed to read selected text'));
+        }
+      },
+    );
+  });
+}
+
+function setSelectedText(item: any, text: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (!item.body || typeof item.body.setSelectedDataAsync !== 'function') {
+      reject(new Error('Cannot write to compose body.'));
+      return;
+    }
+
+    item.body.setSelectedDataAsync(
+      text,
+      { coercionType: Office.CoercionType.Text },
+      (result: Office.AsyncResult<void>) => {
+        if (result.status === Office.AsyncResultStatus.Succeeded) {
+          resolve();
+        } else {
+          reject(new Error(result.error?.message || 'Failed to replace text'));
+        }
+      },
+    );
+  });
+}
+
+function showNotification(message: string, event: Office.AddinCommands.Event): void {
+  const item = Office.context.mailbox.item;
+
+  if (item) {
+    item.notificationMessages.replaceAsync('GlideNotification', {
+      type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
+      message,
+      icon: 'Icon.16x16',
+      persistent: false,
+    } as Office.NotificationMessageDetails);
+  }
+
   event.completed();
 }
 
-// Register the function with Office.
-Office.actions.associate("action", action);
+// ---------------------------------------------------------------------------
+// Function command handlers
+// ---------------------------------------------------------------------------
+
+function fixGrammar(event: Office.AddinCommands.Event): void {
+  improveSelectedText('fix_grammar', event);
+}
+
+function improveClarity(event: Office.AddinCommands.Event): void {
+  improveSelectedText('improve_clarity', event);
+}
+
+function makeConcise(event: Office.AddinCommands.Event): void {
+  improveSelectedText('make_concise', event);
+}
+
+function makeProfessional(event: Office.AddinCommands.Event): void {
+  improveSelectedText('make_professional', event);
+}
+
+// ---------------------------------------------------------------------------
+// Initialization
+// ---------------------------------------------------------------------------
+
+Office.onReady(() => {
+  // Register all function commands with Office
+  Office.actions.associate('fixGrammar', fixGrammar);
+  Office.actions.associate('improveClarity', improveClarity);
+  Office.actions.associate('makeConcise', makeConcise);
+  Office.actions.associate('makeProfessional', makeProfessional);
+});
