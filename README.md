@@ -121,16 +121,16 @@ ai-email-writer/
 
 ## 🔄 Deployment
 
-AI Compose uses a **dual-environment** deployment strategy on GitHub Pages with a **single source manifest**. The dev workflow automatically patches `manifest.xml` at CI time (different App ID, `/dev/` URLs, and "(Dev)" label).
+AI Compose uses **GitHub Pages** for hosting with a single `manifest.xml` in the repository. The CI pipeline builds the project and deploys to two environments — the dev deployment automatically patches the manifest at build time (different App ID, `/dev/` URLs, and "(Dev)" label).
 
-| Environment    | URL                                                                                            | Trigger                          | Manifest                                                                         |
-| -------------- | ---------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------------------------------------------- |
-| **Dev**        | [rizonesoft.github.io/ai-email-writer/dev/](https://rizonesoft.github.io/ai-email-writer/dev/) | Auto on every push to `main`     | [Dev manifest](https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml)    |
-| **Production** | [rizonesoft.github.io/ai-email-writer/](https://rizonesoft.github.io/ai-email-writer/)         | Manual trigger in GitHub Actions | [Production manifest](https://rizonesoft.github.io/ai-email-writer/manifest.xml) |
+| Environment    | URL                                                                                            | Trigger                          |
+| -------------- | ---------------------------------------------------------------------------------------------- | -------------------------------- |
+| **Dev**        | [rizonesoft.github.io/ai-email-writer/dev/](https://rizonesoft.github.io/ai-email-writer/dev/) | Auto on every push to `main`     |
+| **Production** | [rizonesoft.github.io/ai-email-writer/](https://rizonesoft.github.io/ai-email-writer/)         | Manual trigger in GitHub Actions |
 
 ### Promoting Dev to Production
 
-1. Test the dev build by sideloading the [dev manifest](https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml)
+1. Test the dev build by sideloading from `https://rizonesoft.github.io/ai-email-writer/dev/manifest.xml`
 2. When satisfied, go to **[GitHub Actions](https://github.com/rizonesoft/ai-email-writer/actions)** → **Deploy** → **Run workflow**
 3. Check the **Deploy to production** checkbox → **Run workflow**
 4. Production users will receive the update automatically on their next add-in load
