@@ -236,18 +236,18 @@ export function generateDiffHtml(original: string, improved: string): string {
   const { added, removed, unchanged } = diffWords(origWords, impWords);
 
   // Build original side (with removed highlights)
-  const origHtml = buildSideHtml(origWords, removed, 'glide-diff__del');
-  const impHtml = buildSideHtml(impWords, added, 'glide-diff__ins');
+  const origHtml = buildSideHtml(origWords, removed, 'aic-diff__del');
+  const impHtml = buildSideHtml(impWords, added, 'aic-diff__ins');
 
   return `
-    <div class="glide-diff">
-      <div class="glide-diff__panel">
-        <div class="glide-diff__label">Original</div>
-        <div class="glide-diff__content">${origHtml}</div>
+    <div class="aic-diff">
+      <div class="aic-diff__panel">
+        <div class="aic-diff__label">Original</div>
+        <div class="aic-diff__content">${origHtml}</div>
       </div>
-      <div class="glide-diff__panel glide-diff__panel--improved">
-        <div class="glide-diff__label">Improved</div>
-        <div class="glide-diff__content">${impHtml}</div>
+      <div class="aic-diff__panel aic-diff__panel--improved">
+        <div class="aic-diff__label">Improved</div>
+        <div class="aic-diff__content">${impHtml}</div>
       </div>
     </div>`;
 }

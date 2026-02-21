@@ -64,7 +64,7 @@ import {
 import {
   loadSettings,
   saveSettings,
-  GlideSettings,
+  resetSettings,
   AIComposeSettings,
 } from '../features/settings';
 
@@ -90,7 +90,7 @@ function hideElement(id: string): void {
 }
 
 function showLoading(message?: string): void {
-  const text = $('loading-overlay')?.querySelector('.glide-loading__text') as HTMLElement;
+  const text = $('loading-overlay')?.querySelector('.aic-loading__text') as HTMLElement;
   if (text && message) text.textContent = message;
   showElement('loading-overlay');
 }
@@ -122,7 +122,7 @@ function setPreview(elementId: string, text: string): void {
   const html = lines
     .map((line) => {
       if (line.toLowerCase().startsWith('subject:')) {
-        return `<div class="glide-preview__subject">${line}</div>`;
+        return `<div class="aic-preview__subject">${line}</div>`;
       }
       if (line.trim() === '') {
         return '<br>';
@@ -221,8 +221,8 @@ const TAB_CONFIG: Record<string, string[]> = {
 
 function switchTab(tabName: string): void {
   // Update tab buttons
-  document.querySelectorAll('.glide-tab').forEach((tab) => {
-    tab.classList.toggle('glide-tab--active', (tab as HTMLElement).dataset.tab === tabName);
+  document.querySelectorAll('.aic-tab').forEach((tab) => {
+    tab.classList.toggle('aic-tab--active', (tab as HTMLElement).dataset.tab === tabName);
   });
 
   // Show/hide sections
@@ -518,10 +518,10 @@ async function handleCopySummary(): Promise<void> {
     if (btn) {
       const original = btn.innerHTML;
       btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
-      btn.classList.add('glide-btn--success');
+      btn.classList.add('aic-btn--success');
       setTimeout(() => {
         btn.innerHTML = original;
-        btn.classList.remove('glide-btn--success');
+        btn.classList.remove('aic-btn--success');
       }, 1500);
     }
   } catch (err: any) {
@@ -588,10 +588,10 @@ async function handleAcceptChanges(): Promise<void> {
         ? '<i class="ms-Icon ms-Icon--CheckMark"></i> Replaced!'
         : '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
       btn.innerHTML = msg;
-      btn.classList.add('glide-btn--success');
+      btn.classList.add('aic-btn--success');
       setTimeout(() => {
         btn.innerHTML = original;
-        btn.classList.remove('glide-btn--success');
+        btn.classList.remove('aic-btn--success');
       }, 1500);
     }
   } catch (err: any) {
@@ -652,10 +652,10 @@ async function handleCopyTasks(): Promise<void> {
     if (btn) {
       const original = btn.innerHTML;
       btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
-      btn.classList.add('glide-btn--success');
+      btn.classList.add('aic-btn--success');
       setTimeout(() => {
         btn.innerHTML = original;
-        btn.classList.remove('glide-btn--success');
+        btn.classList.remove('aic-btn--success');
       }, 1500);
     }
   } catch (err: any) {
@@ -721,10 +721,10 @@ async function handleCopyTranslation(): Promise<void> {
     if (btn) {
       const original = btn.innerHTML;
       btn.innerHTML = '<i class="ms-Icon ms-Icon--CheckMark"></i> Copied!';
-      btn.classList.add('glide-btn--success');
+      btn.classList.add('aic-btn--success');
       setTimeout(() => {
         btn.innerHTML = original;
-        btn.classList.remove('glide-btn--success');
+        btn.classList.remove('aic-btn--success');
       }, 1500);
     }
   } catch (err: any) {
@@ -824,25 +824,25 @@ Office.onReady((info) => {
     const DROPDOWN_TABS = new Set(['summarize', 'improve', 'extract']);
     const moreBtn = $('tab-more');
     const dropdown = $('more-dropdown');
-    const splitContainer = moreBtn?.closest('.glide-split');
+    const splitContainer = moreBtn?.closest('.aic-split');
 
     const toggleDropdown = (show?: boolean): void => {
       if (!dropdown || !splitContainer) return;
       const isOpen = show !== undefined ? show : dropdown.classList.contains('hidden');
       dropdown.classList.toggle('hidden', !isOpen);
-      splitContainer.classList.toggle('glide-split--open', isOpen);
+      splitContainer.classList.toggle('aic-split--open', isOpen);
     }
 
     // Regular tab buttons (Draft, Reply)
-    document.querySelectorAll('.glide-tabs > .glide-tab').forEach((tab) => {
+    document.querySelectorAll('.aic-tabs > .aic-tab').forEach((tab) => {
       tab.addEventListener('click', () => {
         const tabName = (tab as HTMLElement).dataset.tab;
         if (tabName && tabName !== 'more') {
           switchTab(tabName);
           // Clear More button highlight
-          moreBtn?.classList.remove('glide-tab--active');
-          document.querySelectorAll('.glide-dropdown__item').forEach((item) =>
-            item.classList.remove('glide-dropdown__item--active'),
+          moreBtn?.classList.remove('aic-tab--active');
+          document.querySelectorAll('.aic-dropdown__item').forEach((item) =>
+            item.classList.remove('aic-dropdown__item--active'),
           );
           toggleDropdown(false);
         }
@@ -856,21 +856,21 @@ Office.onReady((info) => {
     });
 
     // Dropdown items
-    document.querySelectorAll('.glide-dropdown__item').forEach((item) => {
+    document.querySelectorAll('.aic-dropdown__item').forEach((item) => {
       item.addEventListener('click', (e) => {
         e.stopPropagation();
         const tabName = (item as HTMLElement).dataset.tab;
         if (tabName) {
           switchTab(tabName);
           // Highlight the More button and the selected item
-          document.querySelectorAll('.glide-tab').forEach((t) =>
-            t.classList.remove('glide-tab--active'),
+          document.querySelectorAll('.aic-tab').forEach((t) =>
+            t.classList.remove('aic-tab--active'),
           );
-          moreBtn?.classList.add('glide-tab--active');
-          document.querySelectorAll('.glide-dropdown__item').forEach((di) =>
-            di.classList.remove('glide-dropdown__item--active'),
+          moreBtn?.classList.add('aic-tab--active');
+          document.querySelectorAll('.aic-dropdown__item').forEach((di) =>
+            di.classList.remove('aic-dropdown__item--active'),
           );
-          item.classList.add('glide-dropdown__item--active');
+          item.classList.add('aic-dropdown__item--active');
           toggleDropdown(false);
         }
       });
@@ -924,12 +924,12 @@ Office.onReady((info) => {
     $('tab-settings')?.addEventListener('click', () => {
       switchTab('settings');
       // Highlight settings button
-      document.querySelectorAll('.glide-tab').forEach((t) =>
-        t.classList.remove('glide-tab--active'),
+      document.querySelectorAll('.aic-tab').forEach((t) =>
+        t.classList.remove('aic-tab--active'),
       );
-      $('tab-settings')?.classList.add('glide-tab--active');
-      document.querySelectorAll('.glide-dropdown__item').forEach((di) =>
-        di.classList.remove('glide-dropdown__item--active'),
+      $('tab-settings')?.classList.add('aic-tab--active');
+      document.querySelectorAll('.aic-dropdown__item').forEach((di) =>
+        di.classList.remove('aic-dropdown__item--active'),
       );
       toggleDropdown(false);
     });
@@ -971,7 +971,7 @@ Office.onReady((info) => {
       }
       if (keyError) keyError.classList.add('hidden');
 
-      const newSettings: GlideSettings = {
+      const newSettings: AIComposeSettings = {
         apiKey,
         defaultModel: model,
         defaultTone: tone as any,
@@ -992,8 +992,8 @@ Office.onReady((info) => {
       // Flash the save button green
       const btn = $('btn-save-settings');
       if (btn) {
-        btn.classList.add('glide-btn--success');
-        setTimeout(() => btn.classList.remove('glide-btn--success'), 1500);
+        btn.classList.add('aic-btn--success');
+        setTimeout(() => btn.classList.remove('aic-btn--success'), 1500);
       }
     });
 
@@ -1025,7 +1025,7 @@ Office.onReady((info) => {
 
       // Show testing state
       resultEl.classList.remove('hidden');
-      resultEl.style.color = 'var(--color-glide-text-secondary)';
+      resultEl.style.color = 'var(--color-aic-text-secondary)';
       resultEl.textContent = 'Testing connection…';
       if (btn) btn.setAttribute('disabled', 'true');
 
@@ -1044,17 +1044,33 @@ Office.onReady((info) => {
             throw testErr;
           }
         }
-        resultEl.style.color = 'var(--color-glide-success)';
+        resultEl.style.color = 'var(--color-aic-success)';
         resultEl.textContent = '✓ Connection successful! API key is valid.';
         if (btn) {
-          btn.classList.add('glide-btn--success');
-          setTimeout(() => btn.classList.remove('glide-btn--success'), 2000);
+          btn.classList.add('aic-btn--success');
+          setTimeout(() => btn.classList.remove('aic-btn--success'), 2000);
         }
       } catch (err: any) {
-        resultEl.style.color = 'var(--color-glide-error-text)';
+        resultEl.style.color = 'var(--color-aic-error-text)';
         resultEl.textContent = `✗ ${err.message || 'Connection failed. Please check your API key.'}`;
       } finally {
         if (btn) btn.removeAttribute('disabled');
+      }
+    });
+
+    // Clear All Data button
+    $('btn-clear-all-data')?.addEventListener('click', () => {
+      resetSettings();
+
+      // Reset all form fields to defaults
+      const defaults = loadSettings();
+      applySettingsToForms(defaults);
+
+      // Show confirmation
+      const msg = $('clear-data-msg');
+      if (msg) {
+        msg.classList.remove('hidden');
+        setTimeout(() => { msg.classList.add('hidden'); }, 2500);
       }
     });
 

@@ -31,26 +31,26 @@
   </head>
 
   <body
-    class="ms-Fabric m-0 p-0 bg-glide-bg text-glide-text font-glide text-md leading-normal antialiased overflow-x-hidden"
+    class="ms-Fabric m-0 p-0 bg-aic-bg text-aic-text font-aic text-md leading-normal antialiased overflow-x-hidden"
   >
     <!-- ================================================================ -->
     <!-- Sideload message (shown when add-in isn't activated)             -->
     <!-- ================================================================ -->
     <section
       id="sideload-msg"
-      class="flex flex-col items-center justify-center min-h-[50vh] p-xl text-center text-glide-text-secondary"
+      class="flex flex-col items-center justify-center min-h-[50vh] p-xl text-center text-aic-text-secondary"
     >
-      <div class="mb-lg text-glide-blue">
+      <div class="mb-lg text-aic-blue">
         <i class="ms-Icon ms-Icon--PlugDisconnected ms-font-xxl"></i>
       </div>
-      <h2 class="text-xl font-semibold text-glide-text mb-xs">Add-in Not Loaded</h2>
+      <h2 class="text-xl font-semibold text-aic-text mb-xs">Add-in Not Loaded</h2>
       <p class="text-sm">
         Please
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing"
-          class="text-glide-blue no-underline hover:underline"
+          class="text-aic-blue no-underline hover:underline"
           >sideload</a
         >
         the add-in to get started.
@@ -63,9 +63,9 @@
     <main id="app-body" class="hidden">
       <!-- Tab bar ---------------------------------------------------- -->
       <nav
-        class="glide-tabs flex items-center gap-0 border-b border-glide-border-light bg-glide-bg sticky top-0 z-10"
+        class="aic-tabs flex items-center gap-0 border-b border-aic-border-light bg-aic-bg sticky top-0 z-10"
       >
-        <button id="tab-reply" class="glide-tab glide-tab--active" data-tab="reply">
+        <button id="tab-reply" class="aic-tab aic-tab--active" data-tab="reply">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -82,7 +82,7 @@
           </svg>
           <span>Reply</span>
         </button>
-        <button id="tab-draft" class="glide-tab" data-tab="draft">
+        <button id="tab-draft" class="aic-tab" data-tab="draft">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -102,7 +102,7 @@
           <span>Draft</span>
         </button>
         <!-- Icon-only utility buttons -->
-        <button id="tab-settings" class="glide-tab glide-tab--icon" title="Settings">
+        <button id="tab-settings" class="aic-tab aic-tab--icon" title="Settings">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -120,13 +120,8 @@
             <circle cx="12" cy="12" r="3" />
           </svg>
         </button>
-        <div class="glide-split relative">
-          <button
-            id="tab-more"
-            class="glide-tab glide-tab--icon"
-            data-tab="more"
-            title="More features"
-          >
+        <div class="aic-split relative">
+          <button id="tab-more" class="aic-tab aic-tab--icon" data-tab="more" title="More features">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -144,8 +139,8 @@
             </svg>
           </button>
           <!-- More dropdown menu -->
-          <div id="more-dropdown" class="glide-dropdown hidden">
-            <button class="glide-dropdown__item" data-tab="summarize">
+          <div id="more-dropdown" class="aic-dropdown hidden">
+            <button class="aic-dropdown__item" data-tab="summarize">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -166,7 +161,7 @@
               </svg>
               <span>Summarize</span>
             </button>
-            <button class="glide-dropdown__item" data-tab="improve">
+            <button class="aic-dropdown__item" data-tab="improve">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -186,7 +181,7 @@
               </svg>
               <span>Improve Writing</span>
             </button>
-            <button class="glide-dropdown__item" data-tab="extract">
+            <button class="aic-dropdown__item" data-tab="extract">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -206,7 +201,7 @@
               </svg>
               <span>Extract Action Items</span>
             </button>
-            <button class="glide-dropdown__item" data-tab="translate">
+            <button class="aic-dropdown__item" data-tab="translate">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -235,11 +230,11 @@
       <!-- Draft Email                                                    -->
       <!-- ============================================================ -->
 
-      <section id="draft-section" class="glide-section p-lg hidden">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+      <section id="draft-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <!-- Pen-line icon -->
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -260,14 +255,14 @@
 
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="draft-instructions"
           >
             Instructions / bullet points
           </label>
           <textarea
             id="draft-instructions"
-            class="glide-textarea w-full p-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide resize-y min-h-[100px] focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
+            class="aic-textarea w-full p-sm border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[100px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
             rows="5"
             placeholder="e.g. Thank the client for the meeting, confirm next steps, mention deadline is Friday..."
           ></textarea>
@@ -276,12 +271,10 @@
         <!-- Tone & Length row -->
         <div class="flex gap-sm mb-lg">
           <div class="flex-1 min-w-0">
-            <label
-              class="block text-sm font-medium text-glide-text-secondary mb-xs"
-              for="draft-tone"
+            <label class="block text-sm font-medium text-aic-text-secondary mb-xs" for="draft-tone"
               >Tone</label
             >
-            <select id="draft-tone" class="glide-select">
+            <select id="draft-tone" class="aic-select">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
               <option value="friendly">Friendly</option>
@@ -290,11 +283,11 @@
           </div>
           <div class="flex-1 min-w-0">
             <label
-              class="block text-sm font-medium text-glide-text-secondary mb-xs"
+              class="block text-sm font-medium text-aic-text-secondary mb-xs"
               for="draft-length"
               >Length</label
             >
-            <select id="draft-length" class="glide-select">
+            <select id="draft-length" class="aic-select">
               <option value="short">Short</option>
               <option value="medium" selected>Medium</option>
               <option value="detailed">Detailed</option>
@@ -302,7 +295,7 @@
           </div>
         </div>
 
-        <button id="btn-generate" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-generate" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -325,11 +318,11 @@
       <!-- Draft result ------------------------------------------------ -->
       <section
         id="result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
+        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
       >
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -349,12 +342,12 @@
           Generated Draft
         </h2>
 
-        <div id="draft-preview" class="glide-preview"></div>
+        <div id="draft-preview" class="aic-preview"></div>
 
         <div class="flex gap-sm flex-wrap mb-lg">
           <button
             id="btn-copy-compose"
-            class="glide-btn glide-btn--primary flex-1"
+            class="aic-btn aic-btn--primary flex-1"
             title="Open a new email with this draft"
           >
             <i class="ms-Icon ms-Icon--NewMail"></i>
@@ -362,7 +355,7 @@
           </button>
           <button
             id="btn-regenerate"
-            class="glide-btn glide-btn--secondary"
+            class="aic-btn aic-btn--secondary"
             title="Generate a new version"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -371,19 +364,17 @@
         </div>
 
         <div>
-          <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
-            for="refine-input"
+          <label class="block text-sm font-medium text-aic-text-secondary mb-xs" for="refine-input"
             >Refine this draft</label
           >
           <div class="flex gap-xs">
             <input
               id="refine-input"
               type="text"
-              class="glide-input flex-1"
+              class="aic-input flex-1"
               placeholder="e.g. make it shorter, add a P.S. note..."
             />
-            <button id="btn-refine" class="glide-btn glide-btn--accent" title="Refine the draft">
+            <button id="btn-refine" class="aic-btn aic-btn--accent" title="Refine the draft">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
@@ -394,10 +385,10 @@
       <!-- Reply                                                          -->
       <!-- ============================================================ -->
 
-      <section id="reply-section" class="glide-section p-lg">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+      <section id="reply-section" class="aic-section p-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -415,33 +406,33 @@
         </h2>
 
         <!-- Email context banner -->
-        <div id="reply-context" class="glide-context-banner">
+        <div id="reply-context" class="aic-context-banner">
           <div class="flex gap-sm mb-xs">
             <span
-              class="font-medium text-glide-text-secondary text-xs uppercase tracking-wide min-w-[55px]"
+              class="font-medium text-aic-text-secondary text-xs uppercase tracking-wide min-w-[55px]"
               >From</span
             >
-            <span id="reply-sender" class="text-glide-text text-sm truncate">Loading...</span>
+            <span id="reply-sender" class="text-aic-text text-sm truncate">Loading...</span>
           </div>
           <div class="flex gap-sm">
             <span
-              class="font-medium text-glide-text-secondary text-xs uppercase tracking-wide min-w-[55px]"
+              class="font-medium text-aic-text-secondary text-xs uppercase tracking-wide min-w-[55px]"
               >Subject</span
             >
-            <span id="reply-subject" class="text-glide-text text-sm truncate">Loading...</span>
+            <span id="reply-subject" class="text-aic-text text-sm truncate">Loading...</span>
           </div>
         </div>
 
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="reply-instructions"
           >
             Reply instructions
           </label>
           <textarea
             id="reply-instructions"
-            class="glide-textarea w-full p-sm border border-glide-border rounded-sm bg-glide-bg text-md text-glide-text font-glide resize-y min-h-[80px] focus:border-glide-blue focus:shadow-[0_0_0_2px_var(--color-glide-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-glide)]"
+            class="aic-textarea w-full p-sm border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[80px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
             rows="4"
             placeholder="e.g. Agree to the meeting, decline politely, ask for more details..."
           ></textarea>
@@ -450,12 +441,10 @@
         <!-- Tone & options row -->
         <div class="flex gap-sm mb-lg items-end">
           <div class="flex-1 min-w-0">
-            <label
-              class="block text-sm font-medium text-glide-text-secondary mb-xs"
-              for="reply-tone"
+            <label class="block text-sm font-medium text-aic-text-secondary mb-xs" for="reply-tone"
               >Tone</label
             >
-            <select id="reply-tone" class="glide-select">
+            <select id="reply-tone" class="aic-select">
               <option value="professional" selected>Professional</option>
               <option value="formal">Formal</option>
               <option value="friendly">Friendly</option>
@@ -463,14 +452,14 @@
             </select>
           </div>
           <div class="flex-1 flex items-center pb-[7px]">
-            <label class="glide-checkbox">
+            <label class="aic-checkbox">
               <input id="reply-include-original" type="checkbox" checked />
               <span>Include original</span>
             </label>
           </div>
         </div>
 
-        <button id="btn-generate-reply" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-generate-reply" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -493,11 +482,11 @@
       <!-- Reply result ------------------------------------------------ -->
       <section
         id="reply-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
+        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
       >
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -517,12 +506,12 @@
           Generated Reply
         </h2>
 
-        <div id="reply-preview" class="glide-preview"></div>
+        <div id="reply-preview" class="aic-preview"></div>
 
         <div class="flex gap-sm mb-lg">
           <button
             id="btn-insert-reply"
-            class="glide-btn glide-btn--primary flex-1 min-w-0"
+            class="aic-btn aic-btn--primary flex-1 min-w-0"
             title="Insert into Reply"
           >
             <svg
@@ -543,7 +532,7 @@
           </button>
           <button
             id="btn-insert-reply-all"
-            class="glide-btn glide-btn--primary flex-1 min-w-0"
+            class="aic-btn aic-btn--primary flex-1 min-w-0"
             title="Insert into Reply All"
           >
             <svg
@@ -565,7 +554,7 @@
           </button>
           <button
             id="btn-regenerate-reply"
-            class="glide-btn glide-btn--secondary shrink-0"
+            class="aic-btn aic-btn--secondary shrink-0"
             title="Generate a new version"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -574,7 +563,7 @@
 
         <div>
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="reply-refine-input"
             >Refine this reply</label
           >
@@ -582,10 +571,10 @@
             <input
               id="reply-refine-input"
               type="text"
-              class="glide-input flex-1"
+              class="aic-input flex-1"
               placeholder="e.g. make it more concise, soften the tone..."
             />
-            <button id="btn-refine-reply" class="glide-btn glide-btn--accent" title="Refine">
+            <button id="btn-refine-reply" class="aic-btn aic-btn--accent" title="Refine">
               <i class="ms-Icon ms-Icon--Send"></i>
             </button>
           </div>
@@ -596,10 +585,10 @@
       <!-- Summarize                                                      -->
       <!-- ============================================================ -->
 
-      <section id="summarize-section" class="glide-section p-lg hidden">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+      <section id="summarize-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -621,19 +610,19 @@
         </h2>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-sm"
+          <label class="block text-sm font-medium text-aic-text-secondary mb-sm"
             >Summary format</label
           >
-          <div class="glide-radio-group">
-            <label class="glide-radio">
+          <div class="aic-radio-group">
+            <label class="aic-radio">
               <input type="radio" name="summary-style" value="bullets" checked />
               <span>Bullet points</span>
             </label>
-            <label class="glide-radio">
+            <label class="aic-radio">
               <input type="radio" name="summary-style" value="paragraph" />
               <span>Paragraph</span>
             </label>
-            <label class="glide-radio">
+            <label class="aic-radio">
               <input type="radio" name="summary-style" value="tldr" />
               <span>TL;DR</span>
             </label>
@@ -642,18 +631,18 @@
 
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="summary-length"
             >Length</label
           >
-          <select id="summary-length" class="glide-select">
+          <select id="summary-length" class="aic-select">
             <option value="brief">Brief (2-3 sentences)</option>
             <option value="standard" selected>Standard (1 paragraph)</option>
             <option value="detailed">Detailed (multiple paragraphs)</option>
           </select>
         </div>
 
-        <button id="btn-summarize" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-summarize" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -676,11 +665,11 @@
       <!-- Summarize result -------------------------------------------- -->
       <section
         id="summarize-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
+        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
       >
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -700,12 +689,12 @@
           Summary
         </h2>
 
-        <div id="summary-preview" class="glide-preview glide-preview--readonly"></div>
+        <div id="summary-preview" class="aic-preview aic-preview--readonly"></div>
 
         <div class="flex gap-sm flex-wrap">
           <button
             id="btn-copy-summary"
-            class="glide-btn glide-btn--primary flex-1"
+            class="aic-btn aic-btn--primary flex-1"
             title="Copy summary to clipboard"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -713,7 +702,7 @@
           </button>
           <button
             id="btn-regenerate-summary"
-            class="glide-btn glide-btn--secondary"
+            class="aic-btn aic-btn--secondary"
             title="Generate a new summary"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -726,10 +715,10 @@
       <!-- Improve Writing                                                -->
       <!-- ============================================================ -->
 
-      <section id="improve-section" class="glide-section p-lg hidden">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
+      <section id="improve-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-md">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -749,33 +738,33 @@
           Improve Writing
         </h2>
 
-        <p class="glide-hint">Select text in your email, or AI Compose will use the full body.</p>
+        <p class="aic-hint">Select text in your email, or AI Compose will use the full body.</p>
 
         <div class="mb-lg">
-          <label class="block text-sm font-medium text-glide-text-secondary mb-sm"
+          <label class="block text-sm font-medium text-aic-text-secondary mb-sm"
             >What to improve</label
           >
-          <div class="glide-radio-group glide-radio-group--vertical">
-            <label class="glide-radio">
+          <div class="aic-radio-group aic-radio-group--vertical">
+            <label class="aic-radio">
               <input type="radio" name="improve-focus" value="fix_grammar" checked />
               <span>Fix Grammar &amp; Spelling</span>
             </label>
-            <label class="glide-radio">
+            <label class="aic-radio">
               <input type="radio" name="improve-focus" value="improve_clarity" />
               <span>Improve Clarity</span>
             </label>
-            <label class="glide-radio">
+            <label class="aic-radio">
               <input type="radio" name="improve-focus" value="make_concise" />
               <span>Make Concise</span>
             </label>
-            <label class="glide-radio">
+            <label class="aic-radio">
               <input type="radio" name="improve-focus" value="make_professional" />
               <span>Make Professional</span>
             </label>
           </div>
         </div>
 
-        <button id="btn-improve" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-improve" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -798,11 +787,11 @@
       <!-- Improve result ---------------------------------------------- -->
       <section
         id="improve-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
+        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
       >
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -822,12 +811,12 @@
           Changes
         </h2>
 
-        <div id="improve-diff" class="glide-diff-container mb-lg"></div>
+        <div id="improve-diff" class="aic-diff-container mb-lg"></div>
 
         <div class="flex gap-sm flex-wrap">
           <button
             id="btn-accept-changes"
-            class="glide-btn glide-btn--primary flex-1"
+            class="aic-btn aic-btn--primary flex-1"
             title="Accept and replace the original text"
           >
             <i class="ms-Icon ms-Icon--Accept"></i>
@@ -835,7 +824,7 @@
           </button>
           <button
             id="btn-regenerate-improve"
-            class="glide-btn glide-btn--secondary"
+            class="aic-btn aic-btn--secondary"
             title="Generate a new improvement"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -847,10 +836,10 @@
       <!-- Extract Action Items                                           -->
       <!-- ============================================================ -->
 
-      <section id="extract-section" class="glide-section p-lg hidden">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
+      <section id="extract-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-md">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -870,11 +859,11 @@
           Extract Action Items
         </h2>
 
-        <p class="glide-hint">
+        <p class="aic-hint">
           AI Compose will scan the current email for tasks, owners, and deadlines.
         </p>
 
-        <button id="btn-extract" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-extract" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -899,11 +888,11 @@
       <!-- Extract result ---------------------------------------------- -->
       <section
         id="extract-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
+        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
       >
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -923,12 +912,12 @@
           Action Items
         </h2>
 
-        <div id="extract-checklist" class="glide-checklist-container mb-lg"></div>
+        <div id="extract-checklist" class="aic-checklist-container mb-lg"></div>
 
         <div class="flex gap-sm flex-wrap">
           <button
             id="btn-copy-tasks"
-            class="glide-btn glide-btn--primary flex-1"
+            class="aic-btn aic-btn--primary flex-1"
             title="Copy tasks as plain text"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -936,7 +925,7 @@
           </button>
           <button
             id="btn-regenerate-extract"
-            class="glide-btn glide-btn--secondary"
+            class="aic-btn aic-btn--secondary"
             title="Re-extract action items"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -948,10 +937,10 @@
       <!-- Translate                                                      -->
       <!-- ============================================================ -->
 
-      <section id="translate-section" class="glide-section p-lg hidden">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-md">
+      <section id="translate-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-md">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -972,15 +961,15 @@
           Translate Email
         </h2>
 
-        <p class="glide-hint">Translate the current email into another language.</p>
+        <p class="aic-hint">Translate the current email into another language.</p>
 
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="translate-language"
             >Target Language</label
           >
-          <select id="translate-language" class="glide-select">
+          <select id="translate-language" class="aic-select">
             <option value="Afrikaans">Afrikaans</option>
             <option value="Arabic">Arabic</option>
             <option value="Chinese (Simplified)">Chinese (Simplified)</option>
@@ -1004,7 +993,7 @@
           </select>
         </div>
 
-        <button id="btn-translate" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-translate" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -1030,11 +1019,11 @@
       <!-- Translate result -------------------------------------------- -->
       <section
         id="translate-result-section"
-        class="glide-section glide-section--result p-lg border-t border-glide-border-light hidden"
+        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
       >
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -1055,12 +1044,12 @@
           Translation
         </h2>
 
-        <div id="translate-output" class="glide-translate-container mb-lg"></div>
+        <div id="translate-output" class="aic-translate-container mb-lg"></div>
 
         <div class="flex gap-sm flex-wrap">
           <button
             id="btn-copy-translation"
-            class="glide-btn glide-btn--primary flex-1"
+            class="aic-btn aic-btn--primary flex-1"
             title="Copy translation to clipboard"
           >
             <i class="ms-Icon ms-Icon--Copy"></i>
@@ -1068,7 +1057,7 @@
           </button>
           <button
             id="btn-regenerate-translate"
-            class="glide-btn glide-btn--secondary"
+            class="aic-btn aic-btn--secondary"
             title="Translate again"
           >
             <i class="ms-Icon ms-Icon--Refresh"></i>
@@ -1080,10 +1069,10 @@
       <!-- Settings                                                       -->
       <!-- ============================================================ -->
 
-      <section id="settings-section" class="glide-section p-lg hidden">
-        <h2 class="flex items-center gap-sm text-lg font-semibold text-glide-text mb-lg">
+      <section id="settings-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-glide-blue shrink-0"
+            class="text-aic-blue shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -1105,7 +1094,7 @@
         <!-- API Key -->
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="settings-api-key"
           >
             Gemini API Key
@@ -1114,14 +1103,14 @@
             <input
               id="settings-api-key"
               type="password"
-              class="glide-input flex-1"
+              class="aic-input flex-1"
               placeholder="Enter your Google Gemini API key"
               autocomplete="off"
               spellcheck="false"
             />
             <button
               id="btn-toggle-api-key"
-              class="glide-btn glide-btn--secondary glide-btn--icon-toggle"
+              class="aic-btn aic-btn--secondary aic-btn--icon-toggle"
               title="Show/hide API key"
               type="button"
             >
@@ -1167,20 +1156,23 @@
               </svg>
             </button>
           </div>
-          <p class="text-xs text-glide-text-tertiary mt-xs">
+          <p class="text-xs text-aic-text-tertiary mt-xs">
             Get your key from
             <a
               href="https://aistudio.google.com/apikey"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-glide-blue no-underline hover:underline"
+              class="text-aic-blue no-underline hover:underline"
               >Google AI Studio</a
             >
           </p>
-          <p id="api-key-error" class="text-xs mt-xs hidden" style="color: var(--color-glide-error-text)"></p>
+          <p
+            id="api-key-error"
+            class="text-xs mt-xs hidden aic-text-error"
+          ></p>
           <button
             id="btn-test-connection"
-            class="glide-btn glide-btn--secondary mt-sm w-full"
+            class="aic-btn aic-btn--secondary mt-sm w-full"
             type="button"
           >
             <svg
@@ -1205,12 +1197,12 @@
         <!-- Gemini Model -->
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="settings-model"
           >
             Gemini Model
           </label>
-          <select id="settings-model" class="glide-select">
+          <select id="settings-model" class="aic-select">
             <optgroup label="Gemini 3.1 (latest)">
               <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro</option>
             </optgroup>
@@ -1224,7 +1216,7 @@
               <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
             </optgroup>
           </select>
-          <p class="text-xs text-glide-text-tertiary mt-xs">
+          <p class="text-xs text-aic-text-tertiary mt-xs">
             Flash models are faster and cheaper. Pro models offer deeper reasoning.
           </p>
         </div>
@@ -1232,12 +1224,12 @@
         <!-- Default Tone -->
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="settings-tone"
           >
             Default Tone
           </label>
-          <select id="settings-tone" class="glide-select">
+          <select id="settings-tone" class="aic-select">
             <option value="professional" selected>Professional</option>
             <option value="formal">Formal</option>
             <option value="friendly">Friendly</option>
@@ -1248,12 +1240,12 @@
         <!-- Default Summary Style -->
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="settings-summary-style"
           >
             Default Summary Style
           </label>
-          <select id="settings-summary-style" class="glide-select">
+          <select id="settings-summary-style" class="aic-select">
             <option value="bullets" selected>Bullet Points</option>
             <option value="paragraph">Paragraph</option>
             <option value="tldr">TL;DR</option>
@@ -1263,12 +1255,12 @@
         <!-- Default Translation Language -->
         <div class="mb-lg">
           <label
-            class="block text-sm font-medium text-glide-text-secondary mb-xs"
+            class="block text-sm font-medium text-aic-text-secondary mb-xs"
             for="settings-language"
           >
             Default Translation Language
           </label>
-          <select id="settings-language" class="glide-select">
+          <select id="settings-language" class="aic-select">
             <option value="Afrikaans">Afrikaans</option>
             <option value="Arabic">Arabic</option>
             <option value="Chinese (Simplified)">Chinese (Simplified)</option>
@@ -1293,7 +1285,7 @@
         </div>
 
         <!-- Save button -->
-        <button id="btn-save-settings" class="glide-btn glide-btn--primary w-full">
+        <button id="btn-save-settings" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -1316,23 +1308,67 @@
 
         <div
           id="settings-saved-msg"
-          class="text-center text-sm text-glide-success font-medium mt-sm hidden"
+          class="text-center text-sm text-aic-success font-medium mt-sm hidden"
         >
           ✓ Settings saved
         </div>
+
+        <!-- Danger zone -->
+        <div class="mt-xl pt-lg border-t border-aic-border-light">
+          <button id="btn-clear-all-data" class="aic-btn aic-btn--danger w-full" type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 6h18" />
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+              <line x1="10" x2="10" y1="11" y2="17" />
+              <line x1="14" x2="14" y1="11" y2="17" />
+            </svg>
+            Clear All Data
+          </button>
+          <p class="text-xs text-aic-text-tertiary mt-xs text-center">
+            Removes your API key and all preferences.
+          </p>
+          <div
+            id="clear-data-msg"
+            class="text-center text-sm font-medium mt-sm hidden aic-text-error"
+          >
+            ✓ All data cleared
+          </div>
+        </div>
+
+        <!-- Privacy link -->
+        <p class="text-xs text-aic-text-tertiary mt-lg text-center">
+          <a
+            href="https://github.com/rizonesoft/ai-email-writer/blob/main/PRIVACY.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-aic-blue no-underline hover:underline"
+            >Privacy Policy</a
+          >
+        </p>
       </section>
 
       <!-- Loading overlay --------------------------------------------- -->
-      <div id="loading-overlay" class="glide-loading hidden">
-        <div class="glide-loading__spinner"></div>
-        <p class="text-sm text-glide-text-secondary font-medium">Generating with Gemini...</p>
+      <div id="loading-overlay" class="aic-loading hidden">
+        <div class="aic-loading__spinner"></div>
+        <p class="text-sm text-aic-text-secondary font-medium">Generating with Gemini...</p>
       </div>
 
       <!-- Error banner ------------------------------------------------ -->
-      <div id="error-banner" class="glide-error hidden">
+      <div id="error-banner" class="aic-error hidden">
         <i class="ms-Icon ms-Icon--ErrorBadge"></i>
         <span id="error-message" class="flex-1"></span>
-        <button id="btn-dismiss-error" class="glide-error__dismiss" title="Dismiss">
+        <button id="btn-dismiss-error" class="aic-error__dismiss" title="Dismiss">
           <i class="ms-Icon ms-Icon--Cancel"></i>
         </button>
       </div>

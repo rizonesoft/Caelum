@@ -1,6 +1,6 @@
 {
   "name": "ai-email-writer",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/rizonesoft/ai-email-writer.git"
@@ -25,7 +25,10 @@
     "test": "jest",
     "test:live": "ts-node scripts/test-gemini.ts",
     "validate": "office-addin-manifest validate manifest.xml",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack --mode development --watch",
+    "preversion": "npm test",
+    "version": "node scripts/sync-manifest-version.js && git add manifest.xml",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

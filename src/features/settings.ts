@@ -7,17 +7,17 @@
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
-import { initGeminiClient } from '../services/gemini';
+import { initGeminiClient } from "../services/gemini";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
 /** Tone options available across Draft and Reply features. */
-export type Tone = 'professional' | 'formal' | 'friendly' | 'casual';
+export type Tone = "professional" | "formal" | "friendly" | "casual";
 
 /** Summary style options for the Summarize feature. */
-export type SummaryStyle = 'bullets' | 'paragraph' | 'tldr';
+export type SummaryStyle = "bullets" | "paragraph" | "tldr";
 
 /** All persisted user preferences. */
 export interface AIComposeSettings {
@@ -33,22 +33,19 @@ export interface AIComposeSettings {
   defaultLanguage: string;
 }
 
-/** @deprecated Use AIComposeSettings instead. */
-export type GlideSettings = AIComposeSettings;
-
 // ---------------------------------------------------------------------------
 // Defaults
 // ---------------------------------------------------------------------------
 
-const STORAGE_KEY = 'ai_compose_settings';
-const LEGACY_STORAGE_KEY = 'glide_settings';
+const STORAGE_KEY = "ai_compose_settings";
+const LEGACY_STORAGE_KEY = "glide_settings";
 
 const DEFAULT_SETTINGS: AIComposeSettings = {
-  apiKey: '',
-  defaultModel: 'gemini-3-flash-preview',
-  defaultTone: 'professional',
-  defaultSummaryStyle: 'bullets',
-  defaultLanguage: 'English',
+  apiKey: "",
+  defaultModel: "gemini-3-flash-preview",
+  defaultTone: "professional",
+  defaultSummaryStyle: "bullets",
+  defaultLanguage: "English",
 };
 
 // ---------------------------------------------------------------------------
@@ -98,7 +95,7 @@ export function loadSettings(): AIComposeSettings {
  * If the API key changed, automatically re-initializes the Gemini client.
  */
 export function saveSettings(settings: AIComposeSettings): void {
-  const previousKey = cached?.apiKey || '';
+  const previousKey = cached?.apiKey || "";
 
   cached = { ...settings };
 

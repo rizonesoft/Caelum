@@ -1,6 +1,6 @@
-# Glide — Project TODO
+# AI Compose — Project TODO
 
-> **Glide** is an open-source Outlook & Teams plugin powered by Google Gemini 3 Pro.
+> **AI Compose** is an open-source Outlook & Teams plugin powered by Google Gemini 3 Pro.
 > This checklist takes the project from an empty repo to production-ready distribution.
 
 ---
@@ -25,7 +25,7 @@
 
 ### 1.1 GitHub Repository
 
-- [x] Create a new public GitHub repo named **Glide** — [rizonesoft/Glide](https://github.com/rizonesoft/Glide)
+- [x] Create a new public GitHub repo named **AI Email Writer** — [rizonesoft/ai-email-writer](https://github.com/rizonesoft/ai-email-writer)
 - [x] Add a short description: _"AI-powered Outlook & Teams plugin using Google Gemini"_
 - [x] Add topics/tags: `outlook-addin`, `teams-app`, `gemini-api`, `ai`, `open-source`
 - [x] Choose the **MIT** license (or your preferred OSS license)
@@ -39,10 +39,10 @@
   - Project type: **Office Add-in Task Pane**
   - Script type: **TypeScript**
   - Office app: **Outlook**
-  - Project name: **Glide**
+  - Project name: **AI Compose**
 - [x] Verify the generated folder structure exists:
   ```
-  Glide/
+  ai-email-writer/
   ├── src/
   │   ├── taskpane/        # Task Pane HTML, CSS, TS
   │   └── commands/        # Function commands
@@ -70,7 +70,7 @@
 
 ### 2.1 Google Cloud Setup
 
-- [x] Create a Google Cloud project named **Glide**
+- [x] Create a Google Cloud project named **AI Compose**
 - [x] Enable the **Generative Language API** (Gemini)
 - [x] Generate an API key in the Google Cloud Console
 - [x] Store the API key in a `.env` file (add `.env` to `.gitignore`)
@@ -217,63 +217,14 @@
 ### 5.1 API Key Management
 
 - [x] **Never** ship the API key in the source code or manifest
-- [ ] Implement secure storage for the API key:
-  - [ ] Option A: Store in `Office.context.roamingSettings` (per-user, synced by Outlook)
-  - [x] Option B: Prompt the user to enter their own key in the Settings page
+- [x] Implement secure storage for the API key: Prompt the user to enter their own key in the Settings page
 - [x] Validate the API key format before storing
 - [x] Add a "Test Connection" button in Settings to verify the key works
 
 ### 5.2 Privacy & Data Handling
 
-- [ ] Create `PRIVACY.md` — document what data is sent to Google's API
-- [ ] Display a first-run consent dialog explaining:
-  - [ ] Email content is sent to Google Gemini for processing
-  - [ ] No data is stored on any intermediate server
-  - [ ] The user's API key is used directly
-- [ ] Add a "Clear All Data" button in Settings (removes stored key + preferences)
-
-### 5.3 Environment Configuration
-
-- [ ] Create `src/config/environment.ts`:
-  - [ ] `API_ENDPOINT` — Gemini API base URL
-  - [ ] `MAX_TOKENS` — default max output tokens
-  - [ ] `REQUEST_TIMEOUT` — API request timeout in ms
-  - [ ] `RETRY_ATTEMPTS` — number of retries on failure
-- [ ] Support `.env` for local dev and `process.env` for production
-
----
-
-## Phase 6 — Testing
-
-### 6.1 Unit Tests
-
-- [ ] Set up **Jest** with TypeScript support (`ts-jest`)
-- [ ] Configure Jest in `jest.config.ts`
-- [ ] Write tests for:
-  - [ ] `src/services/gemini.ts` — mock API, test error handling
-  - [ ] `src/prompts/builder.ts` — template rendering, truncation
-  - [ ] `src/services/outlook.ts` — mock Office.js API
-  - [ ] Each feature module's core logic
-- [ ] Add `npm test` script to `package.json`
-- [ ] Aim for **>80% code coverage** on service and prompt modules
-
-### 6.2 Integration Tests
-
-- [ ] Test the full flow: read email → build prompt → call Gemini → display result
-- [ ] Test with various email formats (plain text, HTML, long threads)
-- [ ] Test with API errors (invalid key, rate limit, timeout)
-- [ ] Test Settings persistence (save, reload, clear)
-
-### 6.3 Manual Testing Checklist
-
-- [ ] Sideload the add-in in Outlook on the Web
-- [ ] Sideload the add-in in Outlook Desktop (Windows)
-- [ ] Sideload the add-in in Outlook Desktop (Mac) — if available
-- [ ] Test each feature with a real email
-- [ ] Test with very long emails (10,000+ characters)
-- [ ] Test with emails in different languages
-- [ ] Test light and dark themes
-- [ ] Test when offline (graceful error handling)
+- [x] Create `PRIVACY.md` — document what data is sent to Google's API
+- [x] Add a "Clear All Data" button in Settings (removes stored key + preferences)
 
 ---
 
@@ -375,7 +326,7 @@
 - [ ] Adopt **Semantic Versioning** (MAJOR.MINOR.PATCH)
 - [ ] Tag the first stable release as `v1.0.0`
 - [ ] Update `CHANGELOG.md` with each release
-- [ ] Automate version bumping (`npm version patch/minor/major`)
+- [x] Automate version bumping (`npm version patch/minor/major`)
 
 ---
 
@@ -387,7 +338,7 @@
 
 - [ ] Install **Teams Toolkit** for VS Code
 - [ ] Scaffold a new Teams Message Extension or Tab app
-- [ ] Set up a `glide-teams/` directory (or monorepo with shared packages)
+- [ ] Set up a `aic-teams/` directory (or monorepo with shared packages)
 - [ ] Share the Gemini service layer (`src/services/gemini.ts`) between both plugins
 
 ### 10.2 Features (Planned)
@@ -431,7 +382,7 @@
 ## Stretch Goals / Nice-to-Haves
 
 - [ ] **Keyboard shortcuts** for common actions in the task pane
-- [ ] **Context menu integration** — right-click selected text → "Improve with Glide"
+- [ ] **Context menu integration** — right-click selected text → "Improve with AI Compose"
 - [ ] **Custom prompts** — let users save their own prompt templates
 - [ ] **Usage analytics** — local-only stats (emails drafted, summaries generated)
 - [ ] **Offline mode** — queue actions and process when back online
@@ -449,7 +400,7 @@
 
 ### 12.1 Button & Control Polish
 
-- [x] Set all `.glide-btn` border-radius to 4px (`--radius-xs`)
+- [x] Set all `.aic-btn` border-radius to 4px (`--radius-xs`)
 - [ ] Make the "Refine" send button a perfect square (equal width/height, icon-only)
 - [ ] Add subtle focus ring (`:focus-visible`) to all buttons for keyboard navigation
 - [ ] Add press/active state (`:active`) — slight scale-down for tactile feedback

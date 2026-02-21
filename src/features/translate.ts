@@ -107,14 +107,14 @@ export function getLastResult(): TranslateResult | null {
  */
 export function renderTranslationHtml(result: TranslateResult): string {
   return `
-    <div class="glide-translate-view">
-      <div class="glide-translate-panel">
-        <div class="glide-translate-panel__label">Original</div>
-        <div class="glide-translate-panel__text">${escapeHtml(result.original)}</div>
+    <div class="aic-translate-view">
+      <div class="aic-translate-panel">
+        <div class="aic-translate-panel__label">Original</div>
+        <div class="aic-translate-panel__text">${escapeHtml(result.original)}</div>
       </div>
-      <div class="glide-translate-panel glide-translate-panel--target">
-        <div class="glide-translate-panel__label">${escapeHtml(result.targetLanguage)}</div>
-        <div class="glide-translate-panel__text">${escapeHtml(result.translated)}</div>
+      <div class="aic-translate-panel aic-translate-panel--target">
+        <div class="aic-translate-panel__label">${escapeHtml(result.targetLanguage)}</div>
+        <div class="aic-translate-panel__text">${escapeHtml(result.translated)}</div>
       </div>
     </div>`;
 }

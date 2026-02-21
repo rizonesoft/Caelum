@@ -1,12 +1,12 @@
 # Setting Up Your Google Gemini API Key
 
-This guide walks you through obtaining and configuring a Gemini API key for **Glide**.
+This guide walks you through obtaining and configuring a Gemini API key for **AI Compose**.
 
 ## 1. Create a Google Cloud Project
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com)
 2. Click **Select a Project** → **New Project**
-3. Name it **Glide** (or any name you prefer)
+3. Name it **AI Compose** (or any name you prefer)
 4. Click **Create**
 
 ## 2. Enable the Generative Language API
@@ -25,7 +25,7 @@ This guide walks you through obtaining and configuring a Gemini API key for **Gl
 3. Copy the generated key
 4. _(Optional but recommended)_ Click **Restrict Key** to limit it to the Generative Language API only
 
-## 4. Configure the Key in Glide
+## 4. Configure the Key in AI Compose
 
 1. In the project root, create a file named `.env`:
    ```
@@ -47,7 +47,7 @@ The add-in should be able to connect to the Gemini API when you use any AI featu
 ## Security Notes
 
 - **Never** share your API key publicly or commit it to version control
-- Use a dedicated API key for Glide (not your main project key)
+- Use a dedicated API key for AI Compose (not your main project key)
 - Consider [restricting the key](https://cloud.google.com/docs/authentication/api-keys#securing_an_api_key) to only the Generative Language API
 - Set a quota or budget alert in the Cloud Console to avoid unexpected charges
 

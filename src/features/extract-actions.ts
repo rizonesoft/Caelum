@@ -117,29 +117,29 @@ export async function copyToClipboard(text: string): Promise<void> {
  */
 export function renderChecklistHtml(items: ActionItem[]): string {
   if (items.length === 0) {
-    return '<p class="glide-hint">No action items found in this email.</p>';
+    return '<p class="aic-hint">No action items found in this email.</p>';
   }
 
   const rows = items
     .map(
       (item, i) => `
-      <div class="glide-task-item">
-        <label class="glide-task-item__check">
+      <div class="aic-task-item">
+        <label class="aic-task-item__check">
           <input type="checkbox" data-index="${i}" />
-          <span class="glide-task-item__checkmark"></span>
+          <span class="aic-task-item__checkmark"></span>
         </label>
-        <div class="glide-task-item__body">
-          <div class="glide-task-item__text">${escapeHtml(item.task)}</div>
-          <div class="glide-task-item__meta">
-            ${item.owner && item.owner !== '—' ? `<span class="glide-task-item__owner"><strong>Owner:</strong> ${escapeHtml(item.owner)}</span>` : ''}
-            ${item.deadline && item.deadline !== '—' ? `<span class="glide-task-item__deadline"><strong>Due:</strong> ${escapeHtml(item.deadline)}</span>` : ''}
+        <div class="aic-task-item__body">
+          <div class="aic-task-item__text">${escapeHtml(item.task)}</div>
+          <div class="aic-task-item__meta">
+            ${item.owner && item.owner !== '—' ? `<span class="aic-task-item__owner"><strong>Owner:</strong> ${escapeHtml(item.owner)}</span>` : ''}
+            ${item.deadline && item.deadline !== '—' ? `<span class="aic-task-item__deadline"><strong>Due:</strong> ${escapeHtml(item.deadline)}</span>` : ''}
           </div>
         </div>
       </div>`,
     )
     .join('');
 
-  return `<div class="glide-task-list">${rows}</div>`;
+  return `<div class="aic-task-list">${rows}</div>`;
 }
 
 // ---------------------------------------------------------------------------
