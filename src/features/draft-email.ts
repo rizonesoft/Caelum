@@ -56,7 +56,7 @@ export async function generateDraft(options: DraftEmailOptions): Promise<string>
     INSTRUCTIONS: `${options.instructions}\n\nDesired length: ${lengthHint}`,
     TONE: options.tone || 'professional',
     LANGUAGE: options.language || 'English',
-  });
+  }, true);
 
   // Call Gemini
   const draft = await generateText(prompt, {
@@ -132,9 +132,9 @@ export function copyToCompose(draft: string): void {
     // Insert directly into the active compose window
     const item = Office.context.mailbox.item as any;
 
-    // Set the body inline
-    if (item && item.body && typeof item.body.setAsync === 'function') {
-      item.body.setAsync(
+    // Prepend to body (preserves signature)
+    if (item && item.body && typeof item.body.prependAsync === 'function') {
+      item.body.prependAsync(
         bodyToHtml(body),
         { coercionType: Office.CoercionType.Html },
       );

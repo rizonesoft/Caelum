@@ -52,6 +52,8 @@ Reply instructions: {{REPLY_INSTRUCTIONS}}
 
 Requirements:
 - Tone: {{TONE}}
+- Language: {{LANGUAGE}}
+- Address the reply to: {{REPLY_TO_NAME}} (this is the person you are replying to, NOT the person the original email was addressed to)
 - Write only the reply body (no subject line needed)
 - Reference relevant points from the original email naturally
 - Keep the reply focused and professional

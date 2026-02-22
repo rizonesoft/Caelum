@@ -31,6 +31,10 @@ export interface AIComposeSettings {
   defaultSummaryStyle: SummaryStyle;
   /** Default target language for Translate. */
   defaultLanguage: string;
+  /** Preset rules toggled on/off by the user. */
+  presetRules: Record<string, boolean>;
+  /** Free-text custom rules supplied by the user. */
+  customRules: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -46,6 +50,13 @@ const DEFAULT_SETTINGS: AIComposeSettings = {
   defaultTone: "professional",
   defaultSummaryStyle: "bullets",
   defaultLanguage: "English",
+  presetRules: {
+    noPlaceholders: true,
+    noSubjectLine: false,
+    keepShort: false,
+    useSimpleLanguage: false,
+  },
+  customRules: "",
 };
 
 // ---------------------------------------------------------------------------
@@ -148,4 +159,43 @@ export function resetSettings(): void {
   } catch {
     // Ignore
   }
+}
+
+// ---------------------------------------------------------------------------
+// Rules helpers
+// ---------------------------------------------------------------------------
+
+/** Human-readable labels for each preset rule. */
+const PRESET_RULE_LABELS: Record<string, string> = {
+  noPlaceholders:
+    'Do not include placeholder tokens like [Your Name], [Company], or [Recipient]. Use real names from context or omit the sign-off entirely instead of using placeholders',
+  noSubjectLine:
+    "Do not include a subject line in the output",
+  keepShort:
+    "Keep the output concise — no more than 5 sentences",
+  useSimpleLanguage:
+    "Use simple, easy-to-understand language (avoid jargon)",
+};
+
+export { PRESET_RULE_LABELS };
+
+/**
+ * Build a combined rules string from preset + custom rules.
+ * Returns an empty string if no rules are active.
+ */
+export function buildRulesText(): string {
+  const settings = loadSettings();
+  const lines: string[] = [];
+
+  for (const [key, enabled] of Object.entries(settings.presetRules)) {
+    if (enabled && PRESET_RULE_LABELS[key]) {
+      lines.push(`- ${PRESET_RULE_LABELS[key]}`);
+    }
+  }
+
+  if (settings.customRules.trim()) {
+    lines.push(`- ${settings.customRules.trim()}`);
+  }
+
+  return lines.length > 0 ? `\n\nAdditional rules:\n${lines.join("\n")}` : "";
 }

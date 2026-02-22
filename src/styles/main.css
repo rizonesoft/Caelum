@@ -30,6 +30,9 @@
   --color-aic-blue-glow: rgba(59, 158, 255, 0.15);
   --color-aic-purple: #7b61db;
   --color-aic-purple-hover: #6b51c8;
+  --color-aic-green: #22c55e;
+  --color-aic-amber: #f59e0b;
+  --color-aic-teal: #14b8a6;
 
   /* Surfaces */
   --color-aic-bg: #ffffff;
@@ -67,10 +70,10 @@
 
   /* Typography */
   --font-aic: "Poppins", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --text-xs: 11px;
-  --text-sm: 12px;
+  --text-xs: 12px;
+  --text-sm: 13px;
   --text-md: 13px;
-  --text-lg: 14px;
+  --text-lg: 15px;
   --text-xl: 16px;
 
   /* Motion */
@@ -85,7 +88,7 @@
   --color-dark-border-light: #333337;
   --color-dark-text: #e0e0e0;
   --color-dark-text-secondary: #a0a0a0;
-  --color-dark-text-tertiary: #707070;
+  --color-dark-text-tertiary: #8a8a8a;
   --color-dark-error-bg: #3a1a1a;
   --color-dark-error-border: #5c2626;
 }

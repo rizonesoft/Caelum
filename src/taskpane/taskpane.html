@@ -102,6 +102,7 @@
           <span>Draft</span>
         </button>
         <!-- Icon-only utility buttons -->
+        <div class="flex items-center ml-auto">
         <button id="tab-settings" class="aic-tab aic-tab--icon" title="Settings">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -118,6 +119,22 @@
               d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
             />
             <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+        <button id="tab-rules" class="aic-tab aic-tab--icon" title="Rules">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path d="m9 12 2 2 4-4" />
           </svg>
         </button>
         <div class="aic-split relative">
@@ -260,12 +277,17 @@
           >
             Instructions / bullet points
           </label>
-          <textarea
-            id="draft-instructions"
-            class="aic-textarea w-full p-sm border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[100px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
-            rows="5"
-            placeholder="e.g. Thank the client for the meeting, confirm next steps, mention deadline is Friday..."
-          ></textarea>
+          <div class="relative">
+            <textarea
+              id="draft-instructions"
+              class="aic-textarea w-full p-sm pr-lg border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[100px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
+              rows="5"
+              placeholder="What should the email say? e.g. Thank client, confirm next steps, mention Friday deadline"
+              maxlength="1000"
+            ></textarea>
+            <button type="button" class="aic-btn-clear hidden" data-clear="draft-instructions" title="Clear">×</button>
+          </div>
+          <span class="aic-char-count text-xs text-aic-text-tertiary mt-xs block text-right" data-for="draft-instructions">0 / 1000</span>
         </div>
 
         <!-- Tone & Length row -->
@@ -295,11 +317,38 @@
           </div>
         </div>
 
+        <!-- Language -->
+        <div class="mb-lg">
+          <label class="block text-sm font-medium text-aic-text-secondary mb-xs" for="draft-language">Language</label>
+          <select id="draft-language" class="aic-select">
+            <option value="English" selected>English</option>
+            <option value="Afrikaans">Afrikaans</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Chinese (Simplified)">Chinese (Simplified)</option>
+            <option value="Chinese (Traditional)">Chinese (Traditional)</option>
+            <option value="Dutch">Dutch</option>
+            <option value="French">French</option>
+            <option value="German">German</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Korean">Korean</option>
+            <option value="Polish">Polish</option>
+            <option value="Portuguese">Portuguese</option>
+            <option value="Russian">Russian</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Swahili">Swahili</option>
+            <option value="Turkish">Turkish</option>
+            <option value="Ukrainian">Ukrainian</option>
+            <option value="Zulu">Zulu</option>
+          </select>
+        </div>
+
         <button id="btn-generate" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -318,7 +367,7 @@
       <!-- Draft result ------------------------------------------------ -->
       <section
         id="result-section"
-        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
+        class="aic-section aic-section--result p-lg hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
@@ -372,7 +421,7 @@
               id="refine-input"
               type="text"
               class="aic-input flex-1"
-              placeholder="e.g. make it shorter, add a P.S. note..."
+              placeholder="e.g. shorten to 3 sentences, add a P.S., warmer closing"
             />
             <button id="btn-refine" class="aic-btn aic-btn--accent" title="Refine the draft">
               <i class="ms-Icon ms-Icon--Send"></i>
@@ -430,12 +479,17 @@
           >
             Reply instructions
           </label>
-          <textarea
-            id="reply-instructions"
-            class="aic-textarea w-full p-sm border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[80px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
-            rows="4"
-            placeholder="e.g. Agree to the meeting, decline politely, ask for more details..."
-          ></textarea>
+          <div class="relative">
+            <textarea
+              id="reply-instructions"
+              class="aic-textarea w-full p-sm pr-lg border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[80px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
+              rows="4"
+              placeholder="What should the reply say? e.g. Accept but suggest Thursday 2pm instead"
+              maxlength="1000"
+            ></textarea>
+            <button type="button" class="aic-btn-clear hidden" data-clear="reply-instructions" title="Clear">×</button>
+          </div>
+          <span class="aic-char-count text-xs text-aic-text-tertiary mt-xs block text-right" data-for="reply-instructions">0 / 1000</span>
         </div>
 
         <!-- Tone & options row -->
@@ -459,11 +513,39 @@
           </div>
         </div>
 
+        <!-- Reply language -->
+        <div class="mb-lg">
+          <label class="block text-sm font-medium text-aic-text-secondary mb-xs" for="reply-language">Reply language</label>
+          <select id="reply-language" class="aic-select">
+            <option value="auto" selected>Auto-detect (match email)</option>
+            <option value="English">English</option>
+            <option value="Afrikaans">Afrikaans</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Chinese (Simplified)">Chinese (Simplified)</option>
+            <option value="Chinese (Traditional)">Chinese (Traditional)</option>
+            <option value="Dutch">Dutch</option>
+            <option value="French">French</option>
+            <option value="German">German</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Korean">Korean</option>
+            <option value="Polish">Polish</option>
+            <option value="Portuguese">Portuguese</option>
+            <option value="Russian">Russian</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Swahili">Swahili</option>
+            <option value="Turkish">Turkish</option>
+            <option value="Ukrainian">Ukrainian</option>
+            <option value="Zulu">Zulu</option>
+          </select>
+        </div>
+
         <button id="btn-generate-reply" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -482,7 +564,7 @@
       <!-- Reply result ------------------------------------------------ -->
       <section
         id="reply-result-section"
-        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
+        class="aic-section aic-section--result p-lg hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
@@ -516,8 +598,8 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -537,8 +619,8 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -572,7 +654,7 @@
               id="reply-refine-input"
               type="text"
               class="aic-input flex-1"
-              placeholder="e.g. make it more concise, soften the tone..."
+              placeholder="e.g. soften the tone, remove last paragraph"
             />
             <button id="btn-refine-reply" class="aic-btn aic-btn--accent" title="Refine">
               <i class="ms-Icon ms-Icon--Send"></i>
@@ -588,7 +670,7 @@
       <section id="summarize-section" class="aic-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-amber shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -645,8 +727,8 @@
         <button id="btn-summarize" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -665,11 +747,11 @@
       <!-- Summarize result -------------------------------------------- -->
       <section
         id="summarize-result-section"
-        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
+        class="aic-section aic-section--result p-lg hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-amber shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -718,7 +800,7 @@
       <section id="improve-section" class="aic-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-md">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-green shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -767,8 +849,8 @@
         <button id="btn-improve" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -787,11 +869,11 @@
       <!-- Improve result ---------------------------------------------- -->
       <section
         id="improve-result-section"
-        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
+        class="aic-section aic-section--result p-lg hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-green shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -839,7 +921,7 @@
       <section id="extract-section" class="aic-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-md">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-amber shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -866,8 +948,8 @@
         <button id="btn-extract" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -888,11 +970,11 @@
       <!-- Extract result ---------------------------------------------- -->
       <section
         id="extract-result-section"
-        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
+        class="aic-section aic-section--result p-lg hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-amber shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -940,7 +1022,7 @@
       <section id="translate-section" class="aic-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-md">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-teal shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -996,8 +1078,8 @@
         <button id="btn-translate" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -1019,11 +1101,11 @@
       <!-- Translate result -------------------------------------------- -->
       <section
         id="translate-result-section"
-        class="aic-section aic-section--result p-lg border-t border-aic-border-light hidden"
+        class="aic-section aic-section--result p-lg hidden"
       >
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-teal shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -1066,13 +1148,110 @@
       </section>
 
       <!-- ============================================================ -->
+      <!-- Rules                                                          -->
+      <!-- ============================================================ -->
+
+      <section id="rules-section" class="aic-section p-lg hidden">
+        <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
+          <svg
+            class="text-aic-purple shrink-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          Generation Rules
+        </h2>
+
+        <p class="text-sm text-aic-text-secondary mb-lg">
+          These rules are applied when drafting and replying to emails.
+        </p>
+
+        <!-- Preset rules -->
+        <div class="mb-lg">
+          <label class="block text-sm font-medium text-aic-text-secondary mb-sm">Preset Rules</label>
+
+          <label class="flex items-start gap-sm mb-sm cursor-pointer">
+            <input type="checkbox" id="rule-noPlaceholders" class="mt-[2px] accent-aic-purple" checked />
+            <span class="text-sm text-aic-text">Don't use placeholder tokens like [Your Name] or [Company] — use real names or omit</span>
+          </label>
+
+          <label class="flex items-start gap-sm mb-sm cursor-pointer">
+            <input type="checkbox" id="rule-noSubjectLine" class="mt-[2px] accent-aic-purple" />
+            <span class="text-sm text-aic-text">Don't include a subject line in the output</span>
+          </label>
+
+          <label class="flex items-start gap-sm mb-sm cursor-pointer">
+            <input type="checkbox" id="rule-keepShort" class="mt-[2px] accent-aic-purple" />
+            <span class="text-sm text-aic-text">Keep output concise — no more than 5 sentences</span>
+          </label>
+
+          <label class="flex items-start gap-sm mb-sm cursor-pointer">
+            <input type="checkbox" id="rule-useSimpleLanguage" class="mt-[2px] accent-aic-purple" />
+            <span class="text-sm text-aic-text">Use simple, easy-to-understand language</span>
+          </label>
+        </div>
+
+        <!-- Custom rules -->
+        <div class="mb-lg">
+          <label class="block text-sm font-medium text-aic-text-secondary mb-xs" for="custom-rules">
+            Custom Rules
+          </label>
+          <div class="relative">
+            <textarea
+              id="custom-rules"
+              class="aic-textarea w-full p-sm pr-lg border border-aic-border rounded-sm bg-aic-bg text-md text-aic-text font-aic resize-y min-h-[80px] focus:border-aic-blue focus:shadow-[0_0_0_2px_var(--color-aic-blue-glow)] outline-none transition-[border-color,box-shadow] duration-[var(--duration-aic)]"
+              rows="3"
+              placeholder="e.g. Always sign off as 'Alex', use British English spelling"
+              maxlength="1000"
+            ></textarea>
+            <button type="button" class="aic-btn-clear hidden" data-clear="custom-rules" title="Clear">×</button>
+          </div>
+          <span class="aic-char-count text-xs text-aic-text-tertiary mt-xs block text-right" data-for="custom-rules">0 / 1000</span>
+        </div>
+
+        <!-- Save button -->
+        <button id="btn-save-rules" class="aic-btn aic-btn--primary w-full">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+            <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+            <path d="M7 3v4a1 1 0 0 0 1 1h7" />
+          </svg>
+          Save Rules
+        </button>
+
+        <!-- Confirmation message -->
+        <p id="rules-saved-msg" class="text-sm text-aic-success font-medium mt-sm text-center hidden">
+          ✓ Rules saved successfully
+        </p>
+      </section>
+
+      <!-- ============================================================ -->
       <!-- Settings                                                       -->
       <!-- ============================================================ -->
 
       <section id="settings-section" class="aic-section p-lg hidden">
         <h2 class="flex items-center gap-sm text-lg font-semibold text-aic-text mb-lg">
           <svg
-            class="text-aic-blue shrink-0"
+            class="text-aic-purple shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="18"
@@ -1177,8 +1356,8 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -1288,8 +1467,8 @@
         <button id="btn-save-settings" class="aic-btn aic-btn--primary w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -1318,8 +1497,8 @@
           <button id="btn-clear-all-data" class="aic-btn aic-btn--danger w-full" type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -1358,10 +1537,18 @@
         </p>
       </section>
 
+      <!-- Scroll to top ------------------------------------------------ -->
+      <button id="btn-scroll-top" class="aic-scroll-top hidden" title="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 15-6-6-6 6"/>
+        </svg>
+      </button>
+
       <!-- Loading overlay --------------------------------------------- -->
       <div id="loading-overlay" class="aic-loading hidden">
         <div class="aic-loading__spinner"></div>
-        <p class="text-sm text-aic-text-secondary font-medium">Generating with Gemini...</p>
+        <p class="aic-loading__text text-sm text-aic-text-secondary font-medium">Generating with Gemini...</p>
+        <p class="aic-loading__estimate text-xs text-aic-text-tertiary mt-xs hidden"></p>
       </div>
 
       <!-- Error banner ------------------------------------------------ -->

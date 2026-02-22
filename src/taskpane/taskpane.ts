@@ -89,14 +89,41 @@ function hideElement(id: string): void {
   if (el) el.classList.add('hidden');
 }
 
-function showLoading(message?: string): void {
-  const text = $('loading-overlay')?.querySelector('.aic-loading__text') as HTMLElement;
+function showLoading(message?: string, inputLength?: number): void {
+  const overlay = $('loading-overlay');
+  if (!overlay) return;
+  const text = overlay.querySelector('.aic-loading__text') as HTMLElement;
   if (text && message) text.textContent = message;
+
+  const estimate = overlay.querySelector('.aic-loading__estimate') as HTMLElement;
+  if (estimate) {
+    if (inputLength && inputLength > 0) {
+      const seconds = Math.min(30, Math.round(8 + inputLength / 100));
+      estimate.textContent = `Estimated time: ~${seconds}s`;
+      estimate.classList.remove('hidden');
+    } else {
+      estimate.classList.add('hidden');
+    }
+  }
+
+  overlay.classList.remove('aic-loading--fade-out');
   showElement('loading-overlay');
 }
 
 function hideLoading(): void {
-  hideElement('loading-overlay');
+  const overlay = $('loading-overlay');
+  if (!overlay || overlay.classList.contains('hidden')) return;
+
+  overlay.classList.add('aic-loading--fade-out');
+
+  const cleanup = () => {
+    overlay.classList.remove('aic-loading--fade-out');
+    hideElement('loading-overlay');
+  };
+
+  overlay.addEventListener('transitionend', cleanup, { once: true });
+  // Fallback in case transitionend doesn't fire
+  setTimeout(cleanup, 350);
 }
 
 function showError(message: string): void {
@@ -217,6 +244,7 @@ const TAB_CONFIG: Record<string, string[]> = {
   extract: ['extract-section', 'extract-result-section'],
   translate: ['translate-section', 'translate-result-section'],
   settings: ['settings-section'],
+  rules: ['rules-section'],
 };
 
 function switchTab(tabName: string): void {
@@ -286,16 +314,18 @@ async function handleGenerate(): Promise<void> {
   const instructions = ($('draft-instructions') as HTMLTextAreaElement)?.value || '';
   const tone = ($('draft-tone') as HTMLSelectElement)?.value || 'professional';
   const length = ($('draft-length') as HTMLSelectElement)?.value || 'medium';
+  const language = ($('draft-language') as HTMLSelectElement)?.value || 'English';
 
-  const options: DraftEmailOptions = { instructions, tone, length };
+  const options: DraftEmailOptions = { instructions, tone, length, language };
 
   hideError();
-  showLoading('Generating with Gemini...');
+  showLoading('Generating with Gemini...', instructions.length);
 
   try {
     const draft = await generateDraft(options);
     setPreview('draft-preview', draft);
     showElement('result-section');
+    $('result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err: any) {
     showError(err.message || 'Failed to generate draft. Please try again.');
   } finally {
@@ -365,16 +395,18 @@ async function handleGenerateReply(): Promise<void> {
   const instructions = ($('reply-instructions') as HTMLTextAreaElement)?.value || '';
   const tone = ($('reply-tone') as HTMLSelectElement)?.value || 'professional';
   const includeOriginal = ($('reply-include-original') as HTMLInputElement)?.checked ?? true;
+  const language = ($('reply-language') as HTMLSelectElement)?.value || 'auto';
 
-  const options: DraftReplyOptions = { instructions, tone, includeOriginal };
+  const options: DraftReplyOptions = { instructions, tone, includeOriginal, language };
 
   hideError();
-  showLoading('Generating reply with Gemini...');
+  showLoading('Generating reply with Gemini...', instructions.length);
 
   try {
     const reply = await generateReply(options);
     setPreview('reply-preview', reply);
     showElement('reply-result-section');
+    $('reply-result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // In compose mode, Reply All is redundant — user already chose reply type
     if (getItemMode() === 'compose') {
@@ -480,6 +512,7 @@ async function handleSummarize(): Promise<void> {
     const summary = await summarizeThread(options);
     setPreview('summary-preview', summary);
     showElement('summarize-result-section');
+    $('summarize-result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err: any) {
     showError(err.message || 'Failed to summarize. Please try again.');
   } finally {
@@ -552,6 +585,7 @@ async function handleImprove(): Promise<void> {
       diffContainer.innerHTML = generateDiffHtml(result.original, result.improved);
     }
     showElement('improve-result-section');
+    $('improve-result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err: any) {
     showError(err.message || 'Failed to improve text. Please try again.');
   } finally {
@@ -614,6 +648,7 @@ async function handleExtract(): Promise<void> {
       container.innerHTML = renderChecklistHtml(items);
     }
     showElement('extract-result-section');
+    $('extract-result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err: any) {
     showError(err.message || 'Failed to extract action items.');
   } finally {
@@ -681,6 +716,7 @@ async function handleTranslate(): Promise<void> {
       container.innerHTML = renderTranslationHtml(result);
     }
     showElement('translate-result-section');
+    $('translate-result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err: any) {
     showError(err.message || 'Failed to translate.');
   } finally {
@@ -745,9 +781,28 @@ Office.onReady((info) => {
     const currentMode = getItemMode();
     adaptUIForMode(currentMode);
 
-    // Load reply context immediately (Reply is the default tab)
+    // Auto-switch tab based on mode
     if (currentMode === 'read') {
+      // Reading an email — default to Reply tab
       loadReplyContext();
+    } else if (currentMode === 'compose') {
+      // Compose mode — check if replying (has To recipients) or drafting (new email)
+      const item = Office.context.mailbox.item as any;
+      if (item && item.to && typeof item.to.getAsync === 'function') {
+        item.to.getAsync((result: any) => {
+          if (result.status === Office.AsyncResultStatus.Succeeded &&
+              result.value && result.value.length > 0) {
+            // Has recipients — this is a reply, stay on Reply tab
+            switchTab('reply');
+          } else {
+            // No recipients — new email, switch to Draft tab
+            switchTab('draft');
+          }
+        });
+      } else {
+        // Can't check recipients — default to Draft for compose
+        switchTab('draft');
+      }
     }
 
     // Refresh context when user switches to a different email
@@ -798,6 +853,14 @@ Office.onReady((info) => {
       if (sTone) sTone.value = s.defaultTone;
       if (sStyle) sStyle.value = s.defaultSummaryStyle;
       if (sLang) sLang.value = s.defaultLanguage;
+
+      // Rules form
+      for (const [key, enabled] of Object.entries(s.presetRules)) {
+        const cb = $(`rule-${key}`) as HTMLInputElement | null;
+        if (cb) cb.checked = enabled;
+      }
+      const customRulesEl = $('custom-rules') as HTMLTextAreaElement | null;
+      if (customRulesEl) customRulesEl.value = s.customRules;
     };
 
     applySettingsToForms(settings);
@@ -879,6 +942,41 @@ Office.onReady((info) => {
     // Close dropdown on outside click
     document.addEventListener('click', () => toggleDropdown(false));
 
+    // --- Character counters + auto-grow + clear buttons ---
+    document.querySelectorAll('.aic-char-count[data-for]').forEach((counter) => {
+      const textareaId = counter.getAttribute('data-for');
+      if (!textareaId) return;
+      const textarea = $(textareaId) as HTMLTextAreaElement | null;
+      if (!textarea) return;
+      const max = textarea.maxLength || 1000;
+      const clearBtn = document.querySelector(`.aic-btn-clear[data-clear="${textareaId}"]`);
+      textarea.addEventListener('input', () => {
+        counter.textContent = `${textarea.value.length} / ${max}`;
+        // Auto-grow
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+        // Toggle clear button
+        if (clearBtn) {
+          if (textarea.value.length > 0) clearBtn.classList.remove('hidden');
+          else clearBtn.classList.add('hidden');
+        }
+      });
+    });
+
+    // Clear button click handlers
+    document.querySelectorAll('.aic-btn-clear[data-clear]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-clear');
+        if (!targetId) return;
+        const textarea = $(targetId) as HTMLTextAreaElement | null;
+        if (!textarea) return;
+        textarea.value = '';
+        textarea.style.height = '';
+        textarea.dispatchEvent(new Event('input'));
+        textarea.focus();
+      });
+    });
+
     // --- Draft Email ---
     $('btn-generate')?.addEventListener('click', handleGenerate);
     $('btn-regenerate')?.addEventListener('click', handleRegenerate);
@@ -934,6 +1032,36 @@ Office.onReady((info) => {
       toggleDropdown(false);
     });
 
+    // --- Rules ---
+    $('tab-rules')?.addEventListener('click', () => {
+      switchTab('rules');
+      document.querySelectorAll('.aic-tab').forEach((t) =>
+        t.classList.remove('aic-tab--active'),
+      );
+      $('tab-rules')?.classList.add('aic-tab--active');
+      document.querySelectorAll('.aic-dropdown__item').forEach((di) =>
+        di.classList.remove('aic-dropdown__item--active'),
+      );
+      toggleDropdown(false);
+    });
+
+    $('btn-save-rules')?.addEventListener('click', () => {
+      const current = loadSettings();
+      const presetRules: Record<string, boolean> = {};
+      for (const key of Object.keys(current.presetRules)) {
+        const cb = $(`rule-${key}`) as HTMLInputElement | null;
+        presetRules[key] = cb?.checked ?? false;
+      }
+      const customRules = ($('custom-rules') as HTMLTextAreaElement)?.value || '';
+      saveSettings({ ...current, presetRules, customRules });
+
+      const msg = $('rules-saved-msg');
+      if (msg) {
+        msg.classList.remove('hidden');
+        setTimeout(() => { msg.classList.add('hidden'); }, 2500);
+      }
+    });
+
     // API key show/hide toggle
     $('btn-toggle-api-key')?.addEventListener('click', () => {
       const input = $('settings-api-key') as HTMLInputElement | null;
@@ -972,6 +1100,7 @@ Office.onReady((info) => {
       if (keyError) keyError.classList.add('hidden');
 
       const newSettings: AIComposeSettings = {
+        ...loadSettings(),
         apiKey,
         defaultModel: model,
         defaultTone: tone as any,
@@ -1073,6 +1202,18 @@ Office.onReady((info) => {
         setTimeout(() => { msg.classList.add('hidden'); }, 2500);
       }
     });
+
+    // --- Scroll to top ---
+    const scrollTopBtn = $('btn-scroll-top');
+    if (scrollTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) scrollTopBtn.classList.remove('hidden');
+        else scrollTopBtn.classList.add('hidden');
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
     // --- Error banner ---
     $('btn-dismiss-error')?.addEventListener('click', hideError);

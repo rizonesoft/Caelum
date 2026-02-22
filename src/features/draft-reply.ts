@@ -32,6 +32,7 @@ export interface DraftReplyOptions {
   instructions: string;
   tone: string;
   includeOriginal: boolean;
+  language?: string;
 }
 
 export interface EmailContext {
@@ -97,11 +98,18 @@ export async function generateReply(options: DraftReplyOptions): Promise<string>
   originalEmail += `Subject: ${context.subject}\n\n`;
   originalEmail += context.body;
 
+  // Resolve language: 'auto' means match the original email's language
+  const language = (!options.language || options.language === 'auto')
+    ? 'Reply in the same language as the original email'
+    : options.language;
+
   const prompt = buildPrompt(REPLY_PROMPT, {
     ORIGINAL_EMAIL: originalEmail,
     REPLY_INSTRUCTIONS: options.instructions,
     TONE: options.tone || 'professional',
-  });
+    LANGUAGE: language,
+    REPLY_TO_NAME: context.sender.name || context.sender.email || 'the sender',
+  }, true);
 
   const reply = await generateText(prompt, {
     temperature: 0.7,

@@ -51,7 +51,7 @@ const TRUNCATION_SUFFIX = '\n\n[Content truncated due to length…]';
  * // → 'Hello Alice, your order 12345 is ready.'
  * ```
  */
-export function buildPrompt(template: string, variables: PromptVariables): string {
+export function buildPrompt(template: string, variables: PromptVariables, appendRules = false): string {
   if (!template) {
     throw new Error('Prompt template cannot be empty.');
   }
@@ -59,9 +59,18 @@ export function buildPrompt(template: string, variables: PromptVariables): strin
   let result = template;
 
   for (const [key, value] of Object.entries(variables)) {
-    // Replace all occurrences of {{KEY}} with the provided value
     const placeholder = `{{${key}}}`;
     result = result.split(placeholder).join(value);
+  }
+
+  // Append user-defined rules only for composition features (draft/reply)
+  if (appendRules) {
+    try {
+      const { buildRulesText } = require('../features/settings');
+      result += buildRulesText();
+    } catch {
+      // Settings module not available — skip rules injection
+    }
   }
 
   return result;
