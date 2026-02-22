@@ -13,6 +13,7 @@ import '../styles/main.css';
 import './taskpane.css';
 import { initGeminiClient, generateText } from '../services/gemini';
 import { getItemMode } from '../services/outlook';
+import { buildGoalText } from '../features/settings';
 import {
   generateDraft,
   regenerateDraft,
@@ -159,6 +160,26 @@ function setPreview(elementId: string, text: string): void {
     .join('');
 
   preview.innerHTML = html;
+  updatePreviewStats(elementId);
+}
+
+function updatePreviewStats(previewId: string): void {
+  const preview = $(previewId);
+  // Map preview ID to its stats element
+  const statsId = previewId.replace('-preview', '-stats');
+  const stats = $(statsId);
+  if (!preview || !stats) return;
+
+  const text = (preview.innerText || preview.textContent || '').trim();
+  if (!text) {
+    stats.classList.add('hidden');
+    return;
+  }
+
+  const words = text.split(/\s+/).filter((w) => w.length > 0).length;
+  const readingMinutes = Math.max(1, Math.round(words / 200));
+  stats.textContent = `${words} words · ${readingMinutes} min read`;
+  stats.classList.remove('hidden');
 }
 
 // ---------------------------------------------------------------------------
@@ -315,8 +336,14 @@ async function handleGenerate(): Promise<void> {
   const tone = ($('draft-tone') as HTMLSelectElement)?.value || 'professional';
   const length = ($('draft-length') as HTMLSelectElement)?.value || 'medium';
   const language = ($('draft-language') as HTMLSelectElement)?.value || 'English';
+  const goal = ($('draft-goal') as HTMLSelectElement)?.value || 'none';
+  const customGoal = ($('draft-goal-custom') as HTMLInputElement)?.value || '';
+  const goalText = buildGoalText(goal, customGoal);
 
-  const options: DraftEmailOptions = { instructions, tone, length, language };
+  const options: DraftEmailOptions = {
+    instructions: instructions + goalText,
+    tone, length, language,
+  };
 
   hideError();
   showLoading('Generating with Gemini...', instructions.length);
@@ -396,8 +423,14 @@ async function handleGenerateReply(): Promise<void> {
   const tone = ($('reply-tone') as HTMLSelectElement)?.value || 'professional';
   const includeOriginal = ($('reply-include-original') as HTMLInputElement)?.checked ?? true;
   const language = ($('reply-language') as HTMLSelectElement)?.value || 'auto';
+  const goal = ($('reply-goal') as HTMLSelectElement)?.value || 'none';
+  const customGoal = ($('reply-goal-custom') as HTMLInputElement)?.value || '';
+  const goalText = buildGoalText(goal, customGoal);
 
-  const options: DraftReplyOptions = { instructions, tone, includeOriginal, language };
+  const options: DraftReplyOptions = {
+    instructions: instructions + goalText,
+    tone, includeOriginal, language,
+  };
 
   hideError();
   showLoading('Generating reply with Gemini...', instructions.length);
@@ -453,6 +486,73 @@ async function handleRefineReply(): Promise<void> {
     showError(err.message || 'Failed to refine reply. Please try again.');
   } finally {
     hideLoading();
+  }
+}
+
+async function handleSuggestReplies(): Promise<void> {
+  const btn = $('btn-suggest-replies') as HTMLButtonElement;
+  const textSpan = $('suggest-replies-text');
+  const container = $('reply-suggestions');
+  if (!btn || !container) return;
+
+  // Show loading state
+  btn.disabled = true;
+  if (textSpan) textSpan.textContent = 'Thinking...';
+  container.classList.add('hidden');
+  container.innerHTML = '';
+
+  try {
+    const { getEmailContext } = await import('../features/draft-reply');
+    const context = await getEmailContext();
+
+    const emailSummary = `From: ${context.sender.name} <${context.sender.email}>\nSubject: ${context.subject}\n\n${context.body}`;
+
+    const prompt = `Read this email and suggest exactly 3 short, specific reply actions. Each should be a brief instruction (5–12 words) that could be used as a reply direction.
+
+Return ONLY a JSON array of 3 strings, nothing else. Example: ["Accept the meeting but suggest 3pm instead","Ask for the proposal in PDF format","Thank them and confirm the next steps"]
+
+Email:
+${emailSummary}`;
+
+    const result = await generateText(prompt, {
+      temperature: 0.9,
+      maxOutputTokens: 256,
+    });
+
+    // Parse JSON array from response
+    const jsonMatch = result.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) throw new Error('Invalid response');
+
+    const suggestions: string[] = JSON.parse(jsonMatch[0]);
+    if (!Array.isArray(suggestions) || suggestions.length === 0) throw new Error('No suggestions');
+
+    // Render chips
+    suggestions.slice(0, 3).forEach((text) => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'aic-suggestion-chip';
+      chip.textContent = text;
+      chip.addEventListener('click', () => {
+        const textarea = $('reply-instructions') as HTMLTextAreaElement;
+        if (textarea) {
+          textarea.value = text;
+          textarea.focus();
+          textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        // Highlight the selected chip
+        container.querySelectorAll('.aic-suggestion-chip').forEach((c) =>
+          c.classList.remove('aic-suggestion-chip--active'));
+        chip.classList.add('aic-suggestion-chip--active');
+      });
+      container.appendChild(chip);
+    });
+
+    container.classList.remove('hidden');
+  } catch (err: any) {
+    showError(err.message || 'Failed to generate suggestions.');
+  } finally {
+    btn.disabled = false;
+    if (textSpan) textSpan.textContent = 'Suggest replies';
   }
 }
 
@@ -989,6 +1089,7 @@ Office.onReady((info) => {
 
     // --- Reply ---
     $('btn-generate-reply')?.addEventListener('click', handleGenerateReply);
+    $('btn-suggest-replies')?.addEventListener('click', handleSuggestReplies);
     $('btn-regenerate-reply')?.addEventListener('click', handleRegenerateReply);
     $('btn-refine-reply')?.addEventListener('click', handleRefineReply);
     $('btn-insert-reply')?.addEventListener('click', handleInsertReply);
@@ -1216,6 +1317,55 @@ Office.onReady((info) => {
     }
 
     // --- Error banner ---
+    // Custom goal field toggle
+    ['draft', 'reply'].forEach((prefix) => {
+      const goalSelect = $(`${prefix}-goal`) as HTMLSelectElement;
+      const customInput = $(`${prefix}-goal-custom`) as HTMLInputElement;
+      if (goalSelect && customInput) {
+        goalSelect.addEventListener('change', () => {
+          if (goalSelect.value === 'custom') {
+            customInput.classList.remove('hidden');
+            customInput.focus();
+          } else {
+            customInput.classList.add('hidden');
+            customInput.value = '';
+          }
+        });
+      }
+    });
+
+    // Live word count updates on contenteditable previews
+    ['draft-preview', 'reply-preview'].forEach((id) => {
+      $(id)?.addEventListener('input', () => updatePreviewStats(id));
+    });
+
+    // Copy-to-clipboard floating buttons
+    document.querySelectorAll('.aic-copy-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const targetId = (btn as HTMLElement).dataset.copyTarget;
+        if (!targetId) return;
+        const target = $(targetId);
+        if (!target) return;
+
+        const text = target.innerText || target.textContent || '';
+        if (!text.trim()) return;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          // Show success: swap icon to checkmark
+          const originalSvg = btn.innerHTML;
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+          btn.classList.add('aic-copy-btn--success');
+          setTimeout(() => {
+            btn.innerHTML = originalSvg;
+            btn.classList.remove('aic-copy-btn--success');
+          }, 1500);
+        } catch {
+          showError('Failed to copy to clipboard.');
+        }
+      });
+    });
+
     $('btn-dismiss-error')?.addEventListener('click', hideError);
   }
 });

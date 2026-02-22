@@ -547,6 +547,37 @@
 }
 
 /* ================================================================
+   Reply suggestion chips
+   ================================================================ */
+
+.aic-suggestion-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--color-aic-border);
+  border-radius: 999px;
+  background: var(--color-aic-bg);
+  color: var(--color-aic-text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all var(--duration-aic) ease;
+}
+
+.aic-suggestion-chip:hover {
+  border-color: var(--color-aic-blue);
+  color: var(--color-aic-blue);
+  background: var(--color-aic-bg-panel);
+}
+
+.aic-suggestion-chip--active {
+  border-color: var(--color-aic-blue);
+  color: var(--color-aic-blue);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+/* ================================================================
    Preview — rendered HTML content area
    ================================================================ */
 
@@ -560,6 +591,49 @@
   margin-bottom: var(--spacing-lg);
   max-height: 300px;
   overflow-y: auto;
+}
+
+.aic-preview[contenteditable="true"] {
+  cursor: text;
+  outline: none;
+  transition: border-color var(--duration-aic) ease,
+    box-shadow var(--duration-aic) ease;
+}
+
+.aic-preview[contenteditable="true"]:focus {
+  border-color: var(--color-aic-blue);
+  box-shadow: 0 0 0 2px var(--color-aic-blue-glow);
+}
+
+.aic-copy-btn {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--color-aic-border-light);
+  border-radius: var(--radius-xs);
+  background: var(--color-aic-bg);
+  color: var(--color-aic-text-tertiary);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--duration-aic) ease,
+    color var(--duration-aic) ease,
+    background var(--duration-aic) ease;
+}
+
+.aic-copy-btn:hover {
+  opacity: 1;
+  color: var(--color-aic-text);
+  background: var(--color-aic-bg-panel);
+}
+
+.aic-copy-btn--success {
+  opacity: 1;
+  color: var(--color-aic-green);
 }
 
 .aic-preview p {

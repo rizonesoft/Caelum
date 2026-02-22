@@ -199,3 +199,38 @@ export function buildRulesText(): string {
 
   return lines.length > 0 ? `\n\nAdditional rules:\n${lines.join("\n")}` : "";
 }
+
+// ---------------------------------------------------------------------------
+// Goal-oriented email strategies
+// ---------------------------------------------------------------------------
+
+/** Strategic prompt instructions for each email goal. */
+export const GOAL_PROMPTS: Record<string, string> = {
+  'close-deal':
+    'Write with the strategic goal of CLOSING A DEAL. Create appropriate urgency, reinforce value and benefits, proactively address potential objections, and end with a clear, specific call to action. Use confident but not pushy language.',
+  'get-approval':
+    'Write with the strategic goal of GETTING A QUOTE OR PROPOSAL APPROVED. Summarize key value propositions concisely, address any likely concerns preemptively, create a sense of momentum, and make it easy to say yes with a clear next step.',
+  'schedule-meeting':
+    'Write with the strategic goal of SCHEDULING A MEETING. Propose specific times (if context allows), emphasize the value of the meeting, keep it brief and action-oriented, and make it effortless to confirm.',
+  'follow-up':
+    'Write with the strategic goal of FOLLOWING UP ON AN OVERDUE ITEM. Be firm but professional, reference the original timeline, express understanding while maintaining urgency, and request a specific response or action by a clear date.',
+  'request-intro':
+    'Write with the strategic goal of REQUESTING A FAVOR OR INTRODUCTION. Be respectful of the recipient\'s time, clearly explain the mutual benefit, make it easy to say yes by providing context they can forward, and express genuine appreciation.',
+  'resolve-complaint':
+    'Write with the strategic goal of RESOLVING A COMPLAINT. Acknowledge the issue with empathy, take ownership where appropriate, propose a concrete resolution, and aim to turn a negative experience into a positive one.',
+};
+
+/**
+ * Build goal context text to append to prompts.
+ * Returns empty string if goal is 'none' or not recognized.
+ */
+export function buildGoalText(goal: string, customGoalText?: string): string {
+  if (!goal || goal === 'none') return '';
+
+  if (goal === 'custom' && customGoalText?.trim()) {
+    return `\n\nStrategic goal: ${customGoalText.trim()}. Write the email with this specific outcome in mind — use appropriate persuasion, structure, and a clear call to action.`;
+  }
+
+  const prompt = GOAL_PROMPTS[goal];
+  return prompt ? `\n\n${prompt}` : '';
+}

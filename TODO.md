@@ -14,15 +14,13 @@
 ### 13.1 Reply & Draft Improvements
 
 - [x] Show estimated generation time based on email length
-- [ ] Allow editing the generated text inline (contenteditable preview)
-- [ ] Add "Copy to Clipboard" button alongside Reply/Reply All
-- [ ] Remember last-used tone and instructions per email thread
-- [ ] Add undo/redo for text insertions (prependAsync doesn't support undo natively)
-- [ ] Word count & reading time on generated content
+- [x] Allow editing the generated text inline (contenteditable preview)
+- [x] Add "Copy to Clipboard" button alongside Reply/Reply All
+- [x] Word count & reading time on generated content
 
 ### 13.2 Smart Features (Competitor-Inspired)
 
-- [ ] **Quick Reply Suggestions** — show 3 smart one-click reply options (Agree / Decline / Follow up)
+- [x] **Quick Reply Suggestions** — show 3 smart one-click reply options (AI-generated)
 - [ ] **Email Templates** — save & reuse common reply patterns
 - [ ] **Tone Meter** — visual indicator showing the current tone (formal ↔ casual slider)
 - [ ] **Recipient-Aware Drafting** — adjust tone based on whether recipient is internal/external
