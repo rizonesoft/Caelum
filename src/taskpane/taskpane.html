@@ -60,7 +60,7 @@
     <!-- ================================================================ -->
     <!-- Main app (hidden until Office.js is ready)                       -->
     <!-- ================================================================ -->
-    <main id="app-body" class="hidden">
+    <main id="app-body" class="hidden min-h-screen flex flex-col">
       <!-- Tab bar ---------------------------------------------------- -->
       <nav
         class="aic-tabs flex items-center gap-0 border-b border-aic-border-light bg-aic-bg sticky top-0 z-10"
@@ -1559,6 +1559,11 @@
           <i class="ms-Icon ms-Icon--Cancel"></i>
         </button>
       </div>
+
+      <!-- Version footer -->
+      <footer class="text-center text-xs text-aic-text-tertiary py-sm opacity-60 mt-auto">
+        AI Compose v<span id="app-version">1.2.0</span>
+      </footer>
     </main>
   </body>
 </html>
