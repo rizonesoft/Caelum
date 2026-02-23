@@ -21,11 +21,8 @@
 ### 13.2 Smart Features (Competitor-Inspired)
 
 - [x] **Quick Reply Suggestions** — show 3 smart one-click reply options (AI-generated)
-- [ ] **Email Templates** — save & reuse common reply patterns
-- [ ] **Tone Meter** — visual indicator showing the current tone (formal ↔ casual slider)
-- [ ] **Recipient-Aware Drafting** — adjust tone based on whether recipient is internal/external
-- [ ] **Follow-Up Reminders** — flag emails that need a follow-up after X days
-- [ ] **Email Scoring** — rate the clarity/professionalism of your draft before sending
+- [x] **Email Templates** — save & reuse common reply patterns
+- [x] **Email Scoring** — rate the clarity/professionalism of your draft before sending
 - [ ] **Thread Timeline** — visual timeline of a conversation showing key decisions
 - [ ] **Smart CC Suggestions** — suggest who should be CC'd based on email content
 

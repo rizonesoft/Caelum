@@ -52,6 +52,7 @@ const DEFAULT_SETTINGS: AIComposeSettings = {
   defaultLanguage: "English",
   presetRules: {
     noPlaceholders: true,
+    noSignature: true,
     noSubjectLine: false,
     keepShort: false,
     useSimpleLanguage: false,
@@ -169,6 +170,8 @@ export function resetSettings(): void {
 const PRESET_RULE_LABELS: Record<string, string> = {
   noPlaceholders:
     'Do not include placeholder tokens like [Your Name], [Company], or [Recipient]. Use real names from context or omit the sign-off entirely instead of using placeholders',
+  noSignature:
+    'Do not add a sign-off or signature (e.g. "Best regards", "Kind regards", "Sincerely") — the email client will add the signature automatically',
   noSubjectLine:
     "Do not include a subject line in the output",
   keepShort:
@@ -233,4 +236,42 @@ export function buildGoalText(goal: string, customGoalText?: string): string {
 
   const prompt = GOAL_PROMPTS[goal];
   return prompt ? `\n\n${prompt}` : '';
+}
+
+// ---------------------------------------------------------------------------
+// Email Templates
+// ---------------------------------------------------------------------------
+
+const TEMPLATES_KEY = 'aic_templates';
+
+export interface EmailTemplate {
+  id: string;
+  name: string;
+  instructions: string;
+  type: 'draft' | 'reply' | 'both';
+}
+
+export function getTemplates(): EmailTemplate[] {
+  try {
+    const raw = localStorage.getItem(TEMPLATES_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveTemplate(template: Omit<EmailTemplate, 'id'>): EmailTemplate {
+  const templates = getTemplates();
+  const newTemplate: EmailTemplate = {
+    ...template,
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+  };
+  templates.push(newTemplate);
+  localStorage.setItem(TEMPLATES_KEY, JSON.stringify(templates));
+  return newTemplate;
+}
+
+export function deleteTemplate(id: string): void {
+  const templates = getTemplates().filter((t) => t.id !== id);
+  localStorage.setItem(TEMPLATES_KEY, JSON.stringify(templates));
 }

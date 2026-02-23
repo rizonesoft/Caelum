@@ -1,14 +1,16 @@
 /**
  * AI Compose — Gemini Client Service
  *
- * Provides a typed interface to the Google Generative AI (Gemini) API
+ * Provides a typed interface to the Google GenAI (Gemini) API
  * with configurable parameters, rate-limiting with exponential backoff,
  * and granular error handling.
+ *
+ * Uses the @google/genai SDK (successor to @google/generative-ai).
  *
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
-import { GoogleGenerativeAI, GenerativeModel, GenerationConfig } from '@google/generative-ai';
+import { GoogleGenAI, Type } from '@google/genai';
 import { getSetting } from '../features/settings';
 
 // ---------------------------------------------------------------------------
@@ -27,6 +29,20 @@ export interface GenerateOptions {
   topK?: number;
   /** Which Gemini model to use. Default: user's saved setting or 'gemini-2.5-flash' */
   model?: string;
+}
+
+/** Options for structured JSON generation. */
+export interface GenerateJsonOptions {
+  /** Controls randomness. Default: 0.1 */
+  temperature?: number;
+  /** Maximum number of tokens in the response. Default: 200 */
+  maxOutputTokens?: number;
+  /** Which Gemini model to use. Default: user's saved setting or 'gemini-2.5-flash' */
+  model?: string;
+  /** System instruction for the model. */
+  systemInstruction?: string;
+  /** JSON schema describing the expected response shape. */
+  responseSchema?: Record<string, unknown>;
 }
 
 /** Error codes surfaced by the Gemini service. */
@@ -57,6 +73,9 @@ export class GeminiError extends Error {
   }
 }
 
+// Re-export Type for use in callers (e.g. scoreEmail responseSchema)
+export { Type };
+
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
@@ -76,20 +95,20 @@ const REQUEST_TIMEOUT_MS = 30_000;
 // Client singleton
 // ---------------------------------------------------------------------------
 
-let clientInstance: GoogleGenerativeAI | null = null;
+let clientInstance: GoogleGenAI | null = null;
 
 /**
  * Initialise (or reinitialise) the Gemini client with the given API key.
- * Returns the `GoogleGenerativeAI` instance for direct access if needed.
+ * Returns the `GoogleGenAI` instance for direct access if needed.
  */
-export function initGeminiClient(apiKey: string): GoogleGenerativeAI {
+export function initGeminiClient(apiKey: string): GoogleGenAI {
   if (!apiKey || apiKey.trim().length === 0) {
     throw new GeminiError(
       'API key is required. Please set GEMINI_API_KEY in your .env file.',
       GeminiErrorCode.INVALID_API_KEY,
     );
   }
-  clientInstance = new GoogleGenerativeAI(apiKey);
+  clientInstance = new GoogleGenAI({ apiKey });
   return clientInstance;
 }
 
@@ -97,7 +116,7 @@ export function initGeminiClient(apiKey: string): GoogleGenerativeAI {
  * Returns the current client instance, or throws if `initGeminiClient`
  * has not been called yet.
  */
-function getClient(): GoogleGenerativeAI {
+function getClient(): GoogleGenAI {
   if (!clientInstance) {
     throw new GeminiError(
       'Gemini client not initialised. Call initGeminiClient(apiKey) first.',
@@ -108,7 +127,7 @@ function getClient(): GoogleGenerativeAI {
 }
 
 // ---------------------------------------------------------------------------
-// Core generation function
+// Core generation functions
 // ---------------------------------------------------------------------------
 
 /**
@@ -127,45 +146,115 @@ export async function generateText(
   const client = getClient();
   const modelName = options.model ?? getSetting('defaultModel') ?? FALLBACK_MODEL;
 
-  const generationConfig: GenerationConfig = {
-    temperature: options.temperature ?? DEFAULT_TEMPERATURE,
-    maxOutputTokens: options.maxOutputTokens ?? DEFAULT_MAX_OUTPUT_TOKENS,
-    topP: options.topP ?? DEFAULT_TOP_P,
-    topK: options.topK ?? DEFAULT_TOP_K,
+  const callFn = async (): Promise<string> => {
+    try {
+      const response = await withTimeout(
+        client.models.generateContent({
+          model: modelName,
+          contents: prompt,
+          config: {
+            temperature: options.temperature ?? DEFAULT_TEMPERATURE,
+            maxOutputTokens: options.maxOutputTokens ?? DEFAULT_MAX_OUTPUT_TOKENS,
+            topP: options.topP ?? DEFAULT_TOP_P,
+            topK: options.topK ?? DEFAULT_TOP_K,
+          },
+        }),
+        REQUEST_TIMEOUT_MS,
+      );
+
+      const text = response.text;
+
+      if (!text || text.trim().length === 0) {
+        throw new GeminiError(
+          'The model returned an empty response. The content may have been filtered.',
+          GeminiErrorCode.CONTENT_FILTERED,
+        );
+      }
+
+      return text;
+    } catch (error) {
+      throw classifyError(error);
+    }
   };
 
-  const model: GenerativeModel = client.getGenerativeModel({
-    model: modelName,
-    generationConfig,
-  });
+  return retryWithBackoff(callFn);
+}
 
-  return retryWithBackoff(() => callModel(model, prompt));
+/**
+ * Send a prompt to Gemini and return a structured JSON response.
+ *
+ * Uses `responseMimeType: 'application/json'` and `responseSchema` to
+ * guarantee structured output from models that support JSON mode.
+ *
+ * @param prompt  - The user prompt string.
+ * @param options - Options including schema and model config.
+ * @returns The parsed JSON object.
+ *
+ * @throws {GeminiError} with a typed `code` for every failure scenario.
+ */
+export async function generateJson<T = Record<string, unknown>>(
+  prompt: string,
+  options: GenerateJsonOptions = {},
+): Promise<T> {
+  const client = getClient();
+  const modelName = options.model ?? getSetting('defaultModel') ?? FALLBACK_MODEL;
+
+  const callFn = async (): Promise<T> => {
+    try {
+      const response = await withTimeout(
+        client.models.generateContent({
+          model: modelName,
+          contents: prompt,
+          config: {
+            temperature: options.temperature ?? 0.1,
+            maxOutputTokens: options.maxOutputTokens ?? 1024,
+            responseMimeType: 'application/json',
+            responseSchema: options.responseSchema,
+            systemInstruction: options.systemInstruction,
+            // Disable thinking for structured JSON — thinking models burn
+            // tokens from the maxOutputTokens budget on internal reasoning,
+            // leaving too few for the actual JSON response.
+            thinkingConfig: { thinkingBudget: 0 },
+          },
+        }),
+        REQUEST_TIMEOUT_MS,
+      );
+
+      const text = response.text;
+
+      if (!text || text.trim().length === 0) {
+        throw new GeminiError(
+          'The model returned an empty response.',
+          GeminiErrorCode.CONTENT_FILTERED,
+        );
+      }
+
+      // Try direct JSON parse first, then extract JSON from text as fallback
+      try {
+        return JSON.parse(text) as T;
+      } catch {
+        // Some models wrap JSON in text like "Here is the JSON: {...}"
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          return JSON.parse(jsonMatch[0]) as T;
+        }
+        throw new GeminiError(
+          `Model returned invalid JSON: ${text.slice(0, 100)}`,
+          GeminiErrorCode.UNKNOWN,
+        );
+      }
+    } catch (error) {
+      if (error instanceof GeminiError) throw error;
+      throw classifyError(error);
+    }
+  };
+
+  return retryWithBackoff(callFn);
 }
 
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
-
-/** Make a single API call with a timeout wrapper. */
-async function callModel(model: GenerativeModel, prompt: string): Promise<string> {
-  try {
-    const result = await withTimeout(model.generateContent(prompt), REQUEST_TIMEOUT_MS);
-
-    const response = result.response;
-    const text = response.text();
-
-    if (!text || text.trim().length === 0) {
-      throw new GeminiError(
-        'The model returned an empty response. The content may have been filtered.',
-        GeminiErrorCode.CONTENT_FILTERED,
-      );
-    }
-
-    return text;
-  } catch (error) {
-    throw classifyError(error);
-  }
-}
 
 /** Wrap a promise with a timeout. */
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
@@ -196,7 +285,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
  * Retry a function with exponential backoff.
  * Only retries errors marked as `retryable`.
  */
-async function retryWithBackoff(fn: () => Promise<string>): Promise<string> {
+async function retryWithBackoff<T>(fn: () => Promise<T>): Promise<T> {
   let lastError: GeminiError | undefined;
   let delay = INITIAL_RETRY_DELAY_MS;
 
@@ -311,7 +400,7 @@ function extractStatusCode(error: unknown): number | undefined {
     if (typeof obj.status === 'number') return obj.status;
     if (typeof obj.statusCode === 'number') return obj.statusCode;
     if (typeof obj.code === 'number') return obj.code;
-    // Google AI SDK sometimes nests it
+    // Google GenAI SDK sometimes nests it
     if (obj.response && typeof obj.response === 'object') {
       const resp = obj.response as Record<string, unknown>;
       if (typeof resp.status === 'number') return resp.status;

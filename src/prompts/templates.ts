@@ -27,7 +27,7 @@ Requirements:
 - Tone: {{TONE}}
 - Language: {{LANGUAGE}}
 - Include a subject line on the first line prefixed with "Subject: "
-- Use appropriate greeting and sign-off
+- Use an appropriate greeting
 - Keep the email concise and to the point
 - Do not add any commentary outside the email itself`;
 

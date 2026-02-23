@@ -11,9 +11,9 @@
 
 import '../styles/main.css';
 import './taskpane.css';
-import { initGeminiClient, generateText } from '../services/gemini';
+import { initGeminiClient, generateText, generateJson, Type } from '../services/gemini';
 import { getItemMode } from '../services/outlook';
-import { buildGoalText } from '../features/settings';
+import { buildGoalText, getTemplates, saveTemplate, deleteTemplate } from '../features/settings';
 import {
   generateDraft,
   regenerateDraft,
@@ -180,6 +180,94 @@ function updatePreviewStats(previewId: string): void {
   const readingMinutes = Math.max(1, Math.round(words / 200));
   stats.textContent = `${words} words · ${readingMinutes} min read`;
   stats.classList.remove('hidden');
+}
+
+// ---------------------------------------------------------------------------
+// Email Scoring
+// ---------------------------------------------------------------------------
+
+interface EmailScores {
+  clarity: number;
+  tone: number;
+  conciseness: number;
+  cta: number;
+}
+
+async function scoreEmail(text: string, scoreCardId: string): Promise<void> {
+  const card = $(scoreCardId);
+  if (!card) return;
+
+  // Show card with loading state
+  card.classList.remove('hidden');
+  const valueEl = card.querySelector('.aic-score-card__value') as HTMLElement;
+  if (valueEl) valueEl.textContent = '...';
+
+  // Small delay to avoid rate-limiting with the generation call
+  await new Promise((r) => setTimeout(r, 500));
+
+  try {
+    console.log('[Score] Requesting score...');
+    const parsed = await generateJson<EmailScores>(
+      `Score this email:\n\n${text.slice(0, 1500)}`,
+      {
+        model: 'gemini-2.5-flash',
+        systemInstruction: 'You are an email quality scorer. Score emails on clarity, tone, conciseness, and call-to-action, each from 1 to 10.',
+        temperature: 0.1,
+        maxOutputTokens: 100,
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            clarity: { type: Type.NUMBER },
+            tone: { type: Type.NUMBER },
+            conciseness: { type: Type.NUMBER },
+            cta: { type: Type.NUMBER },
+          },
+          required: ['clarity', 'tone', 'conciseness', 'cta'],
+        },
+      },
+    );
+
+    console.log('[Score] Parsed:', parsed);
+
+    const clamp = (v: number): number => Math.min(10, Math.max(1, Math.round(v)));
+    const scores = {
+      clarity: clamp(Number(parsed.clarity) || 7),
+      tone: clamp(Number(parsed.tone) || 7),
+      conciseness: clamp(Number(parsed.conciseness) || 7),
+      cta: clamp(Number(parsed.cta) || 7),
+    };
+
+    const overall = Math.round(
+      (scores.clarity + scores.tone + scores.conciseness + scores.cta) / 4
+    );
+
+    // Color based on score
+    const scoreColor = (s: number): string =>
+      s >= 7 ? '#22c55e' : s >= 5 ? '#eab308' : '#ef4444';
+
+    // Update circle
+    const color = scoreColor(overall);
+    card.style.setProperty('--aic-score-color', color);
+    if (valueEl) valueEl.textContent = `${overall}`;
+
+    // Update bars
+    const dims: Record<string, number> = scores;
+    card.querySelectorAll('.aic-score-bar').forEach((bar) => {
+      const dim = (bar as HTMLElement).dataset.dim || '';
+      const val = dims[dim];
+      if (val === undefined) return;
+      const fill = bar.querySelector('.aic-score-bar__fill') as HTMLElement;
+      const valEl = bar.querySelector('.aic-score-bar__val') as HTMLElement;
+      if (fill) {
+        fill.style.width = `${val * 10}%`;
+        fill.style.background = scoreColor(val);
+      }
+      if (valEl) valEl.textContent = `${val}`;
+    });
+  } catch (err) {
+    console.warn('[Score] Failed:', err);
+    if (valueEl) valueEl.textContent = '—';
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -351,6 +439,7 @@ async function handleGenerate(): Promise<void> {
   try {
     const draft = await generateDraft(options);
     setPreview('draft-preview', draft);
+    void scoreEmail(draft, 'draft-score');
     showElement('result-section');
     $('result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err: any) {
@@ -367,6 +456,7 @@ async function handleRegenerate(): Promise<void> {
   try {
     const draft = await regenerateDraft();
     setPreview('draft-preview', draft);
+    void scoreEmail(draft, 'draft-score');
   } catch (err: any) {
     showError(err.message || 'Failed to regenerate. Please try again.');
   } finally {
@@ -389,6 +479,7 @@ async function handleRefine(): Promise<void> {
   try {
     const draft = await refineDraft(refinement);
     setPreview('draft-preview', draft);
+    void scoreEmail(draft, 'draft-score');
     if (input) input.value = '';
   } catch (err: any) {
     showError(err.message || 'Failed to refine. Please try again.');
@@ -438,6 +529,7 @@ async function handleGenerateReply(): Promise<void> {
   try {
     const reply = await generateReply(options);
     setPreview('reply-preview', reply);
+    void scoreEmail(reply, 'reply-score');
     showElement('reply-result-section');
     $('reply-result-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -459,6 +551,7 @@ async function handleRegenerateReply(): Promise<void> {
   try {
     const reply = await regenerateReply();
     setPreview('reply-preview', reply);
+    void scoreEmail(reply, 'reply-score');
   } catch (err: any) {
     showError(err.message || 'Failed to regenerate reply. Please try again.');
   } finally {
@@ -481,6 +574,7 @@ async function handleRefineReply(): Promise<void> {
   try {
     const reply = await refineReply(refinement);
     setPreview('reply-preview', reply);
+    void scoreEmail(reply, 'reply-score');
     if (input) input.value = '';
   } catch (err: any) {
     showError(err.message || 'Failed to refine reply. Please try again.');
@@ -505,26 +599,30 @@ async function handleSuggestReplies(): Promise<void> {
     const { getEmailContext } = await import('../features/draft-reply');
     const context = await getEmailContext();
 
-    const emailSummary = `From: ${context.sender.name} <${context.sender.email}>\nSubject: ${context.subject}\n\n${context.body}`;
+    const emailSummary = `From: ${context.sender.name} <${context.sender.email}>\nSubject: ${context.subject}\n\n${context.body}`.slice(0, 2000);
 
-    const prompt = `Read this email and suggest exactly 3 short, specific reply actions. Each should be a brief instruction (5–12 words) that could be used as a reply direction.
-
-Return ONLY a JSON array of 3 strings, nothing else. Example: ["Accept the meeting but suggest 3pm instead","Ask for the proposal in PDF format","Thank them and confirm the next steps"]
+    const prompt = `Read this email and suggest exactly 3 short reply sentences (5-12 words each) that the user could send back as a response.
+Each suggestion should be an actual reply message, NOT an email client action like archiving or unsubscribing.
+Return ONLY 3 lines, one suggestion per line. No numbering, no bullets, no quotes, no extra text.
 
 Email:
 ${emailSummary}`;
 
     const result = await generateText(prompt, {
       temperature: 0.9,
-      maxOutputTokens: 256,
+      maxOutputTokens: 1024,
     });
 
-    // Parse JSON array from response
-    const jsonMatch = result.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) throw new Error('Invalid response');
+    console.log('[Suggest replies] Raw response:', result);
 
-    const suggestions: string[] = JSON.parse(jsonMatch[0]);
-    if (!Array.isArray(suggestions) || suggestions.length === 0) throw new Error('No suggestions');
+    // Parse line-separated suggestions — strip any numbering, bullets, or quotes
+    const suggestions = result
+      .split('\n')
+      .map((line) => line.replace(/^\d+[\.\)\-]\s*/, '').replace(/^[-•*]\s*/, '').replace(/^["']|["']$/g, '').trim())
+      .filter((line) => line.length > 5 && line.length < 120)
+      .slice(0, 3);
+
+    if (suggestions.length === 0) throw new Error('No suggestions returned. Please try again.');
 
     // Render chips
     suggestions.slice(0, 3).forEach((text) => {
@@ -1317,6 +1415,107 @@ Office.onReady((info) => {
     }
 
     // --- Error banner ---
+    // --- Template system ---
+    const refreshTemplateDropdowns = (): void => {
+      const templates = getTemplates();
+      ['draft', 'reply'].forEach((prefix) => {
+        const select = $(`${prefix}-template`) as HTMLSelectElement;
+        if (!select) return;
+        const currentVal = select.value;
+        select.innerHTML = '<option value="">Templates...</option>';
+        const type = prefix as 'draft' | 'reply';
+        templates
+          .filter((t) => t.type === type || t.type === 'both')
+          .forEach((t) => {
+            const opt = document.createElement('option');
+            opt.value = t.id;
+            opt.textContent = t.name;
+            select.appendChild(opt);
+          });
+        select.value = currentVal;
+      });
+    }
+
+    refreshTemplateDropdowns();
+
+    // Load template on select
+    ['draft', 'reply'].forEach((prefix) => {
+      const select = $(`${prefix}-template`) as HTMLSelectElement;
+      const textarea = $(`${prefix}-instructions`) as HTMLTextAreaElement;
+      const deleteBtn = $(`btn-delete-${prefix}-template`) as HTMLButtonElement;
+
+      select?.addEventListener('change', () => {
+        const id = select.value;
+        if (!id) {
+          deleteBtn?.classList.add('hidden');
+          return;
+        }
+        const template = getTemplates().find((t) => t.id === id);
+        if (template && textarea) {
+          textarea.value = template.instructions;
+          textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        deleteBtn?.classList.remove('hidden');
+      });
+
+      // Save template — show inline input
+      $(`btn-save-${prefix}-template`)?.addEventListener('click', () => {
+        const instructions = textarea?.value?.trim();
+        if (!instructions) {
+          showError('Write some instructions first before saving as a template.');
+          return;
+        }
+
+        // Create inline name input
+        const row = select?.parentElement;
+        if (!row) return;
+
+        // Check if input already showing
+        if (row.querySelector('.aic-template-name-input')) return;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'aic-select aic-template-select flex-1 aic-template-name-input';
+        input.placeholder = 'Template name...';
+        input.maxLength = 50;
+
+        // Hide select, show input
+        select.classList.add('hidden');
+        row.insertBefore(input, select);
+        input.focus();
+
+        const finish = (save: boolean): void => {
+          const name = input.value.trim();
+          input.remove();
+          select.classList.remove('hidden');
+          if (save && name) {
+            saveTemplate({
+              name,
+              instructions,
+              type: prefix as 'draft' | 'reply',
+            });
+            refreshTemplateDropdowns();
+          }
+        };
+
+        input.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Enter') finish(true);
+          if (e.key === 'Escape') finish(false);
+        });
+        input.addEventListener('blur', () => finish(true));
+      });
+
+      // Delete template
+      $(`btn-delete-${prefix}-template`)?.addEventListener('click', () => {
+        const id = select?.value;
+        if (!id) return;
+        deleteTemplate(id);
+        select.value = '';
+        deleteBtn?.classList.add('hidden');
+        refreshTemplateDropdowns();
+      });
+    });
+
     // Custom goal field toggle
     ['draft', 'reply'].forEach((prefix) => {
       const goalSelect = $(`${prefix}-goal`) as HTMLSelectElement;

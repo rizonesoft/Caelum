@@ -299,6 +299,25 @@
   border-color: var(--color-aic-error-text);
 }
 
+.aic-btn--ghost {
+  background: transparent;
+  color: var(--color-aic-text-secondary);
+  border: 1px dashed var(--color-aic-border);
+  transition: all var(--duration-aic) ease;
+}
+
+.aic-btn--ghost:hover {
+  color: var(--color-aic-blue);
+  border-color: var(--color-aic-blue);
+  border-style: solid;
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.aic-btn--ghost:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 /* Utility — error text colour */
 .aic-text-error {
   color: var(--color-aic-error-text);
@@ -308,9 +327,138 @@
    Scroll-to-top button
    ================================================================ */
 
+/* ================================================================
+   Template controls — compact select & buttons
+   ================================================================ */
+
+.aic-template-select {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+}
+
+.aic-template-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px dashed var(--color-aic-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-aic-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-aic) ease;
+}
+
+.aic-template-btn:hover {
+  border-style: solid;
+  border-color: var(--color-aic-blue);
+  color: var(--color-aic-blue);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.aic-template-btn--delete {
+  color: var(--color-aic-error-text);
+}
+
+.aic-template-btn--delete:hover {
+  border-color: var(--color-aic-error-text);
+  color: var(--color-aic-error-text);
+  background: var(--color-aic-error-bg);
+}
+
+/* ================================================================
+   Email Score Card
+   ================================================================ */
+
+.aic-score-card {
+  border: 1px solid var(--color-aic-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  background: var(--color-aic-bg-panel);
+}
+
+.aic-score-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.aic-score-card__circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--aic-score-color, var(--color-aic-border));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.aic-score-card__value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--aic-score-color, var(--color-aic-text-secondary));
+}
+
+.aic-score-card__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-aic-text-secondary);
+}
+
+.aic-score-card__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aic-score-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.aic-score-bar__label {
+  font-size: 11px;
+  color: var(--color-aic-text-tertiary);
+  width: 50px;
+  flex-shrink: 0;
+}
+
+.aic-score-bar__track {
+  flex: 1;
+  height: 6px;
+  background: var(--color-aic-border-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.aic-score-bar__fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--aic-bar-color, var(--color-aic-blue));
+  width: 0%;
+  transition: width 0.6s ease;
+}
+
+.aic-score-bar__val {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-aic-text-tertiary);
+  width: 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 .aic-scroll-top {
   position: fixed;
-  bottom: 20px;
+  bottom: 5px;
   right: 16px;
   width: 36px;
   height: 36px;
