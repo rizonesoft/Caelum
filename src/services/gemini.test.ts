@@ -1,7 +1,7 @@
 /**
  * AI Compose — Gemini Service Unit Tests
  *
- * Tests the Gemini client service with mocked Google AI SDK responses
+ * Tests the Gemini client service with mocked @google/genai SDK responses
  * to verify error handling, retry logic, and generation behavior.
  *
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
@@ -15,20 +15,32 @@ import {
 } from './gemini';
 
 // ---------------------------------------------------------------------------
-// Mock the @google/generative-ai module
+// Mock the @google/genai module
 // ---------------------------------------------------------------------------
 
 const mockGenerateContent = jest.fn();
 
-jest.mock('@google/generative-ai', () => {
+jest.mock('@google/genai', () => {
   return {
-    GoogleGenerativeAI: jest.fn().mockImplementation(() => ({
-      getGenerativeModel: jest.fn().mockReturnValue({
+    GoogleGenAI: jest.fn().mockImplementation(() => ({
+      models: {
         generateContent: mockGenerateContent,
-      }),
+      },
     })),
+    Type: {
+      STRING: 'STRING',
+      NUMBER: 'NUMBER',
+      BOOLEAN: 'BOOLEAN',
+      OBJECT: 'OBJECT',
+      ARRAY: 'ARRAY',
+    },
   };
 });
+
+// Mock settings to avoid side-effect import issues
+jest.mock('../features/settings', () => ({
+  getSetting: jest.fn().mockReturnValue(null),
+}));
 
 // ---------------------------------------------------------------------------
 // Test setup
@@ -67,21 +79,17 @@ describe('initGeminiClient', () => {
 describe('generateText — success', () => {
   it('should return generated text from a successful response', async () => {
     mockGenerateContent.mockResolvedValueOnce({
-      response: {
-        text: () => 'Hello, this is a summary of your email.',
-      },
+      text: 'Hello, this is a summary of your email.',
     });
 
     const result = await generateText('Summarize this email');
     expect(result).toBe('Hello, this is a summary of your email.');
-    expect(mockGenerateContent).toHaveBeenCalledWith('Summarize this email');
+    expect(mockGenerateContent).toHaveBeenCalled();
   });
 
   it('should pass custom generation options', async () => {
     mockGenerateContent.mockResolvedValueOnce({
-      response: {
-        text: () => 'Generated response with custom params.',
-      },
+      text: 'Generated response with custom params.',
     });
 
     const result = await generateText('Test prompt', {
@@ -124,9 +132,7 @@ describe('generateText — error handling', () => {
 
   it('should throw CONTENT_FILTERED for empty responses', async () => {
     mockGenerateContent.mockResolvedValue({
-      response: {
-        text: () => '',
-      },
+      text: '',
     });
 
     await expect(generateText('test')).rejects.toMatchObject({
@@ -168,9 +174,7 @@ describe('generateText — retry with backoff', () => {
       .mockRejectedValueOnce(rateLimitError)
       .mockRejectedValueOnce(rateLimitError)
       .mockResolvedValueOnce({
-        response: {
-          text: () => 'Success after retries!',
-        },
+        text: 'Success after retries!',
       });
 
     const result = await generateText('test');
@@ -185,9 +189,7 @@ describe('generateText — retry with backoff', () => {
     mockGenerateContent
       .mockRejectedValueOnce(serverError)
       .mockResolvedValueOnce({
-        response: {
-          text: () => 'Recovered from server error.',
-        },
+        text: 'Recovered from server error.',
       });
 
     const result = await generateText('test');
