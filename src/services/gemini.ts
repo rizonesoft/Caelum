@@ -29,6 +29,8 @@ export interface GenerateOptions {
   topK?: number;
   /** Which Gemini model to use. Default: user's saved setting or 'gemini-2.5-flash' */
   model?: string;
+  /** Override the adaptive request timeout (ms). */
+  timeoutMs?: number;
 }
 
 /** Options for structured JSON generation. */
@@ -43,6 +45,8 @@ export interface GenerateJsonOptions {
   systemInstruction?: string;
   /** JSON schema describing the expected response shape. */
   responseSchema?: Record<string, unknown>;
+  /** Override the adaptive request timeout (ms). */
+  timeoutMs?: number;
 }
 
 /** Error codes surfaced by the Gemini service. */
@@ -81,6 +85,14 @@ export { Type };
 // ---------------------------------------------------------------------------
 
 const FALLBACK_MODEL = 'gemini-3-flash-preview';
+
+/**
+ * Fast, non-thinking model for simple extraction/utility tasks
+ * (translation, action items, summarization, language detection).
+ * These tasks don't benefit from deep reasoning and need low latency.
+ */
+export const FAST_MODEL = 'gemini-3-flash-preview';
+
 const DEFAULT_TEMPERATURE = 1.0;
 const DEFAULT_MAX_OUTPUT_TOKENS = 2048;
 const DEFAULT_TOP_P = 0.95;
@@ -89,7 +101,10 @@ const DEFAULT_TOP_K = 40;
 const MAX_RETRIES = 3;
 const INITIAL_RETRY_DELAY_MS = 1000;
 const RETRY_BACKOFF_FACTOR = 2;
-const REQUEST_TIMEOUT_MS = 30_000;
+
+const BASE_TIMEOUT_MS = 30_000;
+const TIMEOUT_PER_5K_CHARS_MS = 10_000;
+const MAX_TIMEOUT_MS = 90_000;
 
 // ---------------------------------------------------------------------------
 // Client singleton
@@ -146,6 +161,8 @@ export async function generateText(
   const client = getClient();
   const modelName = options.model ?? getSetting('defaultModel') ?? FALLBACK_MODEL;
 
+  const timeoutMs = calcTimeout(prompt.length, options.timeoutMs);
+
   const callFn = async (): Promise<string> => {
     try {
       const response = await withTimeout(
@@ -159,7 +176,7 @@ export async function generateText(
             topK: options.topK ?? DEFAULT_TOP_K,
           },
         }),
-        REQUEST_TIMEOUT_MS,
+        timeoutMs,
       );
 
       const text = response.text;
@@ -199,6 +216,8 @@ export async function generateJson<T = Record<string, unknown>>(
   const client = getClient();
   const modelName = options.model ?? getSetting('defaultModel') ?? FALLBACK_MODEL;
 
+  const timeoutMs = calcTimeout(prompt.length, options.timeoutMs);
+
   const callFn = async (): Promise<T> => {
     try {
       const response = await withTimeout(
@@ -217,7 +236,7 @@ export async function generateJson<T = Record<string, unknown>>(
             thinkingConfig: { thinkingBudget: 0 },
           },
         }),
-        REQUEST_TIMEOUT_MS,
+        timeoutMs,
       );
 
       const text = response.text;
@@ -256,15 +275,22 @@ export async function generateJson<T = Record<string, unknown>>(
 // Internal helpers
 // ---------------------------------------------------------------------------
 
+/** Calculate adaptive timeout based on prompt length. */
+function calcTimeout(promptLength: number, overrideMs?: number): number {
+  if (overrideMs) return overrideMs;
+  const scaled = BASE_TIMEOUT_MS + Math.ceil(promptLength / 5000) * TIMEOUT_PER_5K_CHARS_MS;
+  return Math.min(scaled, MAX_TIMEOUT_MS);
+}
+
 /** Wrap a promise with a timeout. */
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const timer = setTimeout(() => {
       reject(
         new GeminiError(
-          `Request timed out after ${ms / 1000}s. Check your network connection.`,
+          `Request timed out after ${ms / 1000}s. The email may be too long — try a shorter selection.`,
           GeminiErrorCode.TIMEOUT,
-          true,
+          false, // Timeouts on large prompts are not transient — don't retry
         ),
       );
     }, ms);

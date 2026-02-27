@@ -14,7 +14,7 @@
 /* global Office */
 
 import { generateText } from '../services/gemini';
-import { buildPrompt } from '../prompts/builder';
+import { buildPrompt, truncateContext } from '../prompts/builder';
 import { REPLY_PROMPT } from '../prompts/templates';
 import {
   getCurrentEmailBody,
@@ -40,6 +40,13 @@ export interface EmailContext {
   body: string;
   sender: EmailContact;
 }
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+/** Max tokens of original email to include in the reply prompt. */
+const MAX_CONTENT_TOKENS = 6000;
 
 // ---------------------------------------------------------------------------
 // State
@@ -93,10 +100,11 @@ export async function generateReply(options: DraftReplyOptions): Promise<string>
 
   const context = await getEmailContext();
 
-  // Build the original email string for the prompt
+  // Build the original email string for the prompt (truncated for safety)
   let originalEmail = `From: ${context.sender.name} <${context.sender.email}>\n`;
   originalEmail += `Subject: ${context.subject}\n\n`;
   originalEmail += context.body;
+  originalEmail = truncateContext(originalEmail, MAX_CONTENT_TOKENS);
 
   // Resolve language: 'auto' means match the original email's language
   const language = (!options.language || options.language === 'auto')

@@ -7,7 +7,7 @@
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
-import { generateText } from '../services/gemini';
+import { generateText, FAST_MODEL } from '../services/gemini';
 import { buildPrompt } from '../prompts/builder';
 import { TRANSLATE_PROMPT } from '../prompts/templates';
 import { getCurrentEmailBody } from '../services/outlook';
@@ -77,6 +77,7 @@ export async function translateEmail(targetLanguage: string): Promise<TranslateR
   const translated = await generateText(prompt, {
     temperature: 0.3,
     maxOutputTokens: 4096,
+    model: FAST_MODEL,
   });
 
   lastResult = {

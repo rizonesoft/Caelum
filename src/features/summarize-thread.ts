@@ -10,8 +10,8 @@
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
-import { generateText } from '../services/gemini';
-import { buildPrompt } from '../prompts/builder';
+import { generateText, FAST_MODEL } from '../services/gemini';
+import { buildPrompt, truncateContext } from '../prompts/builder';
 import { SUMMARIZE_THREAD_PROMPT } from '../prompts/templates';
 import {
   getCurrentEmailBody,
@@ -34,6 +34,13 @@ export interface SummarizeOptions {
 }
 
 // ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+/** Max tokens of email thread to send for summarization (larger than other features). */
+const MAX_CONTENT_TOKENS = 8000;
+
+// ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
 
@@ -49,11 +56,11 @@ let lastOptions: SummarizeOptions | null = null;
  */
 export async function summarizeThread(options: SummarizeOptions): Promise<string> {
   // Try to load the full conversation thread
-  let emailThread: string;
+  let rawThread: string;
 
   try {
     const messages = await getConversationMessages();
-    emailThread = formatThread(messages);
+    rawThread = formatThread(messages);
   } catch {
     // Fallback: read only the current email
     const [body, subject, sender] = await Promise.all([
@@ -62,12 +69,14 @@ export async function summarizeThread(options: SummarizeOptions): Promise<string
       getEmailSender(),
     ]);
 
-    emailThread = `From: ${sender.name} <${sender.email}>\nSubject: ${subject}\n\n${body}`;
+    rawThread = `From: ${sender.name} <${sender.email}>\nSubject: ${subject}\n\n${body}`;
   }
 
-  if (!emailThread.trim()) {
+  if (!rawThread.trim()) {
     throw new Error('No email content to summarize. Please make sure an email is open.');
   }
+
+  const emailThread = truncateContext(rawThread, MAX_CONTENT_TOKENS);
 
   // Build length + style instructions
   const lengthAndStyle = buildLengthStyleHint(options.length, options.style);
@@ -80,6 +89,7 @@ export async function summarizeThread(options: SummarizeOptions): Promise<string
   const summary = await generateText(prompt, {
     temperature: 0.4, // Lower temperature for factual summaries
     maxOutputTokens: getMaxTokensForLength(options.length),
+    model: FAST_MODEL,
   });
 
   lastSummary = summary;

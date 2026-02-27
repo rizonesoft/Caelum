@@ -7,8 +7,8 @@
  * © Rizonetech (Pty) Ltd. — https://rizonesoft.com
  */
 
-import { generateText } from '../services/gemini';
-import { buildPrompt } from '../prompts/builder';
+import { generateText, FAST_MODEL } from '../services/gemini';
+import { buildPrompt, truncateContext } from '../prompts/builder';
 import { EXTRACT_ACTION_ITEMS_PROMPT } from '../prompts/templates';
 import {
   getCurrentEmailBody,
@@ -29,6 +29,13 @@ export interface ActionItem {
 }
 
 // ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+/** Max tokens of email content to send for action-item extraction. */
+const MAX_CONTENT_TOKENS = 6000;
+
+// ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
 
@@ -43,11 +50,13 @@ let lastRawResponse: string = '';
  * Extract action items from the current email or thread.
  */
 export async function extractActionItems(): Promise<ActionItem[]> {
-  const emailContent = await readEmailContent();
+  const rawContent = await readEmailContent();
 
-  if (!emailContent.trim()) {
+  if (!rawContent.trim()) {
     throw new Error('No email content found. Please open an email first.');
   }
+
+  const emailContent = truncateContext(rawContent, MAX_CONTENT_TOKENS);
 
   const prompt = buildPrompt(EXTRACT_ACTION_ITEMS_PROMPT, {
     EMAIL_CONTENT: emailContent,
@@ -56,6 +65,7 @@ export async function extractActionItems(): Promise<ActionItem[]> {
   const raw = await generateText(prompt, {
     temperature: 0.2, // Low temperature for factual extraction
     maxOutputTokens: 2048,
+    model: FAST_MODEL,
   });
 
   lastRawResponse = raw;
